@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        applicationId "br.com.phoebus.payments.demo"
+        minSdkVersion 18
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'aars', 'libs'
+    }
+}
+
+dependencies {
+
+    // Dependências necessárias para usar 'payments-api'.
+    compile(name:'payments-api', ext:'aar')
+    annotationProcessor(name:'parceler-1.1.6', ext:'jar')
+    compile(name:'parceler-api-1.1.6', ext:'jar')
+
+    // Dependências específicas da aplicação Demo.
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:gridlayout-v7:24.2.1'
+
+    testCompile 'junit:junit:4.12'
+}

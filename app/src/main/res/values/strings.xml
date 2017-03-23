@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Paystore API Demo</string>
+    <string name="main_schoose_option">Escolha uma opção:</string>
+    <string name="payment_title">Pagamento</string>
+    <string name="openPaymentBtn">Fazer Pagamento</string>
+    <string name="bindBtn">Bind</string>
+    <string name="unbindBtn">Unbind</string>
+    <string name="doPaymentBtn">Pagar</string>
+    <string name="valueEdtHint">Valor</string>
+    <string name="installmentsEdtHint">Parcelas</string>
+    <string name="appTransactionIdEdtHint">Identificador da Transação para Aplicação</string>
+    <string name="credPayTypeChb">Crédito a Vista</string>
+    <string name="credMercPayTypeChb">Crédito Lojista</string>
+    <string name="debPayTypeChb">Débito</string>
+    <string name="paymentTypesAllows">Tipos de Pagamaneto</string>
+    <string name="credAdmPayTypeChb">Crédito Administrativo</string>
+    <string name="prePayTypeChb">Pré-autorização</string>
+    <string name="confirmPreMercPayTypeChb">Confirmação de Pré-autorização</string>
+    <string name="confirmBtn">Confirmar Pagamento</string>
+    <string name="cancelBtn">Desfazer Pagamento</string>
+    <string name="reverseBtn">Estornar Pagamento</string>
+    <string name="confirm_payment_title">Confirmação de Pagamento</string>
+    <string name="paymentTransactionIdEdtHint">Identificador do Pagamento</string>
+    <string name="doConfirmPaymentBtn">Confirmar</string>
+    <string name="cancel_payment_title">Desfazimento de Pagamento</string>
+    <string name="doCancelPaymentBtn">Desfazer</string>
+    <string name="reverse_payment_title">Estorno de Pagamento</string>
+    <string name="doReversePaymentBtn">Estornar</string>
+    <string name="cancel_reverse_payment_title">Desfazimento de Estorno</string>
+    <string name="reverseTransactionIdEdtHint">Identificador do Estorno</string>
+    <string name="cancelReverseBtn">Desfazer Estorno</string>
+    <string name="responseDataTV">Dados da Resposta</string>
+    <string name="clientViaTV">Via do Cliente</string>
+    <string name="merchantViaTV">Via do Estabelecimento</string>
+    <string name="result_title">Resultado</string>
+    <string name="requieredFieldError">Campo obrigatório!</string>
+</resources>
