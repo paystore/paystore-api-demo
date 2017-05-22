@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.phoebus.payments.demo">
 
+    <uses-permission android:name="br.com.phoebus.android.payments.provider.READ_PERMISSION" />
+
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +25,20 @@
         <activity android:name=".CancelPaymentActivity" />
         <activity android:name=".ReversePaymentActivity" />
         <activity android:name=".CancelReversePaymentActivity" />
-        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".ResultActivity" />
+        <activity android:name=".PaymentListActivity" />
+
+        <receiver
+            android:name=".PaymentBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="br.com.phoebus.android.payments.AFTER_PAYMENT_FINISHED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="br.com.phoebus.android.payments.AFTER_PAYMENT_REVERSAL_FINISHED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

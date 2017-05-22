@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RETURN_REVERSE) {
             this.lastReversePaymentId = data.getStringExtra(EXTRA_REVERSE_PAYMENT_ID);
         }
+    }
 
+    public void listPayments(View view) {
+        startActivity(new Intent(this, PaymentListActivity.class));
     }
 }

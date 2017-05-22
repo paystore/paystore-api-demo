@@ -1,24 +1,22 @@
 package br.com.phoebus.payments.demo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.TextAppearanceSpan;
-import android.text.style.UnderlineSpan;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import br.com.phoebus.android.payments.api.Payment;
+import br.com.phoebus.android.payments.api.ReversePayment;
+import br.com.phoebus.payments.demo.utils.DataTypeUtils;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -69,4 +67,55 @@ public class ResultActivity extends AppCompatActivity {
             dataTable.addView(tr);
         }
     }
+
+    public static void callResultIntent(Payment data, Context context, int activityFlags) {
+        Intent intentResult = new Intent(context, ResultActivity.class);
+        intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
+        intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
+
+        HashMap<String, String> dataMap = new LinkedHashMap<String, String>();
+        dataMap.put("Valor", DataTypeUtils.getMoneyAsString(data.getValue()));
+        dataMap.put("Tipo de Pagamento", DataTypeUtils.getAsString(data.getPaymentType()));
+        dataMap.put("Ident.do Pagamento", data.getPaymentId());
+        dataMap.put("Ident. Adquirente", data.getAcquirerId());
+        dataMap.put("Número de Aut.", data.getAcquirerAuthorizationNumber());
+        dataMap.put("Adquirente", data.getAcquirer());
+        dataMap.put("Data/hora Adquirente", DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
+        dataMap.put("Data/hora Terminal", DataTypeUtils.getAsString(data.getPaymentDate()));
+        dataMap.put("Código de Resposta", data.getAcquirerResponseCode());
+        dataMap.put("Forma de Captura", DataTypeUtils.getAsString(data.getCaptureType()));
+
+        if (data.getCard() != null)
+            dataMap.put("Cartão", data.getCard().getBin() + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
+
+        dataMap.put("Parcelas", DataTypeUtils.getAsString(data.getInstallments()));
+
+        intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
+
+        if (activityFlags != 0)
+            intentResult.setFlags(activityFlags);
+
+        context.startActivity(intentResult);
+    }
+
+    public static void callResultIntent(ReversePayment data, Context context, int activityFlags) {
+        Intent intentResult = new Intent(context, ResultActivity.class);
+        intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
+        intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
+
+        HashMap<String, String> dataMap = new HashMap<String, String>();
+        dataMap.put("Ident.do Pagamento", data.getPaymentId());
+        dataMap.put("Ident. para a Adquirente", data.getAcquirerId());
+        dataMap.put("Número de Autorização", data.getAcquirerAuthorizationNumber());
+        dataMap.put("Código de Resposta", data.getAcquirerResponseCode());
+        dataMap.put("Data/hora Adquirente", DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
+        dataMap.put("Pode ser Desfeito", (data.getCancelable() ? "Sim" : "Não"));
+
+        intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
+        if (activityFlags != 0)
+            intentResult.setFlags(activityFlags);
+
+        context.startActivity(intentResult);
+    }
+
 }

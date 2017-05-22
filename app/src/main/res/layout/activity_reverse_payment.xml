@@ -48,6 +48,12 @@
             android:hint="@string/appTransactionIdEdtHint"/>
     </android.support.design.widget.TextInputLayout>
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chb_showReceiptView"
+        android:text="@string/chb_show_receipt_view"/>
+
     <Button
         android:id="@+id/doPaymentBtn"
         android:layout_width="match_parent"

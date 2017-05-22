@@ -4,26 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 
-import br.com.phoebus.android.payments.api.Credentials;
 import br.com.phoebus.android.payments.api.ErrorData;
-import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
-import br.com.phoebus.android.payments.api.PaymentRequest;
 import br.com.phoebus.android.payments.api.ReversePayment;
 import br.com.phoebus.android.payments.api.ReversePaymentRequest;
 import br.com.phoebus.android.payments.api.exception.ClientException;
+import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 
 public class ReversePaymentActivity extends AppCompatActivity {
 
     private EditText paymentTransactionIdEdt;
     private EditText valueEdt;
     private EditText appTransactionIdEdt;
+    private CheckBox showReceiptView;
 
     private PaymentClient paymentClient;
 
@@ -36,11 +35,12 @@ public class ReversePaymentActivity extends AppCompatActivity {
         this.paymentTransactionIdEdt = ((EditText) this.findViewById(R.id.paymentTransactionIdEdt));
         this.valueEdt = ((EditText) this.findViewById(R.id.valueEdt));
         this.appTransactionIdEdt = ((EditText) this.findViewById(R.id.appTransactionIdEdt));
+        this.showReceiptView = (CheckBox) this.findViewById(R.id.chb_showReceiptView);
 
         if (getIntent() != null) {
             this.paymentTransactionIdEdt.setText(getIntent().getStringExtra(MainActivity.EXTRA_PAYMENT_ID));
             if (getIntent().getSerializableExtra(MainActivity.EXTRA_VALUE) != null)
-                this.valueEdt.setText(((BigDecimal) getIntent().getSerializableExtra(MainActivity.EXTRA_VALUE)).toString());
+                this.valueEdt.setText(new BigDecimal(getIntent().getSerializableExtra(MainActivity.EXTRA_VALUE).toString()).setScale(2).toString());
             this.appTransactionIdEdt.setText(getIntent().getStringExtra(MainActivity.EXTRA_APP_PAYMENT_ID));
         }
 
@@ -56,7 +56,8 @@ public class ReversePaymentActivity extends AppCompatActivity {
                 .withValue(new  BigDecimal(this.valueEdt.getText().toString()))
                 .withAppTransactionId(this.appTransactionIdEdt.getText().toString())
                 .withPaymentId(this.paymentTransactionIdEdt.getText().toString())
-                .withCredentials(new Credentials());
+                .withCredentials(CredentialsUtils.getMyCredentials())
+                .withShowReceiptView(this.showReceiptView.isChecked());
 
         try {
             this.paymentClient.reversePayment(pr, new PaymentClient.PaymentCallback<ReversePayment>() {
@@ -65,7 +66,7 @@ public class ReversePaymentActivity extends AppCompatActivity {
                     Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), "Estorno Realizado!", Toast.LENGTH_SHORT).show();
 
                     configureReturnData(data);
-                    callResultIntent(data);
+                    ResultActivity.callResultIntent(data, ReversePaymentActivity.this, 0);
                 }
 
                 @Override
@@ -100,24 +101,6 @@ public class ReversePaymentActivity extends AppCompatActivity {
         }
 
         return ret;
-    }
-
-    private void callResultIntent(ReversePayment data) {
-        Intent intentResult = new Intent(ReversePaymentActivity.this, ResultActivity.class);
-        intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
-        intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
-
-        HashMap<String, String> dataMap = new HashMap<String, String>();
-        dataMap.put("Ident.do Pagamento", data.getPaymentId());
-        dataMap.put("Ident. para a Adquirente", data.getAcquirerId());
-        dataMap.put("Número de Autorização", data.getAcquirerAuthorizationNumber());
-        dataMap.put("Código de Resposta", data.getAcquirerResponseCode());
-        dataMap.put("Data/hora Adquirente", DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
-        dataMap.put("Pode ser Desfeito", (data.getCancelable() ? "Sim" : "Não"));
-
-        intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
-
-        startActivity(intentResult);
     }
 
     private void configureReturnData(ReversePayment data) {

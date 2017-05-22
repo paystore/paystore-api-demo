@@ -52,7 +52,6 @@ public class CancelPaymentActivity extends AppCompatActivity {
                 }
             });
         } catch (ClientException e) {
-            e.printStackTrace();
             Toast.makeText(CancelPaymentActivity.this, "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 

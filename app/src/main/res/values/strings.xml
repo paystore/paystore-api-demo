@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Paystore API Demo</string>
+    <string name="app_name">PayStore API Demo</string>
     <string name="main_schoose_option">Escolha uma opção:</string>
     <string name="payment_title">Pagamento</string>
     <string name="openPaymentBtn">Fazer Pagamento</string>
@@ -34,4 +34,25 @@
     <string name="merchantViaTV">Via do Estabelecimento</string>
     <string name="result_title">Resultado</string>
     <string name="requieredFieldError">Campo obrigatório!</string>
+    <string name="chb_show_receipt_view">Mostrar Tela de Comprovante</string>
+
+    <string name="paymentsFilter_mainBtn">Listar Pagamentos</string>
+    <string name="paymentsFilter_title">Filtro </string>
+    <string name="paymentsFilter_filter">Filtrar</string>
+    <string name="paymentsFilter_statusPending">Pendente</string>
+    <string name="paymentsFilter_statusConfirmed">Confirmado</string>
+    <string name="paymentsFilter_statusCancelled">Cancelado</string>
+    <string name="paymentsFilter_statusReversed">Estornado</string>
+    <string name="paymentsFilter_field_status">Status de Pagamento</string>
+    <string name="paymentsFilter_field_startDate">Data Inicial</string>
+    <string name="paymentsFilter_field_finishDate">Data Final</string>
+    <string name="paymentsFilter_field_minValue">Valor Minimo</string>
+    <string name="paymentsFilter_field_maxValue">Valor Máximo</string>
+    <string name="paymentsFilter_field_4digits">Último 4 digitos do cartão</string>
+
+    <string name="paymentsList_title"> Lista de Pagamentos </string>
+    <string name="paymentsList_bin_format">BIN **** %s</string>
+    <string name="paymentsList_currency_format"> R$ %s </string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

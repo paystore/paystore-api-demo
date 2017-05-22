@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "br.com.phoebus.payments.demo"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -28,13 +28,18 @@ dependencies {
 
     // Dependências necessárias para usar 'payments-api'.
     compile(name:'payments-api', ext:'aar')
-    annotationProcessor(name:'parceler-1.1.6', ext:'jar')
-    compile(name:'parceler-api-1.1.6', ext:'jar')
+    annotationProcessor(name: 'parceler-1.1.6', ext: 'jar')
+    compile(name: 'parceler-api-1.1.6', ext: 'jar')
+
+    compile project(':payments-api')
 
     // Dependências específicas da aplicação Demo.
+
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:gridlayout-v7:24.2.1'
-
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.google.android.gms:play-services-plus:10.2.1'
     testCompile 'junit:junit:4.12'
 }

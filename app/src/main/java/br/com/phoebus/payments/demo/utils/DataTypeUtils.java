@@ -1,4 +1,4 @@
-package br.com.phoebus.payments.demo;
+package br.com.phoebus.payments.demo.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

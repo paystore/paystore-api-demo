@@ -46,4 +46,11 @@
         android:onClick="cancelReverse"
         android:text="@string/cancelReverseBtn"/>
 
+    <Button
+        android:id="@+id/listBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="listPayments"
+        android:text="@string/paymentsFilter_mainBtn"/>
+
 </LinearLayout>
