@@ -31,8 +31,6 @@ dependencies {
     annotationProcessor(name: 'parceler-1.1.6', ext: 'jar')
     compile(name: 'parceler-api-1.1.6', ext: 'jar')
 
-    compile project(':payments-api')
-
     // Dependências específicas da aplicação Demo.
 
 
