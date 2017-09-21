@@ -8,7 +8,7 @@ import br.com.phoebus.android.payments.api.Credentials;
 public class CredentialsUtils {
 
     public static final String TEST_APPLICATION_ID = "0";
-    public static final String TEST_SECRET_TOKEN = "00000000000000000000";
+    public static final String TEST_SECRET_TOKEN = "000000000000000000000000";
 
     public static Credentials getMyCredentials() {
         Credentials credentials = new Credentials();
