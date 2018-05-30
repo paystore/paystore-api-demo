@@ -1,0 +1,14 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+*.hprof
+
+#Fabric Crashlytics
+fabric.properties
+com_crashlytics_export_strings.xml
+crashlytics-build.properties

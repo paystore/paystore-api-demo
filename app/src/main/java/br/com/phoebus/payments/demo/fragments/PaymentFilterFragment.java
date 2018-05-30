@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.phoebus.android.payments.api.PaymentStatus;
@@ -71,7 +72,9 @@ public class PaymentFilterFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 try{
-                    mPaymentRequest = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(getContext().getPackageManager(), getContext().getPackageName()));
+                    mPaymentRequest = new PaymentProviderRequest(
+                            CredentialsUtils.getMyAppInfo(getContext().getPackageManager(), getContext().getPackageName()),
+                            new Date());
 
                     if(!TextUtils.isEmpty(edPaymentId.getText())){
                         mPaymentRequest.setPaymentId(edPaymentId.getText().toString());

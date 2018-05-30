@@ -27,7 +27,7 @@ repositories {
 dependencies {
 
     // Dependências necessárias para usar 'payments-api'.
-    compile(name:'payments-api', ext:'aar')
+    compile(name:'payments-api-1.0.4.16', ext:'aar')
     annotationProcessor(name: 'parceler-1.1.6', ext: 'jar')
     compile(name: 'parceler-api-1.1.6', ext: 'jar')
 
