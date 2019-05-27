@@ -72,9 +72,7 @@ public class PaymentFilterFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 try{
-                    mPaymentRequest = new PaymentProviderRequest(
-                            CredentialsUtils.getMyAppInfo(getContext().getPackageManager(), getContext().getPackageName()),
-                            new Date());
+                    mPaymentRequest = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(getContext().getPackageManager(), getContext().getPackageName()), new Date());
 
                     if(!TextUtils.isEmpty(edPaymentId.getText())){
                         mPaymentRequest.setPaymentId(edPaymentId.getText().toString());

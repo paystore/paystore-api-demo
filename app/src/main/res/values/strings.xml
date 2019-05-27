@@ -6,6 +6,7 @@
     <string name="bindBtn">Bind</string>
     <string name="unbindBtn">Unbind</string>
     <string name="doPaymentBtn">Pagar</string>
+    <string name="doPaymentBtnv2">Pagar V2</string>
     <string name="valueEdtHint">Valor</string>
     <string name="installmentsEdtHint">Parcelas</string>
     <string name="appTransactionIdEdtHint">Identificador da Transação para Aplicação</string>

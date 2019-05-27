@@ -131,5 +131,12 @@
         android:onClick="doPayment"
         android:text="@string/doPaymentBtn"/>
 
+    <Button
+        android:id="@+id/doPaymentBtnv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doPaymentV2"
+        android:text="@string/doPaymentBtnv2"/>
+
 
 </LinearLayout>

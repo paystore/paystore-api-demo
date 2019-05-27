@@ -17,7 +17,9 @@ import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentRequest;
+import br.com.phoebus.android.payments.api.PaymentRequestV2;
 import br.com.phoebus.android.payments.api.PaymentType;
+import br.com.phoebus.android.payments.api.PaymentV2;
 import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.android.payments.api.exception.ClientException;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
@@ -124,6 +126,53 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+    public void doPaymentV2(View view) {
+
+
+        if (!isDataValid()) return;
+
+
+        final PaymentRequestV2 pr;
+        try {
+            pr = new PaymentRequestV2();
+            pr.setValue(DataTypeUtils.getFromString(this.valueEdt.getText().toString()));
+            pr.setAppTransactionId(this.appTransactionIdEdt.getText().toString());
+            pr.setPaymentTypes(this.paymentTypes);
+            pr.setAppInfo(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()));
+            pr.setShowReceiptView(this.showReceiptView.isChecked());
+            pr.setTokenizeCard(true);
+            pr.setTokenizeEmail("ionay.silva@gmail.com");
+
+        } catch (PackageManager.NameNotFoundException e) {
+            showAlert("Falha na Solicitação: " + e.getMessage());
+            return;
+        }
+
+        if (this.installmentsEdt.getText() != null && !"".equals(this.installmentsEdt.getText().toString())) {
+            pr.setInstallments(Integer.parseInt(this.installmentsEdt.getText().toString()));
+        }
+
+        try {
+            this.paymentClient.startPaymentV2(pr, new PaymentClient.PaymentCallback<PaymentV2>() {
+                @Override
+                public void onSuccess(PaymentV2 data) {
+                    showAlert("Pagamento Realizado!");
+
+                    configureReturnData(data, pr);
+                    ResultActivity.callResultIntent(data, PaymentActivity.this, 0);
+                }
+
+                @Override
+                public void onError(ErrorData errorData) {
+                    showAlert("Pagamento Não Realizado: " + errorData.getPaymentsResponseCode() + " / "
+                            + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage());
+                }
+            });
+        } catch (ClientException e) {
+            showAlert("Falha na Solicitação: " + e.getMessage());
+        }
+    }
+
     private boolean isDataValid() {
 
         boolean ret = true;
@@ -137,6 +186,14 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void configureReturnData(Payment data, PaymentRequest pr) {
+        Intent intent = new Intent();
+        intent.putExtra(MainActivity.EXTRA_VALUE, data.getValue());
+        intent.putExtra(MainActivity.EXTRA_APP_PAYMENT_ID, pr.getAppTransactionId());
+        intent.putExtra(MainActivity.EXTRA_PAYMENT_ID, data.getPaymentId());
+        setResult(RESULT_OK, intent);
+    }
+
+    private void configureReturnData(PaymentV2 data, PaymentRequest pr) {
         Intent intent = new Intent();
         intent.putExtra(MainActivity.EXTRA_VALUE, data.getValue());
         intent.putExtra(MainActivity.EXTRA_APP_PAYMENT_ID, pr.getAppTransactionId());
