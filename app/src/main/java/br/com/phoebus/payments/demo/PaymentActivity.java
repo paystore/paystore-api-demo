@@ -30,6 +30,7 @@ public class PaymentActivity extends AppCompatActivity {
     private EditText valueEdt;
     private EditText appTransactionIdEdt;
     private EditText installmentsEdt;
+    private EditText emailToken;
     private CheckBox showReceiptView;
 
     private List<PaymentType> paymentTypes = new LinkedList<PaymentType>();
@@ -48,6 +49,7 @@ public class PaymentActivity extends AppCompatActivity {
         this.appTransactionIdEdt = (EditText) this.findViewById(R.id.appTransactionIdEdt);
         this.installmentsEdt = (EditText) this.findViewById(R.id.installmentsEdt);
         this.showReceiptView = (CheckBox) this.findViewById(R.id.chb_showReceiptView);
+        this.emailToken = (EditText) this.findViewById(R.id.email_token);
 
         this.setDefaultValues();
 
@@ -141,7 +143,7 @@ public class PaymentActivity extends AppCompatActivity {
             pr.setAppInfo(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()));
             pr.setShowReceiptView(this.showReceiptView.isChecked());
             pr.setTokenizeCard(true);
-            pr.setTokenizeEmail("ionay.silva@gmail.com");
+            pr.setTokenizeEmail(String.valueOf(this.emailToken.getText()));
 
         } catch (PackageManager.NameNotFoundException e) {
             showAlert("Falha na Solicitação: " + e.getMessage());

@@ -10,6 +10,7 @@
     <string name="valueEdtHint">Valor</string>
     <string name="installmentsEdtHint">Parcelas</string>
     <string name="appTransactionIdEdtHint">Identificador da Transação para Aplicação</string>
+    <string name="appEmailToken">Email para criar token do cartão</string>
     <string name="credPayTypeChb">Crédito a Vista</string>
     <string name="credMercPayTypeChb">Crédito Lojista</string>
     <string name="debPayTypeChb">Débito</string>

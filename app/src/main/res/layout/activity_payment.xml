@@ -48,6 +48,18 @@
             android:hint="@string/appTransactionIdEdtHint"/>
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/email_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="@string/appEmailToken"/>
+    </android.support.design.widget.TextInputLayout>
+
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

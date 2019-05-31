@@ -119,6 +119,10 @@ public class ResultActivity extends AppCompatActivity {
         if (data.getCard() != null)
             dataMap.put("Cartão", data.getCard().getBin() + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
 
+        if(data.getCardToken() != null ){
+            dataMap.put("Token do Cartão", data.getCardToken());
+        }
+
         dataMap.put("Parcelas", DataTypeUtils.getAsString(data.getInstallments()));
 
         intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
