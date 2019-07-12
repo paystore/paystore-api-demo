@@ -104,6 +104,14 @@
                 android:text="@string/credAdmPayTypeChb"
                 android:onClick="paymentTypeClick"/>
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pay_type.VOUCHER"
+                android:tag="VOUCHER"
+                android:text="@string/voucher"
+                android:onClick="paymentTypeClick"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"

@@ -16,6 +16,7 @@
     <string name="debPayTypeChb">Débito</string>
     <string name="paymentTypesAllows">Tipos de Pagamaneto</string>
     <string name="credAdmPayTypeChb">Crédito Administrativo</string>
+    <string name="voucher">Voucher</string>
     <string name="prePayTypeChb">Pré-autorização</string>
     <string name="confirmPreMercPayTypeChb">Confirmação de Pré-autorização</string>
     <string name="confirmBtn">Confirmar Pagamento</string>
