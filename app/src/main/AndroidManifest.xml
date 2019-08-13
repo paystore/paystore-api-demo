@@ -27,6 +27,7 @@
         <activity android:name=".CancelReversePaymentActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".PaymentListActivity" />
+        <activity android:name=".SetThemeActivity" />
 
         <receiver
             android:name=".PaymentBroadcastReceiver"

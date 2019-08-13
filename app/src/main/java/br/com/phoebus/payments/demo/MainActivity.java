@@ -80,4 +80,8 @@ public class MainActivity extends AppCompatActivity {
     public void listPayments(View view) {
         startActivity(new Intent(this, PaymentListActivity.class));
     }
+
+    public void setTheme(View view) {
+        startActivity(new Intent(this, SetThemeActivity.class));
+    }
 }

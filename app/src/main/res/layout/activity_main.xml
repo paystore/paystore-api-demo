@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:onClick="confirm"
         android:text="@string/confirmBtn"/>
+
     <Button
         android:id="@+id/cancelBtn"
         android:layout_width="match_parent"
@@ -52,5 +53,12 @@
         android:layout_height="wrap_content"
         android:onClick="listPayments"
         android:text="@string/paymentsFilter_mainBtn"/>
+
+    <Button
+        android:id="@+id/setThemeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setTheme"
+        android:text="@string/setThemeBtn" />
 
 </LinearLayout>
