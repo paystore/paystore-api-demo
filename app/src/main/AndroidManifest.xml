@@ -28,6 +28,7 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".PaymentListActivity" />
         <activity android:name=".SetThemeActivity" />
+        <activity android:name=".SetMainAppActivity" />
 
         <receiver
             android:name=".PaymentBroadcastReceiver"

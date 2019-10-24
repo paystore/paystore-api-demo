@@ -39,7 +39,10 @@
     <string name="requieredFieldError">Campo obrigatório!</string>
     <string name="chb_show_receipt_view">Mostrar Tela de Comprovante</string>
     <string name="themeEdtHint">Tema da Aplicação</string>
+    <string name="packageNameEdtHint">PackageName da Aplicação</string>
     <string name="doSetThemeBtn">Definir Tema</string>
+    <string name="doSetMainAppBtn">Definir aplicação principal</string>
+
 
     <string name="paymentsFilter_mainBtn">Listar Pagamentos</string>
     <string name="paymentsFilter_title">Filtro </string>
@@ -55,6 +58,8 @@
     <string name="paymentsFilter_field_maxValue">Valor Máximo</string>
     <string name="paymentsFilter_field_4digits">Último 4 digitos do cartão</string>
     <string name="setThemeBtn">Definir Tema da Aplicação</string>
+    <string name="solvePendenciesBtn">Resolver Pendências</string>
+    <string name="setMainApp">Definir aplicação principal</string>
 
     <string name="paymentsList_title"> Lista de Pagamentos </string>
     <string name="paymentsList_bin_format">BIN **** %s</string>

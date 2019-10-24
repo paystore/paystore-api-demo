@@ -61,4 +61,18 @@
         android:onClick="setTheme"
         android:text="@string/setThemeBtn" />
 
+    <Button
+        android:id="@+id/solvePendenciesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="solvePendencies"
+        android:text="@string/solvePendenciesBtn" />
+
+    <Button
+        android:id="@+id/setMainAppBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setMainApp"
+        android:text="@string/setMainApp" />
+
 </LinearLayout>
