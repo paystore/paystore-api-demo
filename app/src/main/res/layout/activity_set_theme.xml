@@ -11,24 +11,9 @@
     android:orientation="vertical"
     tools:context="br.com.phoebus.payments.demo.SetThemeActivity">
 
-    <android.support.design.widget.TextInputLayout
+    <ListView
+        android:id="@+id/lvTemas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/themeEdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textShortMessage"
-            android:hint="@string/themeEdtHint"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/doSetThemeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="doSetTheme"
-        android:text="@string/doSetThemeBtn"/>
-
-
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice" />
 </LinearLayout>

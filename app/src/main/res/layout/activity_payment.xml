@@ -1,162 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_payment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="br.com.phoebus.payments.demo.PaymentActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_payment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="br.com.phoebus.payments.demo.PaymentActivity">
 
-        <EditText
-            android:id="@+id/valueEdt"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/valueEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789,"
+                android:hint="@string/valueEdtHint"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/installmentsEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/installmentsEdtHint"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appTransactionIdEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/appTransactionIdEdtHint"
+                android:inputType="textShortMessage" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/email_token"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/appEmailToken"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/chb_showReceiptView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/valueEdtHint"
-            android:digits="0123456789,"
-            android:inputType="numberDecimal"/>
-    </android.support.design.widget.TextInputLayout>
+            android:text="@string/chb_show_receipt_view"
+            android:layout_marginBottom="50dp"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/installmentsEdt"
+        <Button
+            android:id="@+id/doPaymentBtnv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/installmentsEdtHint"
-            android:inputType="number"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/appTransactionIdEdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textShortMessage"
-            android:hint="@string/appTransactionIdEdtHint"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/email_token"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="@string/appEmailToken"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/chb_showReceiptView"
-        android:text="@string/chb_show_receipt_view"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/paymentTypesAllows" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.CREDIT"
-                android:tag="CREDIT"
-                android:text="@string/credPayTypeChb"
-                android:onClick="paymentTypeClick"/>
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.CREDIT_STORE"
-                android:tag="CREDIT_STORE"
-                android:text="@string/credMercPayTypeChb"
-                android:onClick="paymentTypeClick"/>
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.CREDIT_ADMIN"
-                android:tag="CREDIT_ADMIN"
-                android:text="@string/credAdmPayTypeChb"
-                android:onClick="paymentTypeClick"/>
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.VOUCHER"
-                android:tag="VOUCHER"
-                android:text="@string/voucher"
-                android:onClick="paymentTypeClick"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.DEBIT"
-                android:tag="DEBIT"
-                android:text="@string/debPayTypeChb"
-                android:onClick="paymentTypeClick"/>
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.PRE_AUTHORIZATION"
-                android:tag="PRE_AUTHORIZATION"
-                android:text="@string/prePayTypeChb"
-                android:onClick="paymentTypeClick"/>
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pay_type.PRE_AUTHORIZATION_CONFIRMATION"
-                android:tag="PRE_AUTHORIZATION_CONFIRMATION"
-                android:text="@string/confirmPreMercPayTypeChb"
-                android:onClick="paymentTypeClick"/>
-
-        </LinearLayout>
+            android:onClick="doPaymentV2"
+            android:text="@string/doPaymentBtnv2" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/doPaymentBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="doPayment"
-        android:text="@string/doPaymentBtn"/>
-
-    <Button
-        android:id="@+id/doPaymentBtnv2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="doPaymentV2"
-        android:text="@string/doPaymentBtnv2"/>
-
-
-</LinearLayout>
+</ScrollView>

@@ -19,7 +19,7 @@ public class SetMainAppActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(R.string.setThemeBtn);
+        this.setTitle(R.string.setMainApp);
         setContentView(R.layout.activity_set_main_app);
 
         this.packageNameEdt = ((EditText) this.findViewById(R.id.packageNameEdt));

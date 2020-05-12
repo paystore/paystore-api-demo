@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.ReversePayment;
-import br.com.phoebus.android.payments.api.ReversePaymentRequest;
-import br.com.phoebus.android.payments.api.exception.ClientException;
+import br.com.phoebus.android.payments.api.ReversePaymentRequestV2;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
+import br.com.phoebus.payments.demo.utils.Helper;
 
 public class ReversePaymentActivity extends AppCompatActivity {
 
@@ -36,12 +36,13 @@ public class ReversePaymentActivity extends AppCompatActivity {
         this.valueEdt = ((EditText) this.findViewById(R.id.valueEdt));
         this.appTransactionIdEdt = ((EditText) this.findViewById(R.id.appTransactionIdEdt));
         this.showReceiptView = (CheckBox) this.findViewById(R.id.chb_showReceiptView);
+        this.showReceiptView.setChecked(true);
 
         if (getIntent() != null) {
-            this.paymentTransactionIdEdt.setText(getIntent().getStringExtra(MainActivity.EXTRA_PAYMENT_ID));
-            if (getIntent().getSerializableExtra(MainActivity.EXTRA_VALUE) != null)
-                this.valueEdt.setText(new BigDecimal(getIntent().getSerializableExtra(MainActivity.EXTRA_VALUE).toString()).setScale(2).toString());
-            this.appTransactionIdEdt.setText(getIntent().getStringExtra(MainActivity.EXTRA_APP_PAYMENT_ID));
+            this.paymentTransactionIdEdt.setText(getIntent().getStringExtra(Helper.EXTRA_PAYMENT_ID));
+            if (getIntent().getSerializableExtra(Helper.EXTRA_VALUE) != null)
+                this.valueEdt.setText(new BigDecimal(getIntent().getSerializableExtra(Helper.EXTRA_VALUE).toString()).setScale(2).toString());
+            this.appTransactionIdEdt.setText(getIntent().getStringExtra(Helper.EXTRA_APP_PAYMENT_ID));
         }
 
         this.paymentClient = new PaymentClient();
@@ -52,7 +53,7 @@ public class ReversePaymentActivity extends AppCompatActivity {
 
         if (!isDataValid()) return;
 
-        ReversePaymentRequest pr = new ReversePaymentRequest()
+        ReversePaymentRequestV2 pr = new ReversePaymentRequestV2()
                 .withValue(new  BigDecimal(this.valueEdt.getText().toString()))
                 .withAppTransactionId(this.appTransactionIdEdt.getText().toString())
                 .withPaymentId(this.paymentTransactionIdEdt.getText().toString())
@@ -60,13 +61,10 @@ public class ReversePaymentActivity extends AppCompatActivity {
                 .withShowReceiptView(this.showReceiptView.isChecked());
 
         try {
-            this.paymentClient.reversePayment(pr, new PaymentClient.PaymentCallback<ReversePayment>() {
+            this.paymentClient.reversePaymentV2(pr, new PaymentClient.PaymentCallback<ReversePayment>() {
                 @Override
                 public void onSuccess(ReversePayment data) {
-                    Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), "Estorno Realizado!", Toast.LENGTH_SHORT).show();
-
                     configureReturnData(data);
-                    ResultActivity.callResultIntent(data, ReversePaymentActivity.this, 0);
                 }
 
                 @Override
@@ -75,7 +73,7 @@ public class ReversePaymentActivity extends AppCompatActivity {
                             + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        } catch (ClientException e) {
+        } catch (Exception e) {
             Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
@@ -105,7 +103,7 @@ public class ReversePaymentActivity extends AppCompatActivity {
 
     private void configureReturnData(ReversePayment data) {
         Intent intent = new Intent();
-        intent.putExtra(MainActivity.EXTRA_REVERSE_PAYMENT_ID, data.getPaymentId());
+        intent.putExtra(Helper.EXTRA_REVERSE_PAYMENT_ID, data.getPaymentId());
         setResult(RESULT_OK, intent);
     }
 }

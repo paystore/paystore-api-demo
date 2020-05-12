@@ -69,36 +69,6 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
-    public static void callResultIntent(Payment data, Context context, int activityFlags) {
-        Intent intentResult = new Intent(context, ResultActivity.class);
-        intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
-        intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
-
-        HashMap<String, String> dataMap = new LinkedHashMap<String, String>();
-        dataMap.put("Valor", DataTypeUtils.getMoneyAsString(data.getValue()));
-        dataMap.put("Tipo de Pagamento", DataTypeUtils.getAsString(data.getPaymentType()));
-        dataMap.put("Ident.do Pagamento", data.getPaymentId());
-        dataMap.put("Ident. Adquirente", data.getAcquirerId());
-        dataMap.put("Número de Aut.", data.getAcquirerAuthorizationNumber());
-        dataMap.put("Adquirente", data.getAcquirer());
-        dataMap.put("Data/hora Adquirente", DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
-        dataMap.put("Data/hora Terminal", DataTypeUtils.getAsString(data.getPaymentDate()));
-        dataMap.put("Código de Resposta", data.getAcquirerResponseCode());
-        dataMap.put("Forma de Captura", DataTypeUtils.getAsString(data.getCaptureType()));
-
-        if (data.getCard() != null)
-            dataMap.put("Cartão", data.getCard().getBin() + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
-
-        dataMap.put("Parcelas", DataTypeUtils.getAsString(data.getInstallments()));
-
-        intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
-
-        if (activityFlags != 0)
-            intentResult.setFlags(activityFlags);
-
-        context.startActivity(intentResult);
-    }
-
     public static void callResultIntent(PaymentV2 data, Context context, int activityFlags) {
         Intent intentResult = new Intent(context, ResultActivity.class);
         intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
@@ -122,6 +92,36 @@ public class ResultActivity extends AppCompatActivity {
         if(data.getCardToken() != null ){
             dataMap.put("Token do Cartão", data.getCardToken());
         }
+
+        dataMap.put("Parcelas", DataTypeUtils.getAsString(data.getInstallments()));
+
+        intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
+
+        if (activityFlags != 0)
+            intentResult.setFlags(activityFlags);
+
+        context.startActivity(intentResult);
+    }
+
+    public static void callResultIntent(Payment data, Context context, int activityFlags) {
+        Intent intentResult = new Intent(context, ResultActivity.class);
+        intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
+        intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
+
+        HashMap<String, String> dataMap = new LinkedHashMap<String, String>();
+        dataMap.put("Valor", DataTypeUtils.getMoneyAsString(data.getValue()));
+        dataMap.put("Tipo de Pagamento", DataTypeUtils.getAsString(data.getPaymentType()));
+        dataMap.put("Ident.do Pagamento", data.getPaymentId());
+        dataMap.put("Ident. Adquirente", data.getAcquirerId());
+        dataMap.put("Número de Aut.", data.getAcquirerAuthorizationNumber());
+        dataMap.put("Adquirente", data.getAcquirer());
+        dataMap.put("Data/hora Adquirente", DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
+        dataMap.put("Data/hora Terminal", DataTypeUtils.getAsString(data.getPaymentDate()));
+        dataMap.put("Código de Resposta", data.getAcquirerResponseCode());
+        dataMap.put("Forma de Captura", DataTypeUtils.getAsString(data.getCaptureType()));
+
+        if (data.getCard() != null)
+            dataMap.put("Cartão", data.getCard().getBin() + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
 
         dataMap.put("Parcelas", DataTypeUtils.getAsString(data.getInstallments()));
 

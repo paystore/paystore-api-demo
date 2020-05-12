@@ -21,14 +21,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".ConfirmPaymentActivity" />
-        <activity android:name=".CancelPaymentActivity" />
         <activity android:name=".ReversePaymentActivity" />
-        <activity android:name=".CancelReversePaymentActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".PaymentListActivity" />
         <activity android:name=".SetThemeActivity" />
         <activity android:name=".SetMainAppActivity" />
+        <activity android:name=".CommonPaymentListActivity" />
+        <activity android:name=".PaymentTypeListActivity" />
 
         <receiver
             android:name=".PaymentBroadcastReceiver"
