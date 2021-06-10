@@ -3,9 +3,13 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -16,13 +20,14 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 
     ext {
-        androidSupportVersion = '24.2.1'
-        parceler_version = '1.1.6'
-        androidV4SupportVersion = '24.0.0'
-        junitVersion = '4.12'
+        parcelerVersion = '1.1.12'
     }
 }
 
