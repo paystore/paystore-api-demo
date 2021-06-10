@@ -12,7 +12,7 @@
         android:id="@+id/title_response_data" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:paddingLeft="15px"
         android:id="@+id/value_response_data" />

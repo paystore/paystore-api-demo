@@ -2,8 +2,9 @@ package br.com.phoebus.payments.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,6 @@ import java.util.List;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentStatus;
-import br.com.phoebus.android.payments.api.ReversePayment;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderApi;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderRequest;
 import br.com.phoebus.payments.demo.domain.PaymentDomain;

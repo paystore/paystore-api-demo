@@ -3,15 +3,22 @@ package br.com.phoebus.payments.demo;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import br.com.phoebus.android.payments.api.AdditionalValueType;
 import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentRequestV2;
@@ -22,6 +29,7 @@ import br.com.phoebus.payments.demo.utils.AlertUtils;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 import br.com.phoebus.payments.demo.utils.DataTypeUtils;
 import br.com.phoebus.payments.demo.utils.Helper;
+import br.com.phoebus.payments.demo.utils.MoneyWatcher;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -29,13 +37,21 @@ public class PaymentActivity extends AppCompatActivity {
     private EditText appTransactionIdEdt;
     private EditText installmentsEdt;
     private EditText emailToken;
+    private EditText addValueEdt;
     private CheckBox showReceiptView;
+    private Spinner addValueTypeSpinner;
+    private Spinner accTypeIdSpinner;
+    private EditText planIdEdt;
+    private Spinner productShortNameSpinner;
 
     private List<PaymentType> paymentTypes;
 
     private PaymentClient paymentClient;
 
     Random r = new Random(System.currentTimeMillis());
+
+    private String selectedProductShortName = "";
+    private String selectedAccountType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +64,14 @@ public class PaymentActivity extends AppCompatActivity {
         this.installmentsEdt = (EditText) this.findViewById(R.id.installmentsEdt);
         this.showReceiptView = (CheckBox) this.findViewById(R.id.chb_showReceiptView);
         this.emailToken = (EditText) this.findViewById(R.id.email_token);
+        this.addValueTypeSpinner = (Spinner) this.findViewById(R.id.addValueTypeSpinner);
+        this.addValueEdt = (EditText) this.findViewById(R.id.addValueEdt);
+        valueEdt.addTextChangedListener(new MoneyWatcher(valueEdt, "%,.2f"));
+        addValueEdt.addTextChangedListener(new MoneyWatcher(addValueEdt, "%,.2f"));
+
+        this.accTypeIdSpinner = (Spinner) this.findViewById(R.id.accTypeIdSpinner);
+        this.planIdEdt = (EditText) this.findViewById(R.id.planIdEdt);
+        this.productShortNameSpinner = (Spinner) this.findViewById(R.id.productShortNameSpinner);
 
         this.setDefaultValues();
 
@@ -56,12 +80,19 @@ public class PaymentActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().getExtras() != null)
             paymentTypes = (List<PaymentType>) getIntent().getExtras().getSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE);
 
+        setupAddValueSpinner();
+        setupProductShortNameSpinner();
+        setupAccTypeSpinner();
+
+        
+
         doBind();
     }
 
     private void setDefaultValues() {
 
         this.valueEdt.setText(DataTypeUtils.getAsString(r.nextFloat() * 100F));
+        this.addValueEdt.setText(DataTypeUtils.getAsString(0 * 100F));
         this.appTransactionIdEdt.setText(Helper.APP_TRANSACTION_ID);
         showReceiptView.setChecked(true);
 
@@ -102,6 +133,21 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setShowReceiptView(this.showReceiptView.isChecked());
             paymentRequestV2.setTokenizeCard(false);
             paymentRequestV2.setTokenizeEmail(String.valueOf(this.emailToken.getText()));
+            String addValueType = (String) this.addValueTypeSpinner.getSelectedItem();
+            String accType = selectedAccountType;
+            String planId = this.planIdEdt.getText().toString();
+            String productShortName = selectedProductShortName;
+            if (addValueType != null && !addValueType.isEmpty()) {
+                paymentRequestV2.setAdditionalValueType(AdditionalValueType.valueOf(addValueType.toUpperCase()));
+                paymentRequestV2.setAdditionalValue(DataTypeUtils.getFromString(this.addValueEdt.getText().toString()));
+            }
+
+            if (!accType.isEmpty())
+                paymentRequestV2.setAccountTypeId(accType);
+            if (!planId.isEmpty())
+                paymentRequestV2.setPlanId(planId);
+            if (!productShortName.isEmpty())
+                paymentRequestV2.setProductShortName(productShortName);
 
         } catch (PackageManager.NameNotFoundException e) {
             showSnackBar("Falha na Solicitação: " + e.getMessage());
@@ -112,7 +158,7 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setInstallments(Integer.parseInt(this.installmentsEdt.getText().toString()));
         }
 
-        boolean isPaymentEndToEnd = getIntent().getExtras() != null && getIntent().getExtras().getBoolean(MainActivity.EXTRA_IS_PAYMENT_END_TO_PAYMENT);
+        boolean isPaymentEndToEnd = getIntent().getExtras() != null && getIntent().getExtras().getBoolean(Helper.IS_PAYMENT_END_TO_PAYMENT);
         if (!isPaymentEndToEnd)
         {
             try {
@@ -180,4 +226,104 @@ public class PaymentActivity extends AppCompatActivity {
 
         return PaymentType.valueOf(enuName);
     }
+
+    private void setupAddValueSpinner() {
+        List<String> addValueTypes = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, addValueTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        addValueTypes.add("");
+        addValueTypes.add("CashBack");
+        addValueTypes.add("TIP");
+
+        this.addValueTypeSpinner.setAdapter(adapter);
+        this.addValueTypeSpinner.setOnItemSelectedListener(new OnSelectAddValueType());
+    }
+
+    private void setupProductShortNameSpinner() {
+        List<String> shortNames = new ArrayList<>();
+        shortNames.add("");
+        shortNames.add("VISA");
+        shortNames.add("MASTERCARD");
+        shortNames.add("AMEX");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, shortNames);
+        this.productShortNameSpinner.setAdapter(adapter);
+        this.productShortNameSpinner.setOnItemSelectedListener(new OnSelectProductShortName());
+    }
+
+    private void setupAccTypeSpinner() {
+        List<String> accTypes = new ArrayList<>();
+        accTypes.add("");
+        accTypes.add(getString(R.string.account_type_caja_ajorro));
+        accTypes.add(getString(R.string.account_type_c_corriente));
+        accTypes.add(getString(R.string.account_type_s_caja_ajorro));
+        accTypes.add(getString(R.string.account_type_s_c_corriente));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accTypes);
+        this.accTypeIdSpinner.setAdapter(adapter);
+        this.accTypeIdSpinner.setOnItemSelectedListener(new OnSelectAccountType());
+    }
+
+
+    private class OnSelectAddValueType implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+            addValueEdt.setEnabled(pos != 0);
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
+    }
+
+    private class OnSelectAccountType implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+            String item = adapterView.getItemAtPosition(pos).toString();
+
+            if (item.equals(getString(R.string.account_type_caja_ajorro))) {
+                selectedAccountType = "1";
+            } else if (item.equals(getString(R.string.account_type_c_corriente))) {
+                selectedAccountType = "2";
+            } else if (item.equals(getString(R.string.account_type_s_caja_ajorro))) {
+                selectedAccountType = "8";
+            } else if (item.equals(getString(R.string.account_type_s_c_corriente))) {
+                selectedAccountType = "9";
+            } else {
+                selectedAccountType = "";
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
+    }
+
+    private class OnSelectProductShortName implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+            switch (pos) {
+                case 1:
+                    selectedProductShortName = "VI";
+                    break;
+                case 2:
+                    selectedProductShortName = "MC";
+                    break;
+                case 3:
+                    selectedProductShortName = "AX";
+                    break;
+                default:
+                    selectedProductShortName = "";
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
+
+    }
+
 }

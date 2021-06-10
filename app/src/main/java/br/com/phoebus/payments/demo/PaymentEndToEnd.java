@@ -26,7 +26,7 @@ public class PaymentEndToEnd {
                 @Override
                 public void onSuccess(PaymentV2 paymentV2) {
 
-                    confirmPayment(paymentV2.getPaymentId());
+                    confirmPayment(paymentV2);
 
                     LogUtils.writeLogCat(this, "onSuccess", "Pagamento iniciado com sucesso");
 
@@ -46,15 +46,15 @@ public class PaymentEndToEnd {
         }
     }
 
-    private void confirmPayment(String paymentId)
+    private void confirmPayment(PaymentV2 paymentV2)
     {
         try {
 
-            mPaymentClient.confirmPayment(paymentId, new PaymentClient.PaymentCallback() {
+            mPaymentClient.confirmPayment(paymentV2.getPaymentId(), new PaymentClient.PaymentCallback() {
                 @Override
                 public void onSuccess(Object o) {
                     LogUtils.writeLogCat(this, "onSuccess", "Confirmação do pagamento realizado com sucesso");
-
+                    ResultActivity.callResultIntent(paymentV2, mContext, 0);
                 }
 
                 @Override

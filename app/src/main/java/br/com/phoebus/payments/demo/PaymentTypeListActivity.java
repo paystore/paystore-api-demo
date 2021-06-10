@@ -2,13 +2,15 @@ package br.com.phoebus.payments.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +28,12 @@ public class PaymentTypeListActivity extends AppCompatActivity {
     private final int[] OPTIONS_PROD_CIELO = {0, 1, 2, 3, 4, 9, 11, 12};
 
     private final int[] OPTIONS_PROD_STONE = {0, 1, 2, 3};
+
+    private final int[] OPTIONS_PROD_PRISMA = {0, 1, 2, 3, 4, 9, 11, 12};
+
+    private final int[] OPTIONS_PROD_AMEX = {0, 1, 2, 3, 4, 9, 11, 12};
+
+    private final int[] OPTIONS_PROD_OTHER = {0, 1, 2, 3, 4, 9, 11, 12};
 
     private ListView mListMenu;
     private Button btContinuar;
@@ -139,6 +147,16 @@ public class PaymentTypeListActivity extends AppCompatActivity {
         }
         else if (AquirerEnum.STONE.equals(aquirerSelected)) {
             optionsProdAquirerSelected = OPTIONS_PROD_STONE;
+        }
+        else if (AquirerEnum.PRISMA.equals(aquirerSelected)) {
+            optionsProdAquirerSelected = OPTIONS_PROD_PRISMA;
+        }
+        else if (AquirerEnum.AMEX.equals(aquirerSelected)) {
+            optionsProdAquirerSelected = OPTIONS_PROD_AMEX;
+        }
+
+        else if (AquirerEnum.OTHER.equals(aquirerSelected)) {
+            optionsProdAquirerSelected = OPTIONS_PROD_OTHER;
         }
 
         //marcando os itens

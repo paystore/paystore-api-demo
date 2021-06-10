@@ -3,15 +3,16 @@ package br.com.phoebus.payments.demo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -19,18 +20,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.phoebus.android.payments.api.ApplicationInfo;
+import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentStatus;
+import br.com.phoebus.android.payments.api.SettleRequestResponse;
+import br.com.phoebus.android.payments.api.SettlementRequest;
+import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.android.payments.api.provider.PaymentContract;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderApi;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderRequest;
-import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.payments.demo.domain.AquirerEnum;
 import br.com.phoebus.payments.demo.domain.PaymentDomain;
-
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 import br.com.phoebus.payments.demo.utils.Helper;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,17 +60,22 @@ public class MainActivity extends AppCompatActivity {
     private final int MENU_RESOLVER_PEND = 7;
     private final int MENU_DEFINIR_TEMA = 8;
     private final int MENU_DEFINIR_APP = 9;
+    private final int MENU_FECHAR_LOTE = 10;
+
+    private PaymentClient mPaymentClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //adquirente default.
-        this.setTitle("Adiquirente: ".concat(AquirerEnum.CIELO.getName().toUpperCase()));
-        Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.CIELO.getId(), Helper.PREF_CONFIG);
+        this.setTitle("Adquirente: ".concat(AquirerEnum.OTHER.getName().toUpperCase()));
+        Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.OTHER.getId(), Helper.PREF_CONFIG);
 
         AndroidThreeTen.init(getApplication());
 
+        this.mPaymentClient = new PaymentClient();
+        doBind();
         ListView listaMenu = (ListView) findViewById(R.id.lvMenu);
 
         ArrayList<String> opcoes = getMenuOptions();
@@ -71,47 +83,62 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, opcoes);
         listaMenu.setAdapter(adapter);
 
-        listaMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        listaMenu.setOnItemClickListener((adapterView, view, position, id) -> {
 
-                Intent intentPaymentTypeList = new Intent(MainActivity.this, PaymentTypeListActivity.class);
+            Intent intentPaymentTypeList = new Intent(MainActivity.this, PaymentTypeListActivity.class);
 
-                switch (position) {
-                    case MENU_PGTO_END_TO_END:
-                        // a activity de pagamento será chamada no método onActivityResult, apos selecão dos tipos de pgto.
-                        intentPaymentTypeList.putExtra(Helper.EXTRA_MAIN_MENU, MENU_PGTO_END_TO_END);
-                        startActivityForResult(intentPaymentTypeList, MENU_PGTO_END_TO_END);
-                        break;
-                    case MENU_PAGAMENTO:
-                        intentPaymentTypeList.putExtra(Helper.EXTRA_MAIN_MENU, MENU_PAGAMENTO);
-                        startActivityForResult(intentPaymentTypeList, MENU_PAGAMENTO);
-                        break;
-                    case MENU_CONFIRMAR:
-                        confirm();
-                        break;
-                    case MENU_CANCELAR_PGTO:
-                        cancel();
-                        break;
-                    case MENU_ESTORNAR:
-                        reverse();
-                        break;
-                    case MENU_CANCELAR_ESTORNO:
-                        cancelReverse();
-                        break;
-                    case MENU_CONSULTAR:
-                        listPayments();
-                        break;
-                    case MENU_RESOLVER_PEND:
-                        solvePendencies();
-                        break;
-                    case MENU_DEFINIR_TEMA:
-                        setTheme();
-                        break;
-                    case MENU_DEFINIR_APP:
-                        setMainApp();
-                        break;
-                }
+            switch (position) {
+                case MENU_PGTO_END_TO_END:
+                    // a activity de pagamento será chamada no método onActivityResult, apos selecão dos tipos de pgto.
+                    intentPaymentTypeList.putExtra(Helper.EXTRA_MAIN_MENU, MENU_PGTO_END_TO_END);
+                    startActivityForResult(intentPaymentTypeList, MENU_PGTO_END_TO_END);
+                    break;
+                case MENU_PAGAMENTO:
+                    intentPaymentTypeList.putExtra(Helper.EXTRA_MAIN_MENU, MENU_PAGAMENTO);
+                    startActivityForResult(intentPaymentTypeList, MENU_PAGAMENTO);
+                    break;
+                case MENU_CONFIRMAR:
+                    confirm();
+                    break;
+                case MENU_CANCELAR_PGTO:
+                    cancel();
+                    break;
+                case MENU_ESTORNAR:
+                    reverse();
+                    break;
+                case MENU_CANCELAR_ESTORNO:
+                    cancelReverse();
+                    break;
+                case MENU_CONSULTAR:
+                    listPayments();
+                    break;
+                case MENU_RESOLVER_PEND:
+                    solvePendencies();
+                    break;
+                case MENU_DEFINIR_TEMA:
+                    setTheme();
+                    break;
+                case MENU_DEFINIR_APP:
+                    setMainApp();
+                    break;
+                case MENU_FECHAR_LOTE:
+                    DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                closeBatch(true);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                closeBatch(false);
+                                break;
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage(getString(R.string.settlement_dialog_print_merchant_receipt))
+                            .setPositiveButton(getString(R.string.yes), dialogClickListener)
+                            .setNegativeButton(getString(R.string.no), dialogClickListener).show();
+
             }
         });
     }
@@ -129,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.solvePendenciesBtn));
         list.add(getString(R.string.setThemeBtn));
         list.add(getString(R.string.setMainApp));
+        list.add(getString(R.string.closeBatch));
 
         return list;
     }
@@ -156,6 +184,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.stone:
                 Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.STONE.getId(), Helper.PREF_CONFIG);
                 return true;
+            case R.id.prisma:
+                Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.PRISMA.getId(), Helper.PREF_CONFIG);
+                return true;
+            case R.id.amex:
+                Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.AMEX.getId(), Helper.PREF_CONFIG);
+                return true;
+            case R.id.other:
+                Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.OTHER.getId(), Helper.PREF_CONFIG);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -169,9 +207,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // If item is unchecked then checked it
             item.setChecked(true);
-
         }
-
     }
 
     public void openPaymentActivity(Boolean isPaymentEndToEnd, Intent data) {
@@ -226,9 +262,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void solvePendencies() {
-        PaymentClient paymentClient = new PaymentClient();
-        doBind(paymentClient);
-
+        doSolvePend(mPaymentClient);
     }
 
     private void doSolvePend(PaymentClient paymentClient) {
@@ -302,4 +336,48 @@ public class MainActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void closeBatch(boolean printMerchantReceipt) {
+        try {
+            ApplicationInfo applicationInfo = CredentialsUtils.getMyAppInfo(getPackageManager(), getPackageName());
+            SettlementRequest settlementRequest = new SettlementRequest();
+            settlementRequest.setApplicationInfo(applicationInfo);
+            settlementRequest.setPrintMerchantReceipt(printMerchantReceipt);
+
+            try {
+                mPaymentClient.closeBatch(settlementRequest, new PaymentClient.PaymentCallback<SettleRequestResponse>() {
+                    @Override
+                    public void onSuccess(SettleRequestResponse settleRequestResponse) {
+                        ResultActivity.callResultIntent(settleRequestResponse, MainActivity.this, FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
+
+                    }
+
+                    @Override
+                    public void onError(ErrorData errorData) {
+                        Toast.makeText(MainActivity.this, errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage());
+            }
+
+        } catch (Exception e) {
+            Log.e("MainActivity", e.getMessage());
+        }
+    }
+
+    private void doBind() {
+        this.mPaymentClient.bind(this, new Client.OnConnectionCallback() {
+            @Override
+            public void onConnected() {
+                Helper.showSnackBar(MainActivity.this, "Conectado!");
+            }
+
+            @Override
+            public void onDisconnected(boolean forced) {
+                Toast.makeText(MainActivity.this, "Desconectado! " + forced, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 }

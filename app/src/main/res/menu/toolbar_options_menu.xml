@@ -10,12 +10,29 @@
         android:id="@+id/cielo"
         android:title="Cielo"
         android:orderInCategory="2"
-        android:checked="true"
         />
         <item
             android:id="@+id/stone"
             android:title="Stone"
             android:orderInCategory="3"
         />
+        <item
+            android:id="@+id/prisma"
+            android:title="Prisma"
+            android:orderInCategory="4"
+            android:checked="true"
+            />
+        <item
+            android:id="@+id/amex"
+            android:title="Amex"
+            android:orderInCategory="5"
+            />
+        <item
+            android:id="@+id/other"
+            android:title="Other"
+            android:orderInCategory="6"
+            android:checked="true"
+            />
+
     </group>
 </menu>

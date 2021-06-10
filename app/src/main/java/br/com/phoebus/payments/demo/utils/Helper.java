@@ -1,6 +1,7 @@
 package br.com.phoebus.payments.demo.utils;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -176,5 +177,8 @@ public class Helper {
 
     }
 
+    public static void showSnackBar(Activity activity, String message) {
+        AlertUtils.showSnackBar(activity.findViewById(android.R.id.content), message);
+    }
 
 }

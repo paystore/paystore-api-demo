@@ -3,7 +3,11 @@ package br.com.phoebus.payments.demo.domain;
 public enum AquirerEnum {
     ADIQ(1),
     CIELO(2),
-    STONE(3);
+    STONE(3),
+    PRISMA(4),
+    AMEX(5),
+    OTHER(6);
+
 
     private int id;
 

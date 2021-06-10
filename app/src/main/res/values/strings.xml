@@ -8,6 +8,11 @@
     <string name="doPaymentBtn">Pagar V1</string>
     <string name="doPaymentBtnv2">Pagar V2</string>
     <string name="valueEdtHint">Valor</string>
+    <string name="addValueEdtHint">Valor Adicional</string>
+    <string name="addValueTypeHint">Tipo do Valor Adicional</string>
+    <string name="productShortNameHint">Abreviação do Produto</string>
+    <string name="accTypeHint">Tipo da conta</string>
+    <string name="planIdHint">Plan ID</string>
     <string name="installmentsEdtHint">Parcelas</string>
     <string name="appTransactionIdEdtHint">Identificador da Transação para Aplicação</string>
     <string name="appEmailToken">Email para criar token do cartão</string>
@@ -67,4 +72,22 @@
     <string name="paymentsList_currency_format"> R$ %s </string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="closeBatch">Fechar Lote</string>
+
+    <string name="settlement_result_title">Resultado do fechamento de lote</string>
+    <string name="settlement_batch_number">Número do lote</string>
+    <string name="settlement_acquirer_response_code">Cod. de Resposta</string>
+    <string name="settlement_terminal_id">Terminal Id</string>
+    <string name="settlement_message">Mensagem</string>
+    <string name="settlement_dialog_print_merchant_receipt">Deseja imprimir a via do lojista ao fechar o lote?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+    <string name="account_type_caja_ajorro">1- Caja Ahorro</string>
+    <string name="account_type_c_corriente">2- C. Corriente</string>
+    <string name="account_type_s_caja_ajorro">8- S Caja Ahorro</string>
+    <string name="account_type_s_c_corriente">9- S C. Corriente</string>
+
+    <string name="valueTypeHint">Tipo do valor adicional</string>
+
 </resources>

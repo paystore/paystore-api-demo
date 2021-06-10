@@ -1,5 +1,35 @@
 ## App Demonstração API Pagamento - Applet Phoebus
 
+### Versão: 1.3.0.0 Compatível com SUITE Payments >= 2.6.40.0
+- 71380
+  - Ajuste para exibir a tela de result após o pagamento com sucesso .
+  - .Atualizacao do aar com versao compatível sdk 0206 de payments_debug_2.6.40;
+  - .ajuste no MainActivity, removido um bind que jah estava sendo criado;
+  - .Ajuste para relaizar a confirmacao quando a escolha do fluxo for pagamento ponta a ponta;
+  - adicionando novas adquirentes.
+  - Ajuste para considerar o valor do additional value apenas quando o additional type for selecionado.
+  - tela do fechamento de lote atualizada
+  - adicionando mascara ao edit value.
+  - Ajustando o bind na tela principal.
+  - Criando tela que mostre a resposta do fechamento de lote
+  - Criando tela que mostre a resposta do fechamento de lote
+
+- 71294
+  - Ajustes no arquivo strings.xml.
+  - Adicionando titulo ao spinner de tipo de valor adicional.
+  - Spinner para seleção do tipo da conta.
+  - Criação de spinner para selecionar o product short name.
+  - Mudando tipo de teclado do planId para text.
+  - Trocando posição do spinner do tipo de valor adicional e o input de valor adicional.
+  - Deixando, por default, o input do valor adicional desabilitado, caso o spinner seja um valor diferente de 0, habilitar.
+
+
+- 71280
+  - Ajustando dependencias para usar o androidX
+
+  - Adicionando novos campos no pagamento
+  - chamada do fechamento de lote com novos campos implementada
+
 ### Versão: 1.2.0.0
 
 - 53826

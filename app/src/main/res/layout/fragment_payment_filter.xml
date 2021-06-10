@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.phoebus.payments.demo.fragments.PaymentFilterFragment">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
@@ -19,13 +19,13 @@
             android:ems="10"
             android:inputType="text"
             android:hint="@string/paymentTransactionIdEdtHint"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent" android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0">
@@ -39,9 +39,9 @@
                 android:focusableInTouchMode="false"
                 android:inputType="date"
                 android:hint="@string/paymentsFilter_field_startDate"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0">
@@ -54,7 +54,7 @@
                 android:focusableInTouchMode="false"
                 android:inputType="date"
                 android:hint="@string/paymentsFilter_field_finishDate"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -62,7 +62,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent" android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0">
@@ -73,9 +73,9 @@
                 android:inputType="numberDecimal"
                 android:maxLength="12"
                 android:hint="@string/paymentsFilter_field_minValue"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0">
@@ -86,11 +86,11 @@
                 android:inputType="numberDecimal"
                 android:maxLength="12"
                 android:hint="@string/paymentsFilter_field_maxValue"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
@@ -100,7 +100,7 @@
             android:inputType="number"
             android:maxLength="4"
             android:hint="@string/paymentsFilter_field_4digits"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"

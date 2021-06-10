@@ -11,7 +11,7 @@
     android:orientation="vertical"
     tools:context="br.com.phoebus.payments.demo.ConfirmPaymentActivity">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:inputType="textShortMessage"
             android:hint="@string/paymentTransactionIdEdtHint"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/doPaymentBtn"

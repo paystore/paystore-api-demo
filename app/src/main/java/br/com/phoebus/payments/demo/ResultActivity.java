@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -17,6 +18,7 @@ import java.util.Map;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentV2;
 import br.com.phoebus.android.payments.api.ReversePayment;
+import br.com.phoebus.android.payments.api.SettleRequestResponse;
 import br.com.phoebus.payments.demo.utils.DataTypeUtils;
 
 public class ResultActivity extends AppCompatActivity {
@@ -84,7 +86,17 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put("Data/hora Adquirente", DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
         dataMap.put("Data/hora Terminal", DataTypeUtils.getAsString(data.getPaymentDate()));
         dataMap.put("Código de Resposta", data.getAcquirerResponseCode());
-        dataMap.put("Forma de Captura", DataTypeUtils.getAsString(data.getCaptureType()));
+        dataMap.put("Abreviação do Produto", data.getProductShortName());
+        if (data.getAdditionalValueType() != null) {
+            dataMap.put("Tipo do Valor Adicional", data.getAdditionalValueType().name());
+        }
+        if (data.getAdditionalValue() != null) {
+            dataMap.put("Valor Adicional", DataTypeUtils.getMoneyAsString(data.getValue()));
+        }
+        dataMap.put("Tipo da Conta", data.getAccountTypeId());
+        dataMap.put("Plan ID", data.getPlanId());
+        dataMap.put("Número do Lote", data.getBatchNumber());
+        dataMap.put("NSU Terminal", data.getNsuTerminal());
 
         if (data.getCard() != null)
             dataMap.put("Cartão", data.getCard().getBin() + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
@@ -151,6 +163,25 @@ public class ResultActivity extends AppCompatActivity {
             intentResult.setFlags(activityFlags);
 
         context.startActivity(intentResult);
+    }
+
+    public static void callResultIntent(SettleRequestResponse data, Context context, int activityFlags) {
+        Intent settlementResultIt = new Intent(context, ResultActivity.class);
+        settlementResultIt.putExtra(SettlementResultActivity.MERCHANT_RECEIPT, data.getMerchantVia());
+
+        HashMap<String, String> dataMap = new LinkedHashMap<String, String>();
+        dataMap.put(context.getString(R.string.settlement_batch_number), data.getBatchNumber());
+        dataMap.put(context.getString(R.string.settlement_acquirer_response_code), data.getAcquirerResponseCode());
+        dataMap.put(context.getString(R.string.settlement_terminal_id), data.getTerminalId());
+        dataMap.put(context.getString(R.string.settlement_message), data.getAcquirerAdditionalMessage());
+
+        settlementResultIt.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
+
+        if (activityFlags != 0) {
+            settlementResultIt.setFlags(activityFlags);
+        }
+
+        context.startActivity(settlementResultIt);
     }
 
 }

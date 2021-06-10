@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">API Demo</string>
+    <string name="main_schoose_option">Elija una opción:</string>
+    <string name="payment_title">Pago</string>
+    <string name="openPaymentBtn">realizar Pago</string>
+    <string name="bindBtn">Bind</string>
+    <string name="unbindBtn">Unbind</string>
+    <string name="doPaymentBtn">Pagar V1</string>
+    <string name="doPaymentBtnv2">Pagar V2</string>
+    <string name="valueEdtHint">Valor</string>
+    <string name="addValueEdtHint">Valor Adicional</string>
+    <string name="addValueTypeHint">Tipo de Valor Adicional</string>
+    <string name="productShortNameHint">Abreviatura del Producto</string>
+    <string name="accTypeHint">Tipo de cuenta</string>
+    <string name="planIdHint">Plan ID</string>
+    <string name="installmentsEdtHint">Cuotas</string>
+    <string name="appTransactionIdEdtHint">Identificador de la Transacción para la Aplicación</string>
+    <string name="appEmailToken">Email para crear token de la tarjeta</string>
+    <string name="credPayTypeChb">Crédito</string>
+    <string name="credMercPayTypeChb">Cuotas S/Intereses</string>
+    <string name="debPayTypeChb">Débito</string>
+    <string name="paymentTypesAllows">Tipos de Pago</string>
+    <string name="credAdmPayTypeChb">Cuotas C/Intereses</string>
+    <string name="voucher">Voucher</string>
+    <string name="prePayTypeChb">Preautorización</string>
+    <string name="confirmPreMercPayTypeChb">Confirmación de Preautorización</string>
+    <string name="confirmBtn">Confirmar Pago</string>
+    <string name="cancelBtn">Deshacer Pago</string>
+    <string name="reverseBtn">Revertir Pago</string>
+    <string name="confirm_payment_title">Confirmación del Pago</string>
+    <string name="paymentTransactionIdEdtHint">Identificador del Pago</string>
+    <string name="doConfirmPaymentBtn">Confirmar</string>
+    <string name="cancel_payment_title">Deshaciendo el Pago</string>
+    <string name="doCancelPaymentBtn">Deshacer</string>
+    <string name="reverse_payment_title">Reverso del Pago</string>
+    <string name="doReversePaymentBtn">Revertir</string>
+    <string name="cancel_reverse_payment_title">Cancelación del Reverso</string>
+    <string name="reverseTransactionIdEdtHint">Identificador del Reverso</string>
+    <string name="cancelReverseBtn">Deshacer Reverso</string>
+    <string name="responseDataTV">Datos de Respuesta</string>
+    <string name="clientViaTV">Recibo del Cliente</string>
+    <string name="merchantViaTV">Recibo del Establecimiento</string>
+    <string name="result_title">Resultado</string>
+    <string name="requieredFieldError">¡Campo obligatorio!</string>
+    <string name="chb_show_receipt_view">Mostrar Pantalla del Recibo</string>
+    <string name="themeEdtHint">Tema de la Aplicación</string>
+    <string name="packageNameEdtHint">PackageName de la Aplicación</string>
+    <string name="doSetThemeBtn">Definir Tema</string>
+    <string name="doSetMainAppBtn">Definir aplicación principal</string>
+
+
+    <string name="paymentsFilter_mainBtn">Enumerar Pagos</string>
+    <string name="paymentsFilter_title">Filtro </string>
+    <string name="paymentsFilter_filter">Filtrar</string>
+    <string name="paymentsFilter_statusPending">Pendiente</string>
+    <string name="paymentsFilter_statusConfirmed">Confirmado</string>
+    <string name="paymentsFilter_statusCancelled">Cancelado</string>
+    <string name="paymentsFilter_statusReversed">Revertido</string>
+    <string name="paymentsFilter_field_status">Estado de Pago</string>
+    <string name="paymentsFilter_field_startDate">Fecha de Inicio</string>
+    <string name="paymentsFilter_field_finishDate">Fecha de Finalinacización</string>
+    <string name="paymentsFilter_field_minValue">Valor Minimo</string>
+    <string name="paymentsFilter_field_maxValue">Valor Máximo</string>
+    <string name="paymentsFilter_field_4digits">Últimos 4 digitos de la tarjeta</string>
+    <string name="setThemeBtn">Definir el Tema de la Aplicación</string>
+    <string name="solvePendenciesBtn">Resolver Pendientes</string>
+    <string name="setMainApp">Definir aplicación principal</string>
+    <string name="paymentEndToEnd">Realizar un Pago de principio a fin</string>
+
+    <string name="paymentsList_title"> Lista de Pagos </string>
+    <string name="paymentsList_bin_format">BIN **** %s</string>
+    <string name="paymentsList_currency_format"> R$ %s </string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="closeBatch">Cerrar Lote</string>
+
+    <string name="settlement_result_title">Resultado de cierre de lote</string>
+    <string name="settlement_batch_number">Número del lote</string>
+    <string name="settlement_acquirer_response_code">Cod. de Respuesta</string>
+    <string name="settlement_terminal_id">Terminal Id</string>
+    <string name="settlement_message">Mensagem</string>
+    <string name="settlement_dialog_print_merchant_receipt">¿Desea imprimir el recibo del comerciante al cerrar el lote?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+
+    <string name="account_type_caja_ajorro">1- Caja Ahorro</string>
+    <string name="account_type_c_corriente">2- C. Corriente</string>
+    <string name="account_type_s_caja_ajorro">8- S Caja Ahorro</string>
+    <string name="account_type_s_c_corriente">9- S C. Corriente</string>
+
+    <string name="valueTypeHint">Tipo de valor adicional</string>
+
+</resources>

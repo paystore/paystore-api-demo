@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:id="@+id/activity_payment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +15,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="br.com.phoebus.payments.demo.PaymentActivity">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -26,9 +26,106 @@
                 android:digits="0123456789,"
                 android:hint="@string/valueEdtHint"
                 android:inputType="numberDecimal" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/valueTypeHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <Spinner
+                    android:id="@+id/addValueTypeSpinner"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/addValueTypeHint"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="180dp"
+                android:layout_height="match_parent">
+
+
+                <EditText
+                    android:id="@+id/addValueEdt"
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:digits="0123456789,"
+                    android:enabled="false"
+                    android:hint="@string/addValueEdtHint"
+                    android:inputType="numberDecimal" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="165dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/accTypeHint" />
+
+                <Spinner
+                    android:id="@+id/accTypeIdSpinner"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="180dp"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/planIdEdt"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/planIdHint"
+                    android:inputType="text"
+                    android:maxLength="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/productShortNameHint" />
+
+        <Spinner
+            android:id="@+id/productShortNameSpinner"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:spinnerMode="dropdown" />
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -38,9 +135,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/installmentsEdtHint"
                 android:inputType="number" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -50,9 +147,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/appTransactionIdEdtHint"
                 android:inputType="textShortMessage" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -62,14 +159,14 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/appEmailToken"
                 android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/chb_showReceiptView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/chb_show_receipt_view"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp"
+            android:text="@string/chb_show_receipt_view" />
 
 
         <Button
