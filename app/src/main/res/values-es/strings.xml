@@ -20,6 +20,7 @@
     <string name="credMercPayTypeChb">Cuotas S/Intereses</string>
     <string name="debPayTypeChb">Débito</string>
     <string name="paymentTypesAllows">Tipos de Pago</string>
+    <string name="paymentTypesAcquirer">Tipos de Pago del</string>
     <string name="credAdmPayTypeChb">Cuotas C/Intereses</string>
     <string name="voucher">Voucher</string>
     <string name="prePayTypeChb">Preautorización</string>
@@ -42,6 +43,7 @@
     <string name="merchantViaTV">Recibo del Establecimiento</string>
     <string name="result_title">Resultado</string>
     <string name="requieredFieldError">¡Campo obligatorio!</string>
+    <string name="requieredFieldDateError">¡Fecha/hora no válida!</string>
     <string name="chb_show_receipt_view">Mostrar Pantalla del Recibo</string>
     <string name="themeEdtHint">Tema de la Aplicación</string>
     <string name="packageNameEdtHint">PackageName de la Aplicación</string>
@@ -55,8 +57,10 @@
     <string name="paymentsFilter_statusPending">Pendiente</string>
     <string name="paymentsFilter_statusConfirmed">Confirmado</string>
     <string name="paymentsFilter_statusCancelled">Cancelado</string>
+    <string name="paymentsFilter_statusRefunded">Devolución</string>
     <string name="paymentsFilter_statusReversed">Revertido</string>
     <string name="paymentsFilter_field_status">Estado de Pago</string>
+    <string name="paymentsFilter_field_TrxType">Tipo de Transacción</string>
     <string name="paymentsFilter_field_startDate">Fecha de Inicio</string>
     <string name="paymentsFilter_field_finishDate">Fecha de Finalinacización</string>
     <string name="paymentsFilter_field_minValue">Valor Minimo</string>
@@ -75,11 +79,40 @@
     <string name="closeBatch">Cerrar Lote</string>
 
     <string name="settlement_result_title">Resultado de cierre de lote</string>
-    <string name="settlement_batch_number">Número del lote</string>
+    <string name="settlement_batch_number">Numero del lote</string>
     <string name="settlement_acquirer_response_code">Cod. de Respuesta</string>
     <string name="settlement_terminal_id">Terminal Id</string>
     <string name="settlement_message">Mensagem</string>
     <string name="settlement_dialog_print_merchant_receipt">¿Desea imprimir el recibo del comerciante al cerrar el lote?</string>
+
+    <string name="result_activity_payment_id">ID de pago</string>
+    <string name="result_activity_acquirer_id">ID al adquirente</string>
+    <string name="result_activity_auth">Numero de autorización</string>
+    <string name="result_activity_resp_code">Código de respuesta</string>
+    <string name="result_activity_acquirer_datetime">Fecha / hora al adquirente</string>
+    <string name="result_activity_acquirer_additional_msg">Mensaje adicional al adquirente</string>
+    <string name="result_activity_product_short_name">Abreviatura del producto</string>
+    <string name="result_activity_settlement_id">Número de lote</string>
+    <string name="result_activity_terminal_nsu">Terminal NSU</string>
+    <string name="result_activity_cancelable">se puede deshacer</string>
+    <string name="result_activity_holder_name">Nombre del titular</string>
+    <string name="result_activity_card">Tarjeta</string>
+    <string name="result_activity_terminal_id">Terminal Id</string>
+    <string name="result_activity_ticket_number">Numero de Ticket</string>
+    <string name="result_activity_value">Valor</string>
+    <string name="result_activity_payment_type">Tipo de pago</string>
+    <string name="result_activity_acquirer">Adquirente</string>
+    <string name="result_activity_terminal_datetime">Fecha / hora de la terminal</string>
+    <string name="result_activity_capture_type">Método de captura</string>
+    <string name="result_activity_installments">Cuotas</string>
+    <string name="result_activity_dni">DNI</string>
+    <string name="result_activity_notes">Notes</string>
+    <string name="result_activity_additional_value_type">Tipo de valor adicional</string>
+    <string name="result_activity_additional_value">Valor adicional</string>
+    <string name="result_activity_additional_account_type">Tipo de cuenta</string>
+    <string name="result_activity_additional_plan_id">Plan ID</string>
+    <string name="result_activity_card_token">Token do Cartão</string>
+
     <string name="yes">Si</string>
     <string name="no">No</string>
 
@@ -89,5 +122,24 @@
     <string name="account_type_s_c_corriente">9- S C. Corriente</string>
 
     <string name="valueTypeHint">Tipo de valor adicional</string>
+    <string name="productShortNameInput">Abreviatura del producto</string>
+    <string name="closeBatchButton">Cerrar lote</string>
+    <string name="softwareVersionHint">"Versión del software "</string>
+    <string name="secretTokenHint">Ficha secreta</string>
+    <string name="applicationIdHint">Id da aplicación</string>
+    <string name="paymentsFilter_batch_pend">Lote pendiente</string>
+    <string name="paymentsFilter_sale">Venta</string>
+    <string name="paymentsFilter_unreferenced_devolution">Devolucion no referenciada</string>
+    <string name="paymentsFilter_last_batch">Últ. lote cerrado</string>
+    <string name="paymentsFilter_last_approved">Últ. pago aprobado</string>
+    <string name="paymentsFilter_field_acquirer_response_code">Código de respuesta del adquirente</string>
+    <string name="paymentsFilter_last_updated_query">Últ. consulta actualizada</string>
+    <string name="confirm">Confirmar pago</string>
+    <string name="doRefund">Hacer devolución no referenciada</string>
+    <string name="printMerchantReceiptHint">"Imprimir recibo del comerciante "</string>
+    <string name="printCustomerReceiptHint">Imprimir recibo del cliente</string>
+    <string name="note_hint">Nota</string>
+    <string name="paymentsFilter_type_all">Todas</string>
+    <string name="dni_error">Debe contener entre 6 y 10 dígitos </string>
 
 </resources>

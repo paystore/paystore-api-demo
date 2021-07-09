@@ -1,4 +1,55 @@
 ## App Demonstração API Pagamento - Applet Phoebus
+### Versão: 1.3.0.0 Compatível com SUITE Payments >= 2.6.43.0
+- 73361
+  - colocando espaçamento no texto.
+  - injetando logs na consulta do settlements(fechamento de lote)
+
+- 72151
+  - adicionando o request e response logs nos serviços de Settlement.
+
+- 73212
+  - ajuste para formatar corretamente qualquer tipo de valor que venha ser inserido.
+
+- 72669 
+  - Ajustes na reimpressão
+
+- 72658 
+  - Ajuste na validação de data/hora na reimpressão
+
+- 72712 
+  - Atualizando aar
+  - Adicionando validação nos campos de DNI e notas.
+
+- 72000 
+  - Exibindo erro em caso de falha no fechamento de lote
+
+- 72417 
+  - Ajustes no filtro de trxType
+
+- 72658 
+  - Adicionando validação de data/hora quando incompleta
+
+- 72559
+  - removendo dependências não utilizadas
+
+- 72417 
+  - Adicionando filtros para consulta de tipos de transações
+  - Adicionando filtros para DNI e NOTES no app-demo
+
+- 72787
+  - exibir detalhe do pagamento e comprovante, ao clicar no pagamento na tela de listar pagamentos.
+
+- 72116 
+  - Adicionando notes e dni no pagamento
+
+- 72414 
+  - Ajustes na devolução não referenciada
+  - Ajustes na devolução não referenciada via API
+  - tela da devolução não referenciada e alterações da tela de consulta
+
+- 71306 
+  - Criação de funcionalidade para reimpressão.
+  - correção de strings
 
 ### Versão: 1.3.0.0 Compatível com SUITE Payments >= 2.6.40.0
 - 71380

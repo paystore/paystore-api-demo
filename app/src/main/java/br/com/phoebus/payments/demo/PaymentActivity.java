@@ -52,6 +52,8 @@ public class PaymentActivity extends AppCompatActivity {
 
     private String selectedProductShortName = "";
     private String selectedAccountType = "";
+    private EditText noteEdt;
+    private EditText dniEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class PaymentActivity extends AppCompatActivity {
         this.productShortNameSpinner = (Spinner) this.findViewById(R.id.productShortNameSpinner);
 
         this.setDefaultValues();
+        this.noteEdt = (EditText) this.findViewById(R.id.noteEdt);
+        this.dniEdt = (EditText) this.findViewById(R.id.dniEdt);
 
         this.paymentClient = new PaymentClient();
         //recebendo a lista com os tipos de pagamento previamente selecionados na tela PaymentTypeListActivity
@@ -158,6 +162,18 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setInstallments(Integer.parseInt(this.installmentsEdt.getText().toString()));
         }
 
+        if (this.noteEdt.getText() != null && !"".equals(this.noteEdt.getText().toString())) {
+            paymentRequestV2.setNote(this.noteEdt.getText().toString());
+        }
+        if (this.dniEdt.getText() != null && !"".equals(this.dniEdt.getText().toString())) {
+            String dni = this.dniEdt.getText().toString();
+            if (dni.length() <= 6 || dni.length() > 10) {
+                this.dniEdt.setError(getString(R.string.dni_error));
+                return;
+            }
+            paymentRequestV2.setDni(dni);
+        }
+
         boolean isPaymentEndToEnd = getIntent().getExtras() != null && getIntent().getExtras().getBoolean(Helper.IS_PAYMENT_END_TO_PAYMENT);
         if (!isPaymentEndToEnd)
         {
@@ -168,7 +184,7 @@ public class PaymentActivity extends AppCompatActivity {
                         showSnackBar("Pagamento Realizado!");
 
                         configureReturnData(data, paymentRequestV2);
-                        ResultActivity.callResultIntent(data, PaymentActivity.this, 0);
+                        ResultActivity.callResultIntent(data, PaymentActivity.this, 0, null);
                     }
 
                     @Override
@@ -313,7 +329,7 @@ public class PaymentActivity extends AppCompatActivity {
                     selectedProductShortName = "MC";
                     break;
                 case 3:
-                    selectedProductShortName = "AX";
+                    selectedProductShortName = "AM";
                     break;
                 default:
                     selectedProductShortName = "";

@@ -3,7 +3,6 @@ package br.com.phoebus.payments.demo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -20,13 +18,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.phoebus.android.payments.api.ApplicationInfo;
-import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentStatus;
-import br.com.phoebus.android.payments.api.SettleRequestResponse;
-import br.com.phoebus.android.payments.api.SettlementRequest;
 import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.android.payments.api.provider.PaymentContract;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderApi;
@@ -35,9 +29,6 @@ import br.com.phoebus.payments.demo.domain.AquirerEnum;
 import br.com.phoebus.payments.demo.domain.PaymentDomain;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 import br.com.phoebus.payments.demo.utils.Helper;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private final int MENU_DEFINIR_TEMA = 8;
     private final int MENU_DEFINIR_APP = 9;
     private final int MENU_FECHAR_LOTE = 10;
+    private final int MENU_REIMPRIMIR = 11;
+    private final int MENU_DEVOLUCAO_NAO_REFERENCIADA = 12;
 
     private PaymentClient mPaymentClient;
 
@@ -122,22 +115,14 @@ public class MainActivity extends AppCompatActivity {
                     setMainApp();
                     break;
                 case MENU_FECHAR_LOTE:
-                    DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                closeBatch(true);
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                closeBatch(false);
-                                break;
-                        }
-                    };
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage(getString(R.string.settlement_dialog_print_merchant_receipt))
-                            .setPositiveButton(getString(R.string.yes), dialogClickListener)
-                            .setNegativeButton(getString(R.string.no), dialogClickListener).show();
+                    closeBatch();
+                    break;
+                case MENU_REIMPRIMIR:
+                    reprint();
+                    break;
+                case MENU_DEVOLUCAO_NAO_REFERENCIADA:
+                    startActivity(new Intent(this, RefundActivity.class));
+                    break;
 
             }
         });
@@ -157,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.setThemeBtn));
         list.add(getString(R.string.setMainApp));
         list.add(getString(R.string.closeBatch));
+        list.add(getString(R.string.reprint_api));
+        list.add(getString(R.string.doRefund));
 
         return list;
     }
@@ -171,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        this.setTitle("Adiquirente: ".concat(item.getTitle().toString().toUpperCase()));
+        this.setTitle("Adquirente: ".concat(item.getTitle().toString().toUpperCase()));
         checkOrUncheck(item);
 
         switch (item.getItemId()) {
@@ -337,33 +324,12 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void closeBatch(boolean printMerchantReceipt) {
-        try {
-            ApplicationInfo applicationInfo = CredentialsUtils.getMyAppInfo(getPackageManager(), getPackageName());
-            SettlementRequest settlementRequest = new SettlementRequest();
-            settlementRequest.setApplicationInfo(applicationInfo);
-            settlementRequest.setPrintMerchantReceipt(printMerchantReceipt);
+    private void closeBatch() {
+        startActivity(new Intent(this, CloseBatchActivity.class));
+    }
 
-            try {
-                mPaymentClient.closeBatch(settlementRequest, new PaymentClient.PaymentCallback<SettleRequestResponse>() {
-                    @Override
-                    public void onSuccess(SettleRequestResponse settleRequestResponse) {
-                        ResultActivity.callResultIntent(settleRequestResponse, MainActivity.this, FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
-
-                    }
-
-                    @Override
-                    public void onError(ErrorData errorData) {
-                        Toast.makeText(MainActivity.this, errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage());
-            }
-
-        } catch (Exception e) {
-            Log.e("MainActivity", e.getMessage());
-        }
+    private void reprint() {
+        startActivity(new Intent(this, ReprintActivity.class));
     }
 
     private void doBind() {

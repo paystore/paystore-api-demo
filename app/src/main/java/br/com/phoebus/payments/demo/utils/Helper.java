@@ -29,6 +29,8 @@ public class Helper {
     public static final String EXTRA_APP_PAYMENT_ID = "extra.appPaymentId";
     public static final String EXTRA_PAYMENT_ID = "extra.paymentId";
     public static final String EXTRA_REVERSE_PAYMENT_ID = "extra.reversePaymentId";
+    public static final String EXTRA_REFUND_PAYMENT_ID = "extra.refundPaymentId";
+
 
     public static final int RETURN_PAYMENT = 1;
     public static final int RETURN_REVERSE = 2;

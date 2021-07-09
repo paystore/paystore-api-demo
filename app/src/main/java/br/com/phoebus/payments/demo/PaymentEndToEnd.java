@@ -1,6 +1,10 @@
 package br.com.phoebus.payments.demo;
 
 import android.content.Context;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentRequestV2;
@@ -54,7 +58,11 @@ public class PaymentEndToEnd {
                 @Override
                 public void onSuccess(Object o) {
                     LogUtils.writeLogCat(this, "onSuccess", "Confirmação do pagamento realizado com sucesso");
-                    ResultActivity.callResultIntent(paymentV2, mContext, 0);
+
+                    Map<String, String> options = new HashMap<>();
+                    options.put(ResultActivity.SHOW_BUTTON_CONFIRM, "F");
+
+                    ResultActivity.callResultIntent(paymentV2, mContext, 0, options);
                 }
 
                 @Override

@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by andre.figueiredo on 24/02/2017.
@@ -16,7 +18,7 @@ import java.util.Date;
 public class DataTypeUtils {
 
     public static final String DATA_TIME_SIMPLE = "dd/MM/yy HH:mm:ss";
-    public static final String VALUE_FORMAT = "##.##";
+    public static final String VALUE_FORMAT = "#,##0.00";
 
     private DataTypeUtils() {
         // Utility class.
@@ -52,7 +54,7 @@ public class DataTypeUtils {
         if (s == null || "".equals(s)) return null;
 
         try {
-            DecimalFormat nf = new DecimalFormat(VALUE_FORMAT);
+            DecimalFormat nf = new DecimalFormat(VALUE_FORMAT, new DecimalFormatSymbols(new Locale("pt", "BR")));
             nf.setParseBigDecimal(true);
             return  (BigDecimal) nf.parse(s);
         } catch (ParseException e) {

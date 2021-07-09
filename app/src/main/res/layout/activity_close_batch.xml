@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CloseBatchActivity">
+
+    <LinearLayout
+        android:id="@+id/activity_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="br.com.phoebus.payments.demo.PaymentActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="@string/settlementRequest"
+            android:textSize="20dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/softwareVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/softwareVersionHint"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="180dp"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/applicationId"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/applicationIdHint"
+                    android:inputType="text"
+                    android:text="0" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="180dp"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/secretToken"
+                    android:layout_width="165dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/secretTokenHint"
+                    android:inputType="text"
+                    android:text="000000000000000000000000" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/showBatchReceiptView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="@string/chb_show_receipt_view" />
+
+        <Button
+            android:id="@+id/closeBatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="closeBatch"
+            android:text="@string/closeBatchButton" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

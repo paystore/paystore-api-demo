@@ -11,7 +11,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettlementResultActivity"></activity>
+        <activity android:name=".RefundActivity"></activity>
+        <activity android:name=".CloseBatchActivity" />
+        <activity
+            android:name=".ReprintActivity"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name=".SettlementResultActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

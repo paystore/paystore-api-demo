@@ -48,7 +48,7 @@ public class PaymentTypeListActivity extends AppCompatActivity {
 
         aquirerSelected = AquirerEnum.getById(Helper.readPrefsInteger(this, Helper.AQUIRER_CONFIG, Helper.PREF_CONFIG));
 
-        this.setTitle("Tipos de Pagamentos da ".concat(aquirerSelected.getName()));
+        this.setTitle(getString(R.string.paymentTypesAcquirer).concat(" ").concat(aquirerSelected.getName()));
         setContentView(R.layout.activity_payment_type_list);
 
         btContinuar = (Button) findViewById(R.id.btnContunuar);

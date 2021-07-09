@@ -66,6 +66,7 @@ public class ReversePaymentActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(ReversePayment data) {
                     configureReturnData(data);
+                    ResultActivity.callResultIntent(data, ReversePaymentActivity.this, 0);
                 }
 
                 @Override

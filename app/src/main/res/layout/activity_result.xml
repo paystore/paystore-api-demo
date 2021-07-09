@@ -32,6 +32,7 @@
                 android:stretchColumns="1" />
 
             <TextView
+                android:id="@+id/tf_receipt_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -46,6 +47,7 @@
                 android:fontFamily="monospace"/>
 
             <TextView
+                android:id="@+id/tf_receipt_merchant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -58,6 +60,13 @@
                 android:layout_height="match_parent"
                 android:background="#FFFED9"
                 android:fontFamily="monospace" />
+
+            <Button
+                android:id="@+id/doConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

@@ -7,19 +7,33 @@
     <string name="unbindBtn">Unbind</string>
     <string name="doPaymentBtn">Pagar V1</string>
     <string name="doPaymentBtnv2">Pagar V2</string>
+    <string name="closeBatchButton">Fechar lote</string>
     <string name="valueEdtHint">Valor</string>
+    <string name="softwareVersionHint">Versão do software</string>
     <string name="addValueEdtHint">Valor Adicional</string>
     <string name="addValueTypeHint">Tipo do Valor Adicional</string>
     <string name="productShortNameHint">Abreviação do Produto</string>
     <string name="accTypeHint">Tipo da conta</string>
+    <string name="settlementRequest" translatable="false">Settlement Request</string>
+    <string name="reprintRequest">Reprint Request</string>
     <string name="planIdHint">Plan ID</string>
+    <string name="secretTokenHint">Token Secreto</string>
     <string name="installmentsEdtHint">Parcelas</string>
+    <string name="applicationIdHint">Id da aplicação</string>
+    <string name="ticketNumberHint">Ticket number</string>
+    <string name="dayHint">Dia</string>
+    <string name="monthHint">Mês</string>
+    <string name="yearHint">Ano</string>
+    <string name="hoursHint">Horas</string>
+    <string name="minutesHint">Minutos</string>
+    <string name="secondsHint">Segundos</string>
     <string name="appTransactionIdEdtHint">Identificador da Transação para Aplicação</string>
     <string name="appEmailToken">Email para criar token do cartão</string>
     <string name="credPayTypeChb">Crédito a Vista</string>
     <string name="credMercPayTypeChb">Parcelado S/Juros</string>
     <string name="debPayTypeChb">Débito</string>
     <string name="paymentTypesAllows">Tipos de Pagamaneto</string>
+    <string name="paymentTypesAcquirer">Tipos de Pagamaneto da </string>
     <string name="credAdmPayTypeChb">Parcelado C/Juros</string>
     <string name="voucher">Voucher</string>
     <string name="prePayTypeChb">Pré-autorização</string>
@@ -42,6 +56,7 @@
     <string name="merchantViaTV">Via do Estabelecimento</string>
     <string name="result_title">Resultado</string>
     <string name="requieredFieldError">Campo obrigatório!</string>
+    <string name="requieredFieldDateError">Data/hora inválida!</string>
     <string name="chb_show_receipt_view">Mostrar Tela de Comprovante</string>
     <string name="themeEdtHint">Tema da Aplicação</string>
     <string name="packageNameEdtHint">PackageName da Aplicação</string>
@@ -52,16 +67,27 @@
     <string name="paymentsFilter_mainBtn">Listar Pagamentos</string>
     <string name="paymentsFilter_title">Filtro </string>
     <string name="paymentsFilter_filter">Filtrar</string>
+    <string name="paymentsFilter_batch_pend">Lote pendente</string>
+    <string name="paymentsFilter_sale">Venda</string>
+    <string name="paymentsFilter_unreferenced_devolution">Devolução não referenciada</string>
+    <string name="paymentsFilter_type_all">Todas</string>
+    <string name="paymentsFilter_last_batch">Últ. lote fechado</string>
+    <string name="paymentsFilter_last_approved">Últ. transação aprovada</string>
     <string name="paymentsFilter_statusPending">Pendente</string>
     <string name="paymentsFilter_statusConfirmed">Confirmado</string>
+    <string name="paymentsFilter_statusRefunded">Devolvido</string>
     <string name="paymentsFilter_statusCancelled">Cancelado</string>
     <string name="paymentsFilter_statusReversed">Estornado</string>
     <string name="paymentsFilter_field_status">Status de Pagamento</string>
+    <string name="paymentsFilter_field_TrxType">Tipo de Transação</string>
     <string name="paymentsFilter_field_startDate">Data Inicial</string>
     <string name="paymentsFilter_field_finishDate">Data Final</string>
     <string name="paymentsFilter_field_minValue">Valor Minimo</string>
     <string name="paymentsFilter_field_maxValue">Valor Máximo</string>
     <string name="paymentsFilter_field_4digits">Último 4 digitos do cartão</string>
+    <string name="paymentsFilter_field_ticket_number" translatable="false">N° do ticket</string>
+    <string name="paymentsFilter_field_batch_number" translatable="false">N° do lote</string>
+    <string name="paymentsFilter_field_acquirer_response_code">Código de resposta da adquirente</string>
     <string name="setThemeBtn">Definir Tema da Aplicação</string>
     <string name="solvePendenciesBtn">Resolver Pendências</string>
     <string name="setMainApp">Definir aplicação principal</string>
@@ -80,6 +106,38 @@
     <string name="settlement_terminal_id">Terminal Id</string>
     <string name="settlement_message">Mensagem</string>
     <string name="settlement_dialog_print_merchant_receipt">Deseja imprimir a via do lojista ao fechar o lote?</string>
+
+    <string name="result_activity_payment_id">Ident.do Pagamento</string>
+    <string name="result_activity_acquirer_id">Ident. para a Adquirente</string>
+    <string name="result_activity_auth">Número de Autorização</string>
+    <string name="result_activity_resp_code">Código de Resposta</string>
+    <string name="result_activity_acquirer_datetime">Data/hora Adquirente</string>
+    <string name="result_activity_acquirer_additional_msg">Mensagem Adicional do Adquirente</string>
+    <string name="result_activity_product_short_name">Abreviação do Produto</string>
+    <string name="result_activity_settlement_id">Número do Lote</string>
+    <string name="result_activity_terminal_nsu">NSU Terminal</string>
+    <string name="result_activity_cancelable">Pode ser desfeito</string>
+    <string name="result_activity_holder_name">Nome do Portador</string>
+    <string name="result_activity_card">Cartão</string>
+    <string name="result_activity_terminal_id">Terminal Id</string>
+    <string name="result_activity_ticket_number">Número do Ticket</string>
+
+    <string name="result_activity_value">Valor</string>
+    <string name="result_activity_payment_type">Tipo de Pagamento</string>
+    <string name="result_activity_acquirer">Adquirente</string>
+    <string name="result_activity_terminal_datetime">Data/hora Terminal</string>
+    <string name="result_activity_capture_type">Forma de Captura</string>
+    <string name="result_activity_installments">Parcelas</string>
+    <string name="result_activity_dni">DNI</string>
+    <string name="result_activity_notes">Notes</string>
+    <string name="result_activity_additional_value_type">Tipo do Valor Adicional</string>
+    <string name="result_activity_additional_value">Valor Adicional</string>
+    <string name="result_activity_additional_account_type">Tipo da Conta</string>
+    <string name="result_activity_additional_plan_id">Plan ID</string>
+    <string name="result_activity_card_token">Token do Cartão</string>
+
+
+
     <string name="yes">Sim</string>
     <string name="no">Não</string>
 
@@ -89,5 +147,22 @@
     <string name="account_type_s_c_corriente">9- S C. Corriente</string>
 
     <string name="valueTypeHint">Tipo do valor adicional</string>
+    <string name="productShortNameInput">Abreviação do produto</string>
+    <string name="paymentsFilter_last_updated_query">Últ. consulta atualizada</string>
+    <string name="confirm">Confirmar transação</string>
+    <string name="refundRequest" translatable="false">Refund Request</string>
+    <string name="doRefund">Fazer devolução não referenciada</string>
+    <string name="printMerchantReceiptHint">Imprimir via do lojista</string>
+    <string name="printCustomerReceiptHint">Imprimir via do cliente</string>
+    <string name="doCleaningFilters" translatable="false">Limpar filtros</string>
+    <string name="qrId" translatable="false">QrId</string>
+    <string name="dni" translatable="false">DNI</string>
+    <string name="notes" translatable="false">NOTES</string>
+    <string name="trxType" translatable="false">TrxType</string>
+
+    <string name="reprint_api">Reimprimir comprovante</string>
+    <string name="note_hint">Nota</string>
+    <string name="dni_hint" translatable="false">DNI</string>
+    <string name="dni_error">Deve conter entre 6 e 10 dígitos</string>
 
 </resources>
