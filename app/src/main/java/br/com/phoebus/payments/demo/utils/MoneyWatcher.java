@@ -11,6 +11,11 @@ import java.util.Locale;
  * Created by joao.gabriel on 12/05/2017.
  */
 
+/**
+ * @deprecated
+ * Use {@link CurrencyWatcher} instead
+ */
+@Deprecated
 public class MoneyWatcher implements TextWatcher {
     public static final String T = "MoneyWatcher";
 
@@ -24,7 +29,10 @@ public class MoneyWatcher implements TextWatcher {
     /**
      * @param editText
      * @param formatType String formatting style like "%,.2f $"
+     * @deprecated
+     * Use {@link CurrencyWatcher} instead
      */
+    @Deprecated
     public MoneyWatcher(EditText editText, String formatType)
     {
         this.editText = editText;

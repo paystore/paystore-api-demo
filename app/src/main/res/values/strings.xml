@@ -62,6 +62,9 @@
     <string name="packageNameEdtHint">PackageName da Aplicação</string>
     <string name="doSetThemeBtn">Definir Tema</string>
     <string name="doSetMainAppBtn">Definir aplicação principal</string>
+    <string name="reverse_without_id_title">Anulação/devolução sem paymentId</string>
+    <string name="operationMethodHint">Método de operação</string>
+    <string name="doReversePayment">Anulação/devolução sem paymentId</string>
 
 
     <string name="paymentsFilter_mainBtn">Listar Pagamentos</string>
@@ -151,7 +154,7 @@
     <string name="paymentsFilter_last_updated_query">Últ. consulta atualizada</string>
     <string name="confirm">Confirmar transação</string>
     <string name="refundRequest" translatable="false">Refund Request</string>
-    <string name="doRefund">Fazer devolução não referenciada</string>
+    <string name="doRefund">Devolução não referenciada</string>
     <string name="printMerchantReceiptHint">Imprimir via do lojista</string>
     <string name="printCustomerReceiptHint">Imprimir via do cliente</string>
     <string name="doCleaningFilters" translatable="false">Limpar filtros</string>

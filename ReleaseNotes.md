@@ -1,5 +1,16 @@
 ## App Demonstração API Pagamento - Applet Phoebus
-### Versão: 1.3.0.0 Compatível com SUITE Payments >= 2.6.43.0
+### Versão: 1.3.2.0 Compatível com SUITE Payments >= 2.6.43.0
+- 74276 
+  - Ajustes na formatação do campo valor; Alterando titulos do estorno
+
+- 73205 
+  - Ajustes no formato dos campos ticketNumber e QRId; Atualizando aar
+
+- 73204 
+  - Ajustes na tela de AN/DV referenciada
+  - Adicionando AN/DV ref. sem paymentId
+
+### Versão: 1.3.1.0 Compatível com SUITE Payments >= 2.6.43.0
 - 73361
   - colocando espaçamento no texto.
   - injetando logs na consulta do settlements(fechamento de lote)

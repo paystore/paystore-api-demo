@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private final int MENU_FECHAR_LOTE = 10;
     private final int MENU_REIMPRIMIR = 11;
     private final int MENU_DEVOLUCAO_NAO_REFERENCIADA = 12;
+    private final int MENU_DEVOLUCAO_REFERENCIADA = 13;
 
     private PaymentClient mPaymentClient;
 
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
                 case MENU_DEVOLUCAO_NAO_REFERENCIADA:
                     startActivity(new Intent(this, RefundActivity.class));
                     break;
+                case MENU_DEVOLUCAO_REFERENCIADA:
+                    startActivity(new Intent(this, ReverseWithFilterActivity.class));
 
             }
         });
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.closeBatch));
         list.add(getString(R.string.reprint_api));
         list.add(getString(R.string.doRefund));
+        list.add(getString(R.string.doReversePayment));
 
         return list;
     }

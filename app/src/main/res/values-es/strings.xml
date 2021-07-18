@@ -49,6 +49,9 @@
     <string name="packageNameEdtHint">PackageName de la Aplicación</string>
     <string name="doSetThemeBtn">Definir Tema</string>
     <string name="doSetMainAppBtn">Definir aplicación principal</string>
+    <string name="reverse_without_id_title">Anulación/Devolución Referenciado</string>
+    <string name="operationMethodHint">Método de Operación</string>
+    <string name="doReversePayment">Anulación/Devolucion sin paymentId</string>
 
 
     <string name="paymentsFilter_mainBtn">Enumerar Pagos</string>
@@ -135,7 +138,7 @@
     <string name="paymentsFilter_field_acquirer_response_code">Código de respuesta del adquirente</string>
     <string name="paymentsFilter_last_updated_query">Últ. consulta actualizada</string>
     <string name="confirm">Confirmar pago</string>
-    <string name="doRefund">Hacer devolución no referenciada</string>
+    <string name="doRefund">Devolución no referenciada</string>
     <string name="printMerchantReceiptHint">"Imprimir recibo del comerciante "</string>
     <string name="printCustomerReceiptHint">Imprimir recibo del cliente</string>
     <string name="note_hint">Nota</string>

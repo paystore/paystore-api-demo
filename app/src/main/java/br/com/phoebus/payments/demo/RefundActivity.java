@@ -23,9 +23,9 @@ import br.com.phoebus.android.payments.api.Refund;
 import br.com.phoebus.android.payments.api.RefundRequest;
 import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
+import br.com.phoebus.payments.demo.utils.CurrencyWatcher;
 import br.com.phoebus.payments.demo.utils.DataTypeUtils;
 import br.com.phoebus.payments.demo.utils.Helper;
-import br.com.phoebus.payments.demo.utils.MoneyWatcher;
 
 public class RefundActivity extends AppCompatActivity {
     private Spinner productShortNameSpinner;
@@ -45,7 +45,7 @@ public class RefundActivity extends AppCompatActivity {
         printMerchantReceipt = findViewById(R.id.showMerchantReceiptView);
         setupProductShortNameSpinner();
 
-        refundValue.addTextChangedListener(new MoneyWatcher(refundValue, "%,.2f"));
+        refundValue.addTextChangedListener(new CurrencyWatcher(refundValue, false));
     }
 
     private void setupProductShortNameSpinner() {

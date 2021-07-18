@@ -33,6 +33,7 @@
         <activity android:name=".SetMainAppActivity" />
         <activity android:name=".CommonPaymentListActivity" />
         <activity android:name=".PaymentTypeListActivity" />
+        <activity android:name=".ReverseWithFilterActivity" />
 
         <receiver
             android:name=".PaymentBroadcastReceiver"

@@ -212,7 +212,7 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_acquirer_datetime), DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
         dataMap.put(context.getString(R.string.result_activity_cancelable), (data.getCancelable() ? "Sim" : "Não"));
         dataMap.put(context.getString(R.string.result_activity_acquirer_additional_msg), data.getAcquirerAdditionalMessage());
-        dataMap.put(context.getString(R.string.result_activity_ticket_number), DataTypeUtils.getAsString(data.getTicketNumber()));
+        dataMap.put(context.getString(R.string.result_activity_ticket_number), String.valueOf(data.getTicketNumber()));
         dataMap.put(context.getString(R.string.result_activity_settlement_id), data.getBatchNumber());
         dataMap.put(context.getString(R.string.result_activity_terminal_nsu), data.getNsuTerminal());
         dataMap.put(context.getString(R.string.result_activity_holder_name), data.getCardHolderName());
