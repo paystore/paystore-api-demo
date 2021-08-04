@@ -84,8 +84,6 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
             ReversePaymentFilterRequest request = new ReversePaymentFilterRequest();
 
             request.setApplicationInfo(applicationInfo);
-            request.setSoftwareVersion(applicationInfo.getSoftwareVersion());
-            request.setCredentials(applicationInfo.getCredentials());
             request.setValue(DataTypeUtils.getFromString(edtValue.getText().toString()));
             request.setPrintCustomerReceipt(chbReceiptCustomer.isChecked());
             request.setPrintMerchantReceipt(chbReceiptMerchant.isChecked());
@@ -141,12 +139,12 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(ErrorData errorData) {
-                                Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), "Estorno Não Realizado: " + errorData.getPaymentsResponseCode() + " / "
+                                Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), getString(R.string.reverse_filter_RefundFailed) + ": " + errorData.getPaymentsResponseCode() + " / "
                                         + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     } catch (Exception e) {
-                        Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -196,7 +194,7 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
     }
 
     private void setupOperationMethodSpinner() {
-        List<String> operationMethodArray = Arrays.asList("", "Cartão Físico", "Qr Code");
+        List<String> operationMethodArray = Arrays.asList("", getString(R.string.physicalCard), getString(R.string.QRCode));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, operationMethodArray);
         operationMethodSpinner.setAdapter(adapter);
         operationMethodSpinner.setOnItemSelectedListener(new OnSelectOperationMethod());

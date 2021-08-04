@@ -72,7 +72,7 @@ public class PaymentListFragment extends Fragment implements PaymentAdapter.OnPa
         log("product short name", paySelected.getProductShortName());
         log("batch number", paySelected.getBatchNumber());
         log("nsu terminal", paySelected.getNsuTerminal());
-        log("é última transação?", paySelected.isLastTrx() ? "sim" : "não");
+        log("é última transação?", paySelected.isLastTrx() ? getString(R.string.yes) : getString(R.string.no));
         log("ticket number", paySelected.getTicketNumber());
         log("card holder name", paySelected.getCardHolderName());
         log("terminal id", paySelected.getTerminalId());

@@ -41,7 +41,7 @@ public class PaymentListActivity extends AppCompatActivity implements PaymentFil
             List listPayments = api.findAll(request);
             FragmentUtils.showFragment(this, PaymentListFragment.newInstance(listPayments, this), true);
         } catch (Exception e) {
-            showSnackBar("Falha na Solicitação: " + e.getMessage());
+            showSnackBar(getString(R.string.requestFailed) + ": " + e.getMessage());
         }
     }
 

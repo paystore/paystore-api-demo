@@ -1,0 +1,215 @@
+<resources>
+    <string name="app_name">API Demo</string>
+    <string name="main_schoose_option">Choise an option :</string>
+    <string name="payment_title">Payment</string>
+    <string name="openPaymentBtn">Make a Payment</string>
+    <string name="bindBtn">Bind</string>
+    <string name="unbindBtn">Unbind</string>
+    <string name="doPaymentBtn">Pay V1</string>
+    <string name="doPaymentBtnv2">Pay V2</string>
+    <string name="closeBatchButton">Close batch</string>
+    <string name="valueEdtHint">Value</string>
+    <string name="softwareVersionHint">Software version</string>
+    <string name="addValueEdtHint">Additional Value</string>
+    <string name="addValueTypeHint">Additional Value Type</string>
+    <string name="productShortNameHint">Product Short Name</string>
+    <string name="accTypeHint">Account Type</string>
+    <string name="settlementRequest">Settlement Request</string>
+    <string name="reprintRequest">Reprint Request</string>
+    <string name="planIdHint">Plan ID</string>
+    <string name="secretTokenHint">Secret Token</string>
+    <string name="installmentsEdtHint">Installments</string>
+    <string name="applicationIdHint">Application ID</string>
+    <string name="ticketNumberHint">Ticket No.</string>
+    <string name="dayHint">Day</string>
+    <string name="monthHint">Month</string>
+    <string name="yearHint">Year</string>
+    <string name="hoursHint">Hours</string>
+    <string name="minutesHint">Minutes</string>
+    <string name="secondsHint">Seconds</string>
+    <string name="appTransactionIdEdtHint">Transaction Identifier for Application</string>
+    <string name="appEmailToken">Email to create a card token</string>
+    <string name="credPayTypeChb">Cash credit</string>
+    <string name="credMercPayTypeChb">Interest-free installment</string>
+    <string name="debPayTypeChb">Débito</string>
+    <string name="paymentTypesAllows">Types of payment</string>
+    <string name="paymentTypesAcquirer">Types of payments from</string>
+    <string name="credAdmPayTypeChb">Installments with interests</string>
+    <string name="voucher">Voucher</string>
+    <string name="prePayTypeChb">Pre authorization</string>
+    <string name="confirmPreMercPayTypeChb">Pre-authorization confirmation</string>
+    <string name="confirmBtn">Confirm Payment</string>
+    <string name="cancelBtn">Undo Payment</string>
+    <string name="reverseBtn">Reverse Payment</string>
+    <string name="confirm_payment_title">Payment Confirmation</string>
+    <string name="paymentTransactionIdEdtHint">Payment Identifier</string>
+    <string name="doConfirmPaymentBtn">Confirm</string>
+    <string name="cancel_payment_title">Undo Payment</string>
+    <string name="doCancelPaymentBtn">Cancel</string>
+    <string name="reverse_payment_title">Reverse Payment</string>
+    <string name="doReversePaymentBtn">Reverse</string>
+    <string name="cancel_reverse_payment_title">Undo Reverse</string>
+    <string name="reverseTransactionIdEdtHint">Reverse Transaction Id</string>
+    <string name="cancelReverseBtn">Undo Reverse</string>
+    <string name="responseDataTV">Response Data</string>
+    <string name="clientViaTV">Costumer Receipt</string>
+    <string name="merchantViaTV">Merchant Receipt</string>
+    <string name="result_title">Result</string>
+    <string name="requieredFieldError">Required field!</string>
+    <string name="requieredFieldDateError">Invalid Date/Time!</string>
+    <string name="chb_show_receipt_view">Show Receipt Screen</string>
+    <string name="themeEdtHint">App Theme</string>
+    <string name="packageNameEdtHint">App PackageName</string>
+    <string name="doSetThemeBtn">Set Theme</string>
+    <string name="doSetMainAppBtn">Set Main Application</string>
+    <string name="reverse_without_id_title">Cancel/Reverse without paymentId</string>
+    <string name="solvePendQRCodetitle">QR CODE pending</string>
+    <string name="operationMethodHint">Operation Method</string>
+    <string name="doReversePayment">Cancel/Reverse without paymentId</string>
+
+
+    <string name="paymentsFilter_mainBtn">Show Payments</string>
+    <string name="paymentsFilter_title">Filter </string>
+    <string name="paymentsFilter_filter">Filter</string>
+    <string name="paymentsFilter_batch_pend">Pending batch</string>
+    <string name="paymentsFilter_sale">Sale</string>
+    <string name="paymentsFilter_unreferenced_devolution">Unreferenced Refund</string>
+    <string name="paymentsFilter_type_all">All</string>
+    <string name="paymentsFilter_last_batch">Last batch</string>
+    <string name="paymentsFilter_last_approved">Last approved transaction </string>
+    <string name="paymentsFilter_statusPending">Pending</string>
+    <string name="paymentsFilter_statusConfirmed">Confirmed</string>
+    <string name="paymentsFilter_statusRefunded">Refunded</string>
+    <string name="paymentsFilter_statusCancelled">Cancelled</string>
+    <string name="paymentsFilter_statusReversed">Reversed</string>
+    <string name="paymentsFilter_field_status">Payment Status</string>
+    <string name="paymentsFilter_field_TrxType">Transaction Type</string>
+    <string name="paymentsFilter_field_startDate">Initial date</string>
+    <string name="paymentsFilter_field_finishDate">Finished Date</string>
+    <string name="paymentsFilter_field_minValue">Minimum value</string>
+    <string name="paymentsFilter_field_maxValue">Maximum value</string>
+    <string name="paymentsFilter_field_4digits">Last 4 card numbers </string>
+    <string name="paymentsFilter_field_ticket_number" >Ticket No.</string>
+    <string name="paymentsFilter_field_batch_number" >Batch No.</string>
+    <string name="paymentsFilter_field_acquirer_response_code">Adquirer\'s response code</string>
+    <string name="setThemeBtn">Set App Theme</string>
+    <string name="solvePendenciesBtn">Solve Pendencies</string>
+    <string name="solvePendenciesQRCode">Solve QR CODE Pendencies</string>
+    <string name="solvePendenciesQRCodeList">Solve QR CODE Pendencies (List)</string>
+    <string name="setMainApp">Set Main Application</string>
+    <string name="paymentEndToEnd">Make Payments End to End</string>
+
+    <string name="paymentsList_title"> Payments List </string>
+    <string name="paymentsList_bin_format">BIN **** %s</string>
+    <string name="paymentsList_currency_format"> US$ %s </string>
+    <string name="PaymentsList_notFoundPaymentsConfirm">There is not any payment to confirm</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="closeBatch">Close Batch</string>
+
+    <string name="settlement_result_title">Batch closing result</string>
+    <string name="settlement_batch_number">Batch No.</string>
+    <string name="settlement_acquirer_response_code">Response code</string>
+    <string name="settlement_terminal_id">Terminal Id</string>
+    <string name="settlement_message">Message</string>
+    <string name="settlement_dialog_print_merchant_receipt">Would you like to print the merchant\'s copy when finished the batch?</string>
+
+    <string name="result_activity_payment_id">Payment Identification</string>
+    <string name="result_activity_copied_payment_id">The payment id has been copied</string>
+    <string name="result_activity_acquirer_id">Acquirer Identification</string>
+    <string name="result_activity_auth">Authorization No.</string>
+    <string name="result_activity_resp_code">Response Code</string>
+    <string name="result_activity_acquirer_datetime">Acquirer Date/Time</string>
+    <string name="result_activity_acquirer_additional_msg">Acquirer Additional Message</string>
+    <string name="result_activity_product_short_name">Product Abbreviation</string>
+    <string name="result_activity_settlement_id">Batch No.</string>
+    <string name="result_activity_terminal_nsu">NSU Terminal</string>
+    <string name="result_activity_cancelable">Can be undone</string>
+    <string name="result_activity_holder_name">Holder Name</string>
+    <string name="result_activity_card">Card</string>
+    <string name="result_activity_terminal_id">Terminal Id</string>
+    <string name="result_activity_ticket_number">Ticket No.</string>
+
+    <string name="result_activity_value">Value</string>
+    <string name="result_activity_payment_type">Payment Type</string>
+    <string name="result_activity_acquirer">Acquirer</string>
+    <string name="result_activity_terminal_datetime">Terminal Date/Time </string>
+    <string name="result_activity_capture_type">Capture Type</string>
+    <string name="result_activity_installments">Installments</string>
+    <string name="result_activity_dni">DNI</string>
+    <string name="result_activity_notes">Notes</string>
+    <string name="result_activity_additional_value_type">Additional Value Type</string>
+    <string name="result_activity_additional_value">Additional Value</string>
+    <string name="result_activity_additional_account_type">Account Type</string>
+    <string name="result_activity_additional_plan_id">Plan ID</string>
+    <string name="result_activity_card_token">Card Token</string>
+    <string name="discountedValue">Discount</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">no</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="attention">Attention!</string>
+    <string name="continueBtn">Continue</string>
+
+
+    <string name="method">Method</string>
+    <string name="detail">Detail</string>
+
+    <string name="message">Message</string>
+
+    <string name="paymentSuccessfull">The payment has been successful!</string>
+
+
+    <string name="serviceCallFailed">Service call error</string>
+    <string name="requestFailed">Request Error</string>
+    <string name="paymentsFailed">The payment has failed</string>
+
+    <string name="physicalCard">Physical Card</string>
+    <string name="QRCode">QR Code</string>
+
+    <string name="account_type_caja_ajorro">1- Savings account</string>
+    <string name="account_type_c_corriente">2- Checking Account </string>
+    <string name="account_type_s_caja_ajorro">8- Simple Savings Account</string>
+    <string name="account_type_s_c_corriente">9- Simple Checking Account</string>
+
+    <string name="valueTypeHint">Additional Value Type</string>
+    <string name="productShortNameInput">>Product Abbreviation</string>
+    <string name="paymentsFilter_last_updated_query">Last update query</string>
+    <string name="confirm">Confirm Transaction</string>
+    <string name="refundRequest" >Refund Request</string>
+    <string name="doRefund">Unreferenced Refund</string>
+    <string name="printMerchantReceiptHint">Print Merchant Receipt</string>
+    <string name="printCustomerReceiptHint">Print Customer Receipt</string>
+    <string name="doCleaningFilters">Clear Filters</string>
+    <string name="qrId" translatable="false">QrId</string>
+    <string name="dni" translatable="false">DNI</string>
+    <string name="notes" translatable="false">NOTES</string>
+    <string name="trxType" translatable="false">TrxType</string>
+
+    <string name="reprint_api">Reprint Receipt</string>
+    <string name="note_hint">Note</string>
+    <string name="dni_hint" translatable="false">DNI</string>
+    <string name="dni_error">It must contain at least 6 and a maximum of 10 digits</string>
+
+    <string name="main_activity_AllPeddingsresolved">All pendencies have been solved!</string>
+    <string name="main_activity_PeddingsNotFound">No pendecies found!</string>
+    <string name="main_activity_alert_MessageAcquirerCancelReverse">Depending on the behavior of each acquirer, it\'s possible that there is no undoing for the reversal transaction for a specific acquirer.</string>
+    <string name="main_activity_Pendings_fail">Fail solving pendencies.</string>
+
+    <string name="set_theme_definedTheme">A theme has been set succesfully!</string>
+    <string name="set_theme_definedThemeError">An error occurred while setting a theme</string>
+
+    <string name="set_main_DefinedMainApp">The main application has ben defined!</string>
+    <string name="set_main_errorDefineMainApp">An error ocurred while setting the main application!</string>
+
+    <string name="reverse_filter_RefundFailed">Refund has failed</string>
+
+    <string name="payment_domain_paymentIdNotInformed">PaymentID not informed</string>
+    <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmation of successful payment</string>
+    <string name="payment_domain_confirmationNotDone">Confirmation Not Done</string>
+    <string name="payment_domain_undoCompleted">Undo Completed!</string>
+    <string name="payment_domain_undoNotDone">Undo Not Done</string>
+
+</resources>

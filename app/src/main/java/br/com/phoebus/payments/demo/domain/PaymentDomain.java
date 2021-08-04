@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
+import br.com.phoebus.payments.demo.R;
 import br.com.phoebus.payments.demo.utils.Helper;
 
 public class PaymentDomain {
@@ -21,7 +22,7 @@ public class PaymentDomain {
     public void doConfirmPayment(String paymentId) {
 
         if ("".equals(paymentId)) {
-            Toast.makeText(mContext, "PaymentId não informado", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.payment_domain_paymentIdNotInformed, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -29,19 +30,19 @@ public class PaymentDomain {
             mPaymentClient.confirmPayment(paymentId, new PaymentClient.PaymentCallback() {
                 @Override
                 public void onSuccess(Object data) {
-                    Helper.writeLogCat(mContext, "onSuccess", "Confirmação do pagamento realizado com sucesso");
-                    Helper.showAlert(mContext, "Confirmação do pagamento realizado com sucesso");
+                    Helper.writeLogCat(mContext, "onSuccess", mContext.getString(R.string.payment_domain_confirmationOfSuccessfulPayment));
+                    Helper.showAlert(mContext, mContext.getString(R.string.payment_domain_confirmationOfSuccessfulPayment));
                 }
 
                 @Override
                 public void onError(ErrorData errorData) {
-                    Toast.makeText(mContext, "Confirmação Não Realizada: " + errorData.getPaymentsResponseCode() + " / "
+                    Toast.makeText(mContext,  R.string.payment_domain_confirmationNotDone + ": " + errorData.getPaymentsResponseCode() + " / "
                             + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(mContext, "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.serviceCallFailed + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -54,18 +55,18 @@ public class PaymentDomain {
             mPaymentClient.cancelPayment(paymentId, new PaymentClient.PaymentCallback() {
                 @Override
                 public void onSuccess(Object data) {
-                    Helper.showAlert(mContext, "Desfazimento Realizado!");
+                    Helper.showAlert(mContext, mContext.getString(R.string.payment_domain_undoCompleted));
                 }
 
                 @Override
                 public void onError(ErrorData errorData) {
 
-                    Toast.makeText(mContext, "Desfazimento Não Realizado: " + errorData.getPaymentsResponseCode() + " / "
+                    Toast.makeText(mContext, R.string.payment_domain_undoNotDone + ": " + errorData.getPaymentsResponseCode() + " / "
                             + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(mContext, "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.serviceCallFailed + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -79,22 +80,19 @@ public class PaymentDomain {
                 @Override
                 public void onSuccess(Object data) {
 
-                    Helper.showAlert(mContext, "Desfazimento Realizado!");
+                    Helper.showAlert(mContext, mContext.getString(R.string.payment_domain_undoCompleted));
                 }
 
                 @Override
                 public void onError(ErrorData errorData) {
 
-                    Toast.makeText(mContext, "Desfazimento Não Realizado: " + errorData.getPaymentsResponseCode() + " / "
+                    Toast.makeText(mContext, R.string.payment_domain_undoNotDone + ": " + errorData.getPaymentsResponseCode() + " / "
                             + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(mContext, "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext,  R.string.serviceCallFailed + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-
-
     }
-
 }

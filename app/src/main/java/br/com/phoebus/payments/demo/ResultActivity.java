@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -108,7 +109,6 @@ public class ResultActivity extends AppCompatActivity {
         intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
 
         HashMap<String, String> dataMap = new LinkedHashMap<String, String>();
-        dataMap.put(context.getString(R.string.result_activity_value), DataTypeUtils.getMoneyAsString(data.getValue()));
         dataMap.put(context.getString(R.string.result_activity_payment_type), DataTypeUtils.getAsString(data.getPaymentType()));
         dataMap.put(context.getString(R.string.result_activity_payment_id), data.getPaymentId());
         dataMap.put(context.getString(R.string.result_activity_acquirer_id), data.getAcquirerId());
@@ -120,7 +120,7 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_product_short_name), data.getProductShortName());
         dataMap.put(context.getString(R.string.result_activity_ticket_number), data.getTicketNumber() != null ? data.getTicketNumber().toString() : "");
         if (data.getAdditionalValueType() != null) {
-            dataMap.put(context.getString(R.string.result_activity_additional_value_type), data.getAdditionalValueType().name());
+            dataMap.put(context.getString(R.string.valueTypeHint), data.getAdditionalValueType().name());
         }
         if (data.getAdditionalValue() != null) {
             dataMap.put(context.getString(R.string.result_activity_additional_value), DataTypeUtils.getMoneyAsString(data.getValue()));
@@ -141,6 +141,16 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_installments), DataTypeUtils.getAsString(data.getInstallments()));
         dataMap.put(context.getString(R.string.result_activity_dni), data.getDni() != null ? data.getDni() : "");
         dataMap.put(context.getString(R.string.result_activity_notes), data.getNote() != null ? data.getNote() : "");
+        dataMap.put(context.getString(R.string.qrId), data.getQrId());
+        BigDecimal originalValue = data.getOriginalValue();
+        if (originalValue != null && originalValue.compareTo(BigDecimal.ZERO) > 0) {
+            dataMap.put(context.getString(R.string.originalValue), DataTypeUtils.getMoneyAsString(originalValue));
+            BigDecimal discountedValue = originalValue.subtract(data.getValue());
+            dataMap.put(context.getString(R.string.discountedValue), DataTypeUtils.getMoneyAsString(discountedValue));
+            dataMap.put(context.getString(R.string.total), DataTypeUtils.getMoneyAsString(data.getValue()));
+        } else {
+            dataMap.put(context.getString(R.string.result_activity_value), DataTypeUtils.getMoneyAsString(data.getValue()));
+        }
 
         intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
         if (options != null) {
@@ -158,9 +168,9 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("payment id", textView.getText().toString());
+                ClipData clipData = ClipData.newPlainText(getString(R.string.result_activity_payment_id), textView.getText().toString());
                 clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(), "paymentId copiado!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.result_activity_copied_payment_id), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -210,7 +220,7 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_auth), data.getAcquirerAuthorizationNumber());
         dataMap.put(context.getString(R.string.result_activity_resp_code), data.getAcquirerResponseCode());
         dataMap.put(context.getString(R.string.result_activity_acquirer_datetime), DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
-        dataMap.put(context.getString(R.string.result_activity_cancelable), (data.getCancelable() ? "Sim" : "Não"));
+        dataMap.put(context.getString(R.string.result_activity_cancelable), (data.getCancelable() ? context.getString(R.string.yes) : context.getString(R.string.no)));
         dataMap.put(context.getString(R.string.result_activity_acquirer_additional_msg), data.getAcquirerAdditionalMessage());
         dataMap.put(context.getString(R.string.result_activity_ticket_number), String.valueOf(data.getTicketNumber()));
         dataMap.put(context.getString(R.string.result_activity_settlement_id), data.getBatchNumber());
@@ -218,6 +228,7 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_holder_name), data.getCardHolderName());
         dataMap.put(context.getString(R.string.result_activity_card), data.getCardBin() + "..." + data.getPanLast4Digits());
         dataMap.put(context.getString(R.string.result_activity_terminal_id), data.getTerminalId());
+        dataMap.put(context.getString(R.string.qrId), data.getQrId());
 
         intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
         if (activityFlags != 0)

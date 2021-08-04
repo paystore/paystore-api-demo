@@ -40,18 +40,18 @@ public class SetMainAppActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Object data) {
 
-                    Toast.makeText(SetMainAppActivity.this, "App principal definido!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetMainAppActivity.this, getString(R.string.set_main_DefinedMainApp), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onError(ErrorData errorData) {
-                    Toast.makeText(SetMainAppActivity.this, "Erro ao definir app principal: " + errorData.getPaymentsResponseCode() +
+                    Toast.makeText(SetMainAppActivity.this, getString(R.string.set_main_errorDefineMainApp) + ": " + errorData.getPaymentsResponseCode() +
                             " = " + errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         } catch (ClientException e) {
             e.printStackTrace();
-            Toast.makeText(SetMainAppActivity.this, "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(SetMainAppActivity.this, getString(R.string.serviceCallFailed) +": " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
 

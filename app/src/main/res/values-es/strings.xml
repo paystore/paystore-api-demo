@@ -2,7 +2,7 @@
     <string name="app_name">API Demo</string>
     <string name="main_schoose_option">Elija una opción:</string>
     <string name="payment_title">Pago</string>
-    <string name="openPaymentBtn">realizar Pago</string>
+    <string name="openPaymentBtn">Realizar Pago</string>
     <string name="bindBtn">Bind</string>
     <string name="unbindBtn">Unbind</string>
     <string name="doPaymentBtn">Pagar V1</string>
@@ -11,9 +11,18 @@
     <string name="addValueEdtHint">Valor Adicional</string>
     <string name="addValueTypeHint">Tipo de Valor Adicional</string>
     <string name="productShortNameHint">Abreviatura del Producto</string>
-    <string name="accTypeHint">Tipo de cuenta</string>
+    <string name="accTypeHint">Tipo de Cuenta</string>
+    <string name="settlementRequest">Requisicíon de cerramiento de lote</string>
+    <string name="reprintRequest">Volver a imprimir el recibo</string>
     <string name="planIdHint">Plan ID</string>
     <string name="installmentsEdtHint">Cuotas</string>
+    <string name="ticketNumberHint">Ticket number</string>
+    <string name="dayHint">Día</string>
+    <string name="monthHint">Mes</string>
+    <string name="yearHint">Año</string>
+    <string name="hoursHint">Horas</string>
+    <string name="minutesHint">Minutos</string>
+    <string name="secondsHint">Segundos</string>
     <string name="appTransactionIdEdtHint">Identificador de la Transacción para la Aplicación</string>
     <string name="appEmailToken">Email para crear token de la tarjeta</string>
     <string name="credPayTypeChb">Crédito</string>
@@ -45,11 +54,13 @@
     <string name="requieredFieldError">¡Campo obligatorio!</string>
     <string name="requieredFieldDateError">¡Fecha/hora no válida!</string>
     <string name="chb_show_receipt_view">Mostrar Pantalla del Recibo</string>
+    <string name="cb_allow_benefit">Agregar beneficios</string>
     <string name="themeEdtHint">Tema de la Aplicación</string>
     <string name="packageNameEdtHint">PackageName de la Aplicación</string>
     <string name="doSetThemeBtn">Definir Tema</string>
     <string name="doSetMainAppBtn">Definir aplicación principal</string>
     <string name="reverse_without_id_title">Anulación/Devolución Referenciado</string>
+    <string name="solvePendQRCodetitle">Pendientes QR CODE</string>
     <string name="operationMethodHint">Método de Operación</string>
     <string name="doReversePayment">Anulación/Devolucion sin paymentId</string>
 
@@ -60,7 +71,7 @@
     <string name="paymentsFilter_statusPending">Pendiente</string>
     <string name="paymentsFilter_statusConfirmed">Confirmado</string>
     <string name="paymentsFilter_statusCancelled">Cancelado</string>
-    <string name="paymentsFilter_statusRefunded">Devolución</string>
+    <string name="paymentsFilter_statusRefunded">Devuelto</string>
     <string name="paymentsFilter_statusReversed">Revertido</string>
     <string name="paymentsFilter_field_status">Estado de Pago</string>
     <string name="paymentsFilter_field_TrxType">Tipo de Transacción</string>
@@ -71,12 +82,15 @@
     <string name="paymentsFilter_field_4digits">Últimos 4 digitos de la tarjeta</string>
     <string name="setThemeBtn">Definir el Tema de la Aplicación</string>
     <string name="solvePendenciesBtn">Resolver Pendientes</string>
+    <string name="solvePendenciesQRCode">Resolver Pendientes QR CODE</string>
+    <string name="solvePendenciesQRCodeList">Resolver Pendientes QR CODE (lista)</string>
     <string name="setMainApp">Definir aplicación principal</string>
-    <string name="paymentEndToEnd">Realizar un Pago de principio a fin</string>
+    <string name="paymentEndToEnd">Realizar un pago punto a punto</string>
 
     <string name="paymentsList_title"> Lista de Pagos </string>
     <string name="paymentsList_bin_format">BIN **** %s</string>
-    <string name="paymentsList_currency_format"> R$ %s </string>
+    <string name="paymentsList_currency_format"> $ %s </string>
+    <string name="PaymentsList_notFoundPaymentsConfirm">No hay ningún pago por confirmar</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="closeBatch">Cerrar Lote</string>
@@ -89,6 +103,7 @@
     <string name="settlement_dialog_print_merchant_receipt">¿Desea imprimir el recibo del comerciante al cerrar el lote?</string>
 
     <string name="result_activity_payment_id">ID de pago</string>
+    <string name="result_activity_copied_payment_id">¡El ID del pago fue copiado!</string>
     <string name="result_activity_acquirer_id">ID al adquirente</string>
     <string name="result_activity_auth">Numero de autorización</string>
     <string name="result_activity_resp_code">Código de respuesta</string>
@@ -102,9 +117,11 @@
     <string name="result_activity_card">Tarjeta</string>
     <string name="result_activity_terminal_id">Terminal Id</string>
     <string name="result_activity_ticket_number">Numero de Ticket</string>
+    <string name="paymentsFilter_field_ticket_number" >N° de Ticket</string>
+    <string name="paymentsFilter_field_batch_number" >N° de Lote</string>
     <string name="result_activity_value">Valor</string>
     <string name="result_activity_payment_type">Tipo de pago</string>
-    <string name="result_activity_acquirer">Adquirente</string>
+    <string name="result_activity_acquirer">Adquiridor</string>
     <string name="result_activity_terminal_datetime">Fecha / hora de la terminal</string>
     <string name="result_activity_capture_type">Método de captura</string>
     <string name="result_activity_installments">Cuotas</string>
@@ -113,36 +130,82 @@
     <string name="result_activity_additional_value_type">Tipo de valor adicional</string>
     <string name="result_activity_additional_value">Valor adicional</string>
     <string name="result_activity_additional_account_type">Tipo de cuenta</string>
-    <string name="result_activity_additional_plan_id">Plan ID</string>
-    <string name="result_activity_card_token">Token do Cartão</string>
+    <string name="result_activity_additional_plan_id">Identificación del plan de pago</string>
+    <string name="result_activity_card_token">Token de Tarjeta</string>
+    <string name="discountedValue">Descuento</string>
 
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="connected">Conectado</string>
+    <string name="reconnect">Reconectar</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="attention">Atención!</string>
+    <string name="continueBtn">Continuar</string>
+
+    <string name="detail">Detalle</string>
+
+    <string name="message">Mensaje</string>
+
+    <string name="paymentSuccessfull">¡Pago realizado!</string>
+
+
+
+    <string name="serviceCallFailed">Error en la llamada de servicio</string>
+    <string name="requestFailed">Error en la requisiccíon</string>
+    <string name="paymentsFailed">Hubo un error al realizar el pago</string>
+
+    <string name="physicalCard">Tarjeta Física</string>
+    <string name="QRCode">Código QR</string>
+
 
     <string name="account_type_caja_ajorro">1- Caja Ahorro</string>
     <string name="account_type_c_corriente">2- C. Corriente</string>
     <string name="account_type_s_caja_ajorro">8- S Caja Ahorro</string>
     <string name="account_type_s_c_corriente">9- S C. Corriente</string>
 
-    <string name="valueTypeHint">Tipo de valor adicional</string>
+    <string name="valueTypeHint">Tipo de Valor Adicional</string>
     <string name="productShortNameInput">Abreviatura del producto</string>
     <string name="closeBatchButton">Cerrar lote</string>
     <string name="softwareVersionHint">"Versión del software "</string>
     <string name="secretTokenHint">Ficha secreta</string>
     <string name="applicationIdHint">Id da aplicación</string>
+
     <string name="paymentsFilter_batch_pend">Lote pendiente</string>
     <string name="paymentsFilter_sale">Venta</string>
     <string name="paymentsFilter_unreferenced_devolution">Devolucion no referenciada</string>
     <string name="paymentsFilter_last_batch">Últ. lote cerrado</string>
     <string name="paymentsFilter_last_approved">Últ. pago aprobado</string>
-    <string name="paymentsFilter_field_acquirer_response_code">Código de respuesta del adquirente</string>
+    <string name="paymentsFilter_field_acquirer_response_code">Cód. de Respuesta del Adquirente</string>
     <string name="paymentsFilter_last_updated_query">Últ. consulta actualizada</string>
     <string name="confirm">Confirmar pago</string>
+    <string name="refundRequest" >Solicitación de reembolso</string>
     <string name="doRefund">Devolución no referenciada</string>
     <string name="printMerchantReceiptHint">"Imprimir recibo del comerciante "</string>
     <string name="printCustomerReceiptHint">Imprimir recibo del cliente</string>
+    <string name="doCleaningFilters">Borrar Filtros</string>
     <string name="note_hint">Nota</string>
     <string name="paymentsFilter_type_all">Todas</string>
+
+    <string name="reprint_api">Reimprimir recibo</string>
     <string name="dni_error">Debe contener entre 6 y 10 dígitos </string>
+
+    <string name="main_activity_AllPeddingsresolved">¡Todas las pendencias fueron resueltas!</string>
+    <string name="main_activity_PeddingsNotFound">¡No se encontraron pendencias!</string>
+    <string name="main_activity_alert_MessageAcquirerCancelReverse">Depende del comportamiento de cada adquisidor, es posible que no se rehaga la transacción de devolución para un determinado adquisidor.</string>
+    <string name="main_activity_Pendings_fail">No se pudieron resolver los pagos pendientes.</string>
+
+    <string name="set_theme_definedTheme">Tema Definido</string>
+    <string name="set_theme_definedThemeError">Error al definir el tema</string>
+
+    <string name="set_main_errorDefineMainApp">Error al definir la aplicación principal</string>
+    <string name="set_main_DefinedMainApp">¡Aplicación principal definida!</string>
+
+    <string name="reverse_filter_RefundFailed">Devolución no realizada</string>
+
+    <string name="payment_domain_paymentIdNotInformed">PaymentId no ingresado</string>
+    <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmación de pago exitoso</string>
+    <string name="payment_domain_confirmationNotDone">Confirmación no realizada</string>
+    <string name="payment_domain_undoCompleted">Deshacer completado!</string>
+    <string name="payment_domain_undoNotDone">Deshacer no hecho</string>
 
 </resources>

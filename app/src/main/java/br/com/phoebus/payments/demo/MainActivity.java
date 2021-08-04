@@ -2,6 +2,7 @@ package br.com.phoebus.payments.demo;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,10 +19,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.phoebus.android.payments.api.ApplicationInfo;
+import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentStatus;
+import br.com.phoebus.android.payments.api.QRCodePendenciesRequest;
+import br.com.phoebus.android.payments.api.QRCodePendenciesResponse;
+import br.com.phoebus.android.payments.api.QRCodePendencyRequest;
 import br.com.phoebus.android.payments.api.client.Client;
+import br.com.phoebus.android.payments.api.exception.ClientException;
 import br.com.phoebus.android.payments.api.provider.PaymentContract;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderApi;
 import br.com.phoebus.android.payments.api.provider.PaymentProviderRequest;
@@ -55,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private final int MENU_REIMPRIMIR = 11;
     private final int MENU_DEVOLUCAO_NAO_REFERENCIADA = 12;
     private final int MENU_DEVOLUCAO_REFERENCIADA = 13;
+    private final int MENU_RESOLVER_PEND_QRCODE_LISTA = 14;
+    private final int MENU_RESOLVER_PEND_QRCODE = 15;
 
     private PaymentClient mPaymentClient;
 
@@ -63,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //adquirente default.
-        this.setTitle("Adquirente: ".concat(AquirerEnum.OTHER.getName().toUpperCase()));
+        this.setTitle(getString(R.string.result_activity_acquirer) + ": ".concat(AquirerEnum.OTHER.getName().toUpperCase()));
         Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.OTHER.getId(), Helper.PREF_CONFIG);
 
         AndroidThreeTen.init(getApplication());
@@ -126,7 +135,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case MENU_DEVOLUCAO_REFERENCIADA:
                     startActivity(new Intent(this, ReverseWithFilterActivity.class));
-
+                    break;
+                case MENU_RESOLVER_PEND_QRCODE_LISTA:
+                    solvePendenciesQRCode();
+                    break;
+                case MENU_RESOLVER_PEND_QRCODE:
+                    startActivity(new Intent(this, SolvePendQRCodeActivity.class));
+                    break;
             }
         });
     }
@@ -148,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.reprint_api));
         list.add(getString(R.string.doRefund));
         list.add(getString(R.string.doReversePayment));
+        list.add(getString(R.string.solvePendenciesQRCodeList));
+        list.add(getString(R.string.solvePendenciesQRCode));
 
         return list;
     }
@@ -162,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        this.setTitle("Adquirente: ".concat(item.getTitle().toString().toUpperCase()));
+        this.setTitle( getString(R.string.result_activity_acquirer) + ": ".concat(item.getTitle().toString().toUpperCase()));
         checkOrUncheck(item);
 
         switch (item.getItemId()) {
@@ -231,8 +248,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cancelReverse() {
-        Helper.showAlertDialog(this, "Atenção",
-                "A depender do comportamento de cada adquirente, é possível que não haja desfazimento para a transação de estorno para uma determinada adquirente",
+        Helper.showAlertDialog(this, getString(R.string.attention),
+                getString(R.string.main_activity_alert_MessageAcquirerCancelReverse),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -278,14 +295,65 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if (pendingsFound) {
-                Toast.makeText(getApplicationContext(), "Todas as pendêcias foram resolvidas!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.main_activity_AllPeddingsresolved), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Nenhuma pendência encontrada!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.main_activity_PeddingsNotFound), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void solvePendenciesQRCode() {
+        doSolvePendQRCode(mPaymentClient);
+    }
+
+    private void doSolvePendQRCode(PaymentClient paymentClient) {
+
+        try {
+            ApplicationInfo applicationInfo = CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName());
+            QRCodePendenciesRequest request = new QRCodePendenciesRequest();
+            request.setApplicationInfo(applicationInfo);
+            paymentClient.bind(this, new Client.OnConnectionCallback() {
+                @Override
+                public void onConnected() {
+                    try {
+                        paymentClient.resolveQRCodePendencies(request, new PaymentClient.PaymentCallback<List<QRCodePendenciesResponse>>() {
+                            @Override
+                            public void onSuccess(List<QRCodePendenciesResponse> payment) {
+                                if (payment.size() > 0) {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.main_activity_AllPeddingsresolved), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.main_activity_PeddingsNotFound), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(ErrorData errorData) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.main_activity_Pendings_fail), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (ClientException e) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.main_activity_Pendings_fail), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onDisconnected(boolean b) {
+                    Helper.showAlert(MainActivity.this, "Desconectado");
+                }
+            });
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void configureReturnData(Payment data) {
+        Intent intent = new Intent();
+        intent.putExtra(Helper.EXTRA_QRCODE_PENDENCIES, data.getPaymentId());
+        setResult(RESULT_OK, intent);
     }
 
     public void setMainApp() {
@@ -302,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDisconnected(boolean forced) {
-                Helper.showAlert(MainActivity.this, "Desconectado");
+                Helper.showAlert(MainActivity.this, getString(R.string.disconnected));
             }
         });
     }
@@ -340,12 +408,12 @@ public class MainActivity extends AppCompatActivity {
         this.mPaymentClient.bind(this, new Client.OnConnectionCallback() {
             @Override
             public void onConnected() {
-                Helper.showSnackBar(MainActivity.this, "Conectado!");
+                Helper.showSnackBar(MainActivity.this, getString(R.string.connected));
             }
 
             @Override
             public void onDisconnected(boolean forced) {
-                Toast.makeText(MainActivity.this, "Desconectado! " + forced, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.disconnected) + forced, Toast.LENGTH_LONG).show();
             }
         });
     }

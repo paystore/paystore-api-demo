@@ -60,6 +60,8 @@ public class ReversePaymentActivity extends AppCompatActivity {
                 .withPaymentId(this.paymentTransactionIdEdt.getText().toString())
                 .withCredentials(CredentialsUtils.getMyCredentials())
                 .withShowReceiptView(this.showReceiptView.isChecked());
+        pr.setPrintCustomerReceipt(true);
+        pr.setPrintMerchantReceipt(true);
 
         try {
             this.paymentClient.reversePaymentV2(pr, new PaymentClient.PaymentCallback<ReversePayment>() {
@@ -71,12 +73,12 @@ public class ReversePaymentActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(ErrorData errorData) {
-                    Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), "Estorno Não Realizado: " + errorData.getPaymentsResponseCode() + " / "
+                    Toast.makeText(ReversePaymentActivity.this.getApplicationContext(),  getString(R.string.reverse_filter_RefundFailed)+ ": " + errorData.getPaymentsResponseCode() + " / "
                             + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }

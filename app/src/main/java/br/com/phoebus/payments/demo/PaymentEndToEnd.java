@@ -38,13 +38,13 @@ public class PaymentEndToEnd {
 
                 @Override
                 public void onError(ErrorData errorData) {
-                    AlertUtils.showToast(mContext, "ERROR: " + errorData.getPaymentsResponseCode() + " | Mensagem : " +  errorData.getResponseMessage());
+                    AlertUtils.showToast(mContext, "ERROR: " + errorData.getPaymentsResponseCode() + " |  " + mContext.getString(R.string.message) + ": " +  errorData.getResponseMessage());
                     LogUtils.writeLogCatE(mContext, "onError", "ON_ERROR " + errorData.getResponseMessage());
 
                 }
             });
         } catch (Exception e){
-            AlertUtils.showToast(mContext,"Falha ao realizar o pagamento" + e.getMessage());
+            AlertUtils.showToast(mContext, mContext.getString(R.string.paymentsFailed) + e.getMessage());
             LogUtils.writeLogCatE(mContext, "startPaymentV2", e.getMessage());
 
         }
@@ -67,14 +67,14 @@ public class PaymentEndToEnd {
 
                 @Override
                 public void onError(ErrorData errorData) {
-                    AlertUtils.showToast(mContext, "ERROR: " + errorData.getPaymentsResponseCode() + " | Mensagem : "
+                    AlertUtils.showToast(mContext, "ERROR: " + errorData.getPaymentsResponseCode() + " | " + mContext.getString(R.string.message) +  ": "
                             +  errorData.getResponseMessage());
                     LogUtils.writeLogCatE(this, "onError", "Erro na confirmação" + errorData.getResponseMessage());
 
                 }
             });
         }catch(Exception e){
-            AlertUtils.showToast(mContext,"Falha ao realizar o pagamento" + e.getMessage());
+            AlertUtils.showToast(mContext,mContext.getString(R.string.paymentsFailed) + e.getMessage());
 
         }
     }

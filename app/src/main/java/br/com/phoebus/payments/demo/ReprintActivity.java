@@ -36,6 +36,8 @@ public class ReprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reprint);
 
+        this.setTitle(getString(R.string.reprint_api));
+
         ticketNumber = (EditText) findViewById(R.id.ticketNumber);
         day = (EditText) findViewById(R.id.transactionDay);
         moth = (EditText) findViewById(R.id.transactionMonth);

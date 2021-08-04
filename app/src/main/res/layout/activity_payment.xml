@@ -111,19 +111,68 @@
                     android:maxLength="1" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/operationMethodHint"/>
+
+            <Spinner
+                android:id="@+id/operationMethodPayment"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="@string/productShortNameHint"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/productShortNameHint" />
+
+            <Spinner
+                android:id="@+id/productShortNameSpinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/productShortNameHint" />
+            android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/productShortNameSpinner"
-            style="@style/Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:spinnerMode="dropdown" />
+            <CheckBox
+                android:id="@+id/cbAllowBenefit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:checked="true"
+                android:text="@string/cb_allow_benefit"/>
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

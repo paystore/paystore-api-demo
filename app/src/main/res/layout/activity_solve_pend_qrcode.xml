@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/activity_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/qrId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/qrId"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="10dp"
+            android:weightSum="6">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/dayDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/dayHint"
+                android:inputType="numberDecimal"
+                android:gravity="center_horizontal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/monthDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/monthHint"
+                android:inputType="numberDecimal"
+                android:gravity="center_horizontal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/yearDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/yearHint"
+                android:inputType="numberDecimal"
+                android:gravity="center_horizontal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/hourDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hoursHint"
+                android:inputType="numberDecimal"
+                android:gravity="center_horizontal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/minuteDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/minutesHint"
+                android:inputType="numberDecimal"
+                android:gravity="center_horizontal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/secondDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/secondsHint"
+                android:inputType="numberDecimal"
+                android:gravity="center_horizontal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/doPendBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="doSolvePendQRCode"
+            android:text="@string/solvePendenciesQRCode" />
+
+    </LinearLayout>
+
+
+</ScrollView>

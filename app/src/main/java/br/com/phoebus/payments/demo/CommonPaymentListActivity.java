@@ -86,11 +86,11 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
             request.setStatus(status);
             listPayments = api.findAll(request);
             if (listPayments.isEmpty()) {
-                AlertUtils.showToast(this, "Não Existe Pagamentos para Confirmar");
+                AlertUtils.showToast(this, getString(R.string.PaymentsList_notFoundPaymentsConfirm));
             }
 
         } catch (Exception e) {
-            showSnackBar("Falha na Solicitação: " + e.getMessage());
+            showSnackBar(getString(R.string.requestFailed) + ": " + e.getMessage());
         }
         return listPayments;
     }

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -33,6 +34,7 @@ import br.com.phoebus.payments.demo.utils.MoneyWatcher;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    private static final int QRCODE = 1;
     private EditText valueEdt;
     private EditText appTransactionIdEdt;
     private EditText installmentsEdt;
@@ -43,6 +45,8 @@ public class PaymentActivity extends AppCompatActivity {
     private Spinner accTypeIdSpinner;
     private EditText planIdEdt;
     private Spinner productShortNameSpinner;
+    private Spinner operationMethodSpinner;
+    private CheckBox cbAllowBenefit;
 
     private List<PaymentType> paymentTypes;
 
@@ -52,6 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private String selectedProductShortName = "";
     private String selectedAccountType = "";
+    private int selectedOperationMethod = 99;
     private EditText noteEdt;
     private EditText dniEdt;
 
@@ -74,6 +79,8 @@ public class PaymentActivity extends AppCompatActivity {
         this.accTypeIdSpinner = (Spinner) this.findViewById(R.id.accTypeIdSpinner);
         this.planIdEdt = (EditText) this.findViewById(R.id.planIdEdt);
         this.productShortNameSpinner = (Spinner) this.findViewById(R.id.productShortNameSpinner);
+        this.operationMethodSpinner = (Spinner) this.findViewById(R.id.operationMethodPayment);
+        this.cbAllowBenefit = (CheckBox) this.findViewById(R.id.cbAllowBenefit);
 
         this.setDefaultValues();
         this.noteEdt = (EditText) this.findViewById(R.id.noteEdt);
@@ -87,8 +94,7 @@ public class PaymentActivity extends AppCompatActivity {
         setupAddValueSpinner();
         setupProductShortNameSpinner();
         setupAccTypeSpinner();
-
-        
+        setupOperationMethodSpinner();
 
         doBind();
     }
@@ -106,13 +112,13 @@ public class PaymentActivity extends AppCompatActivity {
         this.paymentClient.bind(this, new Client.OnConnectionCallback() {
             @Override
             public void onConnected() {
-                showSnackBar("Conectado!");
+                showSnackBar(getString(R.string.connected));
             }
 
             @Override
             public void onDisconnected(boolean forced) {
-                Snackbar.make(installmentsEdt, "Desconectado! " + forced, Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Reconectar", new View.OnClickListener() {
+                Snackbar.make(installmentsEdt, getString(R.string.disconnected) + forced, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(getString(R.string.reconnect), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 doBind();
@@ -138,14 +144,19 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setTokenizeCard(false);
             paymentRequestV2.setTokenizeEmail(String.valueOf(this.emailToken.getText()));
             String addValueType = (String) this.addValueTypeSpinner.getSelectedItem();
+            paymentRequestV2.setOperationMethodAllowed(this.selectedOperationMethod);
             String accType = selectedAccountType;
             String planId = this.planIdEdt.getText().toString();
             String productShortName = selectedProductShortName;
+            int allowBenefit = this.selectedOperationMethod;
+
             if (addValueType != null && !addValueType.isEmpty()) {
                 paymentRequestV2.setAdditionalValueType(AdditionalValueType.valueOf(addValueType.toUpperCase()));
                 paymentRequestV2.setAdditionalValue(DataTypeUtils.getFromString(this.addValueEdt.getText().toString()));
             }
 
+            if(allowBenefit == QRCODE)
+                paymentRequestV2.setAllowBenefit(cbAllowBenefit.isChecked());
             if (!accType.isEmpty())
                 paymentRequestV2.setAccountTypeId(accType);
             if (!planId.isEmpty())
@@ -154,7 +165,7 @@ public class PaymentActivity extends AppCompatActivity {
                 paymentRequestV2.setProductShortName(productShortName);
 
         } catch (PackageManager.NameNotFoundException e) {
-            showSnackBar("Falha na Solicitação: " + e.getMessage());
+            showSnackBar(getString(R.string.requestFailed) +": " + e.getMessage());
             return;
         }
 
@@ -181,7 +192,7 @@ public class PaymentActivity extends AppCompatActivity {
                 this.paymentClient.startPaymentV2(paymentRequestV2, new PaymentClient.PaymentCallback<PaymentV2>() {
                     @Override
                     public void onSuccess(PaymentV2 data) {
-                        showSnackBar("Pagamento Realizado!");
+                        showSnackBar(getString(R.string.paymentSuccessfull));
 
                         configureReturnData(data, paymentRequestV2);
                         ResultActivity.callResultIntent(data, PaymentActivity.this, 0, null);
@@ -189,12 +200,12 @@ public class PaymentActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ErrorData errorData) {
-                        showSnackBar("Pagamento Não Realizado: " + errorData.getPaymentsResponseCode() + " / "
+                        showSnackBar(getString(R.string.paymentsFailed) + ": " + errorData.getPaymentsResponseCode() + " / "
                                 + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage());
                     }
                 });
             } catch (Exception e) {
-                showSnackBar("Falha na Solicitação: " + e.getMessage());
+                showSnackBar(getString(R.string.requestFailed) + ": " + e.getMessage());
             }
         }
         else {
@@ -281,6 +292,37 @@ public class PaymentActivity extends AppCompatActivity {
         this.accTypeIdSpinner.setOnItemSelectedListener(new OnSelectAccountType());
     }
 
+    private void setupOperationMethodSpinner() {
+        List<String> operationMethodArray = Arrays.asList("", "Cartão Físico", "QrCode");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, operationMethodArray);
+        operationMethodSpinner.setAdapter(adapter);
+        operationMethodSpinner.setOnItemSelectedListener(new OnSelectOperationMethod());
+    }
+
+    private class OnSelectOperationMethod implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            switch (position) {
+                case 1:
+                    selectedOperationMethod = 0;
+                    cbAllowBenefit.setEnabled(false);
+                    break;
+                case 2:
+                    selectedOperationMethod = 1;
+                    cbAllowBenefit.setEnabled(true);
+                    break;
+                default:
+                    selectedOperationMethod = 99;
+                    cbAllowBenefit.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    }
 
     private class OnSelectAddValueType implements AdapterView.OnItemSelectedListener {
 

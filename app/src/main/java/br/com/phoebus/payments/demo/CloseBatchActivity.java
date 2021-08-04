@@ -32,6 +32,7 @@ public class CloseBatchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(getString(R.string.closeBatch));
         setContentView(R.layout.activity_close_batch);
 
         versaoDoSoftware = findViewById(R.id.softwareVersion);
@@ -79,7 +80,7 @@ public class CloseBatchActivity extends AppCompatActivity {
 
                 @Override
                 public void onDisconnected(boolean b) {
-                    Log.e("MainActivity lote", "desconectado");
+                    Log.e("MainActivity lote", getString(R.string.disconnected));
                 }
             });
 

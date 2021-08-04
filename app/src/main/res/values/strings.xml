@@ -32,8 +32,8 @@
     <string name="credPayTypeChb">Crédito a Vista</string>
     <string name="credMercPayTypeChb">Parcelado S/Juros</string>
     <string name="debPayTypeChb">Débito</string>
-    <string name="paymentTypesAllows">Tipos de Pagamaneto</string>
-    <string name="paymentTypesAcquirer">Tipos de Pagamaneto da </string>
+    <string name="paymentTypesAllows">Tipos de Pagamento</string>
+    <string name="paymentTypesAcquirer">Tipos de Pagamento da </string>
     <string name="credAdmPayTypeChb">Parcelado C/Juros</string>
     <string name="voucher">Voucher</string>
     <string name="prePayTypeChb">Pré-autorização</string>
@@ -58,11 +58,13 @@
     <string name="requieredFieldError">Campo obrigatório!</string>
     <string name="requieredFieldDateError">Data/hora inválida!</string>
     <string name="chb_show_receipt_view">Mostrar Tela de Comprovante</string>
+    <string name="cb_allow_benefit">Agregar benefícios</string>
     <string name="themeEdtHint">Tema da Aplicação</string>
     <string name="packageNameEdtHint">PackageName da Aplicação</string>
     <string name="doSetThemeBtn">Definir Tema</string>
     <string name="doSetMainAppBtn">Definir aplicação principal</string>
     <string name="reverse_without_id_title">Anulação/devolução sem paymentId</string>
+    <string name="solvePendQRCodetitle">Pendências de QR CODE</string>
     <string name="operationMethodHint">Método de operação</string>
     <string name="doReversePayment">Anulação/devolução sem paymentId</string>
 
@@ -88,17 +90,20 @@
     <string name="paymentsFilter_field_minValue">Valor Minimo</string>
     <string name="paymentsFilter_field_maxValue">Valor Máximo</string>
     <string name="paymentsFilter_field_4digits">Último 4 digitos do cartão</string>
-    <string name="paymentsFilter_field_ticket_number" translatable="false">N° do ticket</string>
-    <string name="paymentsFilter_field_batch_number" translatable="false">N° do lote</string>
+    <string name="paymentsFilter_field_ticket_number" >N° do ticket</string>
+    <string name="paymentsFilter_field_batch_number" >N° do lote</string>
     <string name="paymentsFilter_field_acquirer_response_code">Código de resposta da adquirente</string>
     <string name="setThemeBtn">Definir Tema da Aplicação</string>
     <string name="solvePendenciesBtn">Resolver Pendências</string>
+    <string name="solvePendenciesQRCode">Resolver pendencias de QR CODE</string>
+    <string name="solvePendenciesQRCodeList">Resolver pendencias de QR CODE (Lista)</string>
     <string name="setMainApp">Definir aplicação principal</string>
     <string name="paymentEndToEnd">Fazer Pagamento de ponta a ponta</string>
 
     <string name="paymentsList_title"> Lista de Pagamentos </string>
     <string name="paymentsList_bin_format">BIN **** %s</string>
     <string name="paymentsList_currency_format"> R$ %s </string>
+    <string name="PaymentsList_notFoundPaymentsConfirm">Não Existe Pagamentos para Confirmar</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="closeBatch">Fechar Lote</string>
@@ -111,6 +116,7 @@
     <string name="settlement_dialog_print_merchant_receipt">Deseja imprimir a via do lojista ao fechar o lote?</string>
 
     <string name="result_activity_payment_id">Ident.do Pagamento</string>
+    <string name="result_activity_copied_payment_id">O Id de pagamento foi copiado!</string>
     <string name="result_activity_acquirer_id">Ident. para a Adquirente</string>
     <string name="result_activity_auth">Número de Autorização</string>
     <string name="result_activity_resp_code">Código de Resposta</string>
@@ -138,11 +144,34 @@
     <string name="result_activity_additional_account_type">Tipo da Conta</string>
     <string name="result_activity_additional_plan_id">Plan ID</string>
     <string name="result_activity_card_token">Token do Cartão</string>
-
+    <string name="discountedValue">Desconto</string>
 
 
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="connected">Conectado</string>
+    <string name="reconnect">Reconectar</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="attention">Atenção!</string>
+    <string name="continueBtn">Continuar</string>
+
+    <string name="method">Método</string>
+    <string name="detail">Detalhe</string>
+
+    <string name="message">Mensagem</string>
+
+    <string name="paymentSuccessfull">Pagamento Realizado !</string>
+
+
+
+    <string name="serviceCallFailed">Falha na chamada do serviço</string>
+    <string name="requestFailed">Falha na solicitação</string>
+    <string name="paymentsFailed">Falha ao realizar o pagamento</string>
+
+
+    <string name="physicalCard">Cartão Físico</string>
+    <string name="QRCode">QR Code</string>
+
 
     <string name="account_type_caja_ajorro">1- Caja Ahorro</string>
     <string name="account_type_c_corriente">2- C. Corriente</string>
@@ -153,19 +182,41 @@
     <string name="productShortNameInput">Abreviação do produto</string>
     <string name="paymentsFilter_last_updated_query">Últ. consulta atualizada</string>
     <string name="confirm">Confirmar transação</string>
-    <string name="refundRequest" translatable="false">Refund Request</string>
+    <string name="refundRequest"> Solicitação de Reembolso</string>
     <string name="doRefund">Devolução não referenciada</string>
     <string name="printMerchantReceiptHint">Imprimir via do lojista</string>
     <string name="printCustomerReceiptHint">Imprimir via do cliente</string>
-    <string name="doCleaningFilters" translatable="false">Limpar filtros</string>
+    <string name="doCleaningFilters">Limpar filtros</string>
     <string name="qrId" translatable="false">QrId</string>
     <string name="dni" translatable="false">DNI</string>
     <string name="notes" translatable="false">NOTES</string>
     <string name="trxType" translatable="false">TrxType</string>
+    <string name="originalValue" translatable="false">Compra</string>
+    <string name="total" translatable="false">Total</string>
 
     <string name="reprint_api">Reimprimir comprovante</string>
     <string name="note_hint">Nota</string>
     <string name="dni_hint" translatable="false">DNI</string>
     <string name="dni_error">Deve conter entre 6 e 10 dígitos</string>
+
+    <string name="main_activity_AllPeddingsresolved">Todas as pendencias foram resolvidas!</string>
+    <string name="main_activity_PeddingsNotFound">Nenhuma pendencia encontrada!</string>
+    <string name="main_activity_alert_MessageAcquirerCancelReverse">A depender do comportamento de cada adquirente, é possível que não haja desfazimento para a transação de estorno para uma determinada adquirente.</string>
+    <string name="main_activity_Pendings_fail">Falha ao resolver pagamentos pendentes.</string>
+
+    <string name="set_theme_definedTheme">Tema Definido</string>
+    <string name="set_theme_definedThemeError">Erro ao definir tema</string>
+
+    <string name="set_main_DefinedMainApp">App principal definido!</string>
+    <string name="set_main_errorDefineMainApp">Erro ao definir app principal</string>
+
+    <string name="reverse_filter_RefundFailed">Estorno não realizado</string>
+
+    <string name="payment_domain_paymentIdNotInformed">PaymentId não informado</string>
+    <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmação do pagamento realizado com sucesso</string>
+    <string name="payment_domain_confirmationNotDone">Confirmação Não Realizada</string>
+    <string name="payment_domain_undoCompleted">Desfazimento Realizado!</string>
+    <string name="payment_domain_undoNotDone">Desfazimento Não Realizado</string>
+
 
 </resources>

@@ -1,4 +1,58 @@
 ## App Demonstração API Pagamento - Applet Phoebus
+### Versão: 1.3.3.0 Compatível com SUITE Payments >= v2.6.45, lib payments-api >= 2.6.31
+
+ - 73743 
+  - Atualizando aar
+
+ - 75212 
+  - Adicionando informações do benefit no response
+  - Ajustando valor de desconto dos beneficios QRCODE
+  - Ajustes nos valores dos beneficios
+  
+ - 75210 
+  - Adicionando QRId na resposta da transação QRCODE
+
+- 74429
+  - incremento de versão
+  - Ajuste na exibição do comprovante na tela.
+
+- 74430 
+  - Adicionada tradução en-US
+  - Adicionado mais traduções em espanhol, inglês e português
+  - Adicionada traduções ao SetThemeActivity
+  - Traduções adicionadas à classe PaymentListFragment
+  - Adicionada traduções ao SetMainAppActivity
+  - Adicionada traduções ao ReverseWithFilterActivity
+  - Adicionada traduções ao ReversePaymentsActivity
+  - Conflitos resolvidos
+  - Adicionada traduções faltantes ao ResultActivity
+  - Adicionada traduções ao PaymentListActivity
+  - Traduções aplicadas às classes Helper e LogUtils
+  - Fixados conflitos nos arquivos de tradução.
+  - Adicionada traduções ao CloseBatch e CommonPayments
+  - Adicionada traduções ao PaymentFilterFragment
+  - Adicionada traduções ao requirente no MainActivity e no botão continuar em PaymentsEndtoEnd
+  - Fixado tradução incorreta em en-US
+  - Adicionada algumas traduções faltantes no espanhol.
+  - Adicionado título em viewscom título padrão.
+  - Correção de formato em algumas traduções em Espanhol.
+  - Correção de formato em algumas traduções do inglês.
+  - Ajustes na tradução para espanhol
+  
+- 74761 
+  - Adicionando campo para método de operação
+  - Adicionando campo para capturar allowBenefit
+
+- 74643 
+  - Adicionando chamada do client pendQRCode lista de pagamentos
+
+- 74648 
+  - Adicionando opção para resolução de pendências QRCODE
+  - Adicionando chamada do client nas pendências especificas qrcode
+  - Ajustes no request da resolução de pendencias  
+  - Ajustes para resolução de pendencias
+  
+
 ### Versão: 1.3.2.0 Compatível com SUITE Payments >= 2.6.43.0
 - 74276 
   - Ajustes na formatação do campo valor; Alterando titulos do estorno

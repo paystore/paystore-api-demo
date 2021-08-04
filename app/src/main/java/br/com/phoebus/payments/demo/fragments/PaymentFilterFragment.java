@@ -275,7 +275,7 @@ public class PaymentFilterFragment extends Fragment{
     }
 
     private void setupOperationMethodSpinner() {
-        List<String> operationMethodArray = Arrays.asList("Método de operação", "Cartão Físico", "Qr Code", "");
+        List<String> operationMethodArray = Arrays.asList(getString(R.string.operationMethodHint), getString(R.string.physicalCard), getString(R.string.QRCode), "");
         operationMethodSpinner.setAdapter(setupArrayAdapter(operationMethodArray));
         operationMethodSpinner.setOnItemSelectedListener(new OnSelectOperationMethod());
 

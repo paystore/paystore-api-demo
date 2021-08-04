@@ -37,6 +37,7 @@ public class RefundActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle(R.string.paymentsFilter_unreferenced_devolution);
         setContentView(R.layout.activity_refund);
 
         productShortNameSpinner = findViewById(R.id.productShortNameRefund);

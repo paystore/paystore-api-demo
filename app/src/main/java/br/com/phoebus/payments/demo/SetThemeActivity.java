@@ -83,18 +83,18 @@ public class SetThemeActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Object data) {
 
-                    Toast.makeText(SetThemeActivity.this, "Tema definido!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetThemeActivity.this, getString(R.string.set_theme_definedTheme), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onError(ErrorData errorData) {
-                    Toast.makeText(SetThemeActivity.this, "Erro ao definir tema: " + errorData.getPaymentsResponseCode() +
+                    Toast.makeText(SetThemeActivity.this, getString(R.string.set_theme_definedThemeError) + ": " + errorData.getPaymentsResponseCode() +
                             " = " + errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         } catch (ClientException e) {
             e.printStackTrace();
-            Toast.makeText(SetThemeActivity.this, "Falha na chamada do serviço: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(SetThemeActivity.this, getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
 

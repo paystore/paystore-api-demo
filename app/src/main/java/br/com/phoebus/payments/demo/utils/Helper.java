@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import br.com.phoebus.payments.demo.R;
+
 public class Helper {
 
     public static final String CATEGORY = "DEMO_LOG";
@@ -30,6 +32,8 @@ public class Helper {
     public static final String EXTRA_PAYMENT_ID = "extra.paymentId";
     public static final String EXTRA_REVERSE_PAYMENT_ID = "extra.reversePaymentId";
     public static final String EXTRA_REFUND_PAYMENT_ID = "extra.refundPaymentId";
+    public static final String EXTRA_QRCODE_PENDENCY = "extra.qrcodePendency";
+    public static final String EXTRA_QRCODE_PENDENCIES = "extra.qrcodePendencies";
 
 
     public static final int RETURN_PAYMENT = 1;
@@ -50,7 +54,7 @@ public class Helper {
                         + " "
                         + "Class: " + classCurrent.getClass().getSimpleName()
                         + " "
-                        + "Metodo: " + methodName + " " + "detalhe: "
+                        + R.string.method + ": " + methodName + " " + R.string.detail + ": "
                         + msg;
 
         return str;
