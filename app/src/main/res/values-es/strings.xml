@@ -2,6 +2,10 @@
     <string name="app_name">API Demo</string>
     <string name="main_schoose_option">Elija una opción:</string>
     <string name="payment_title">Pago</string>
+    <string name="broadcast_error_title">Broadcast Error</string>
+    <string name="broadcast_error_enable">Habilitar Broadcast de Erros</string>
+    <string name="broadcast_enable">Broadcast Ativado</string>
+    <string name="broadcast_no_enable">Broadcast Desativado</string>
     <string name="openPaymentBtn">Realizar Pago</string>
     <string name="bindBtn">Bind</string>
     <string name="unbindBtn">Unbind</string>
@@ -91,6 +95,7 @@
     <string name="paymentsList_bin_format">BIN **** %s</string>
     <string name="paymentsList_currency_format"> $ %s </string>
     <string name="PaymentsList_notFoundPaymentsConfirm">No hay ningún pago por confirmar</string>
+    <string name="PaymentsList_no_pending_reversal">No se encontraron reversos pendientes</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="closeBatch">Cerrar Lote</string>
@@ -100,7 +105,12 @@
     <string name="settlement_acquirer_response_code">Cod. de Respuesta</string>
     <string name="settlement_terminal_id">Terminal Id</string>
     <string name="settlement_message">Mensagem</string>
+    <string name="settlement_date">Fecha y hora</string>
     <string name="settlement_dialog_print_merchant_receipt">¿Desea imprimir el recibo del comerciante al cerrar el lote?</string>
+
+    <string name="new_batch_open">Nuevo lote abierto</string>
+    <string name="openBatch">Abrir Lote con Número Específico</string>
+    <string name="btn_openBatch">Abrir Lote</string>
 
     <string name="result_activity_payment_id">ID de pago</string>
     <string name="result_activity_copied_payment_id">¡El ID del pago fue copiado!</string>
@@ -117,6 +127,8 @@
     <string name="result_activity_card">Tarjeta</string>
     <string name="result_activity_terminal_id">Terminal Id</string>
     <string name="result_activity_ticket_number">Numero de Ticket</string>
+    <string name="result_activity_status">Status</string>
+
     <string name="paymentsFilter_field_ticket_number" >N° de Ticket</string>
     <string name="paymentsFilter_field_batch_number" >N° de Lote</string>
     <string name="result_activity_value">Valor</string>
@@ -170,6 +182,10 @@
     <string name="secretTokenHint">Ficha secreta</string>
     <string name="applicationIdHint">Id da aplicación</string>
 
+    <string name="close">Cerrar</string>
+    <string name="payments_app_not_found_title">¡App de pagos no encontrado!</string>
+    <string name="payments_app_not_found_description">La aplicación de pagos no se ha instalado en la terminal.\nInstálela antes de continuar.</string>
+
     <string name="paymentsFilter_batch_pend">Lote pendiente</string>
     <string name="paymentsFilter_sale">Venta</string>
     <string name="paymentsFilter_unreferenced_devolution">Devolucion no referenciada</string>
@@ -182,10 +198,15 @@
     <string name="doRefund">Devolución no referenciada</string>
     <string name="printMerchantReceiptHint">"Imprimir recibo del comerciante "</string>
     <string name="printCustomerReceiptHint">Imprimir recibo del cliente</string>
+    <string name="previewMerchantReceiptHint">Ver pantalla de comprobante de comerciante</string>
+    <string name="previewCustomerReceiptHint">Ver pantalla de comprobante de cliente</string>
+    <string name="showPreviewCustomerReceiptHint">Mostrar previa del recibo del cliente</string>
+    <string name="showPreviewMerchantReceiptHint">Mostrar previa del recibo del comerciante</string>
     <string name="doCleaningFilters">Borrar Filtros</string>
     <string name="note_hint">Nota</string>
     <string name="paymentsFilter_type_all">Todas</string>
 
+    <string name="print_api">Primera impresión (printReceipt)</string>
     <string name="reprint_api">Reimprimir recibo</string>
     <string name="dni_error">Debe contener entre 6 y 10 dígitos </string>
 
@@ -193,6 +214,7 @@
     <string name="main_activity_PeddingsNotFound">¡No se encontraron pendencias!</string>
     <string name="main_activity_alert_MessageAcquirerCancelReverse">Depende del comportamiento de cada adquisidor, es posible que no se rehaga la transacción de devolución para un determinado adquisidor.</string>
     <string name="main_activity_Pendings_fail">No se pudieron resolver los pagos pendientes.</string>
+
 
     <string name="set_theme_definedTheme">Tema Definido</string>
     <string name="set_theme_definedThemeError">Error al definir el tema</string>
@@ -207,5 +229,8 @@
     <string name="payment_domain_confirmationNotDone">Confirmación no realizada</string>
     <string name="payment_domain_undoCompleted">Deshacer completado!</string>
     <string name="payment_domain_undoNotDone">Deshacer no hecho</string>
+    <string name="initialization_string">Inicialización</string>
+    <string name="terminal_info_string">Información del Comerciante</string>
+    <string name="appTransactionId">ID Transacción para la Aplicación</string>
 
 </resources>

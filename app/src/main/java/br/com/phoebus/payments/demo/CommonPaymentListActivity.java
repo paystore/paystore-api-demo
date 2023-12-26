@@ -1,13 +1,16 @@
 package br.com.phoebus.payments.demo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -48,8 +51,10 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
             listPayments = getListPaymentPend();
         } else if (Helper.EXTRA_OPTION_REVERSE.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
             listPayments = getListPaymentConfirm();
+        } else if (Helper.EXTRA_OPTION_PRINT.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
+            listPayments = getListPaymentPrintReceipt();
         } else if (Helper.EXTRA_OPTION_CANCEL_REVERSE.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
-            listPayments = getListPaymentReverse();
+            listPayments = getListCancelableReverse();
         }
 
         showList(listPayments);
@@ -73,9 +78,38 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
         return getListPayment(status);
     }
 
+    private List<Payment> getListPaymentPrintReceipt() {
+        List<PaymentStatus> status = Arrays.asList(new PaymentStatus[]{PaymentStatus.CONFIRMED, PaymentStatus.PENDING, PaymentStatus.REVERSED});
+        return getListPayment(status);
+    }
+
     private List<Payment> getListPaymentReverse() {
         List<PaymentStatus> status = Arrays.asList(new PaymentStatus[]{PaymentStatus.REVERSED});
         return getListPayment(status);
+    }
+
+    private List<Payment> getListCancelableReverse() {
+        Context context = getApplicationContext();
+        PaymentProviderApi api = PaymentProviderApi.create(this);
+        PaymentProviderRequest request = null;
+        List<Payment> payments = new ArrayList<>();
+        String paymentId = Helper.readPrefsString(context, Helper.KEY_LAST_CANCELABLE_REVERSE_ID, Helper.PREF_CONFIG);
+        if (!TextUtils.isEmpty(paymentId)) {
+            try {
+                request = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()), new Date());
+                request.setPaymentId(paymentId);
+                request.setStatus(Collections.singletonList(PaymentStatus.CONFIRMED));
+                payments = api.findAll(request);
+            } catch (Exception e) {
+                showSnackBar(getString(R.string.requestFailed) + ": " + e.getMessage());
+            }
+        }
+
+        if (payments.isEmpty()) {
+            AlertUtils.showToast(this, getString(R.string.PaymentsList_no_pending_reversal));
+        }
+
+        return payments;
     }
 
     private List<Payment> getListPayment(List<PaymentStatus> status) {
@@ -122,7 +156,7 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
             Intent intent = new Intent(this, ReversePaymentActivity.class);
             intent.putExtra(Helper.EXTRA_PAYMENT_ID, payment.getPaymentId());
             intent.putExtra(Helper.EXTRA_VALUE, payment.getValue());
-            intent.putExtra(Helper.EXTRA_APP_PAYMENT_ID, Helper.APP_TRANSACTION_ID);
+            intent.putExtra(Helper.EXTRA_APP_PAYMENT_ID, payment.getAppTransactionId());
             startActivityForResult(intent, Helper.RETURN_REVERSE);
 
         } else if (Helper.EXTRA_OPTION_CANCEL.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
@@ -134,6 +168,11 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
 
             PaymentDomain pd = new PaymentDomain(paymentClient, this);
             pd.doCancelReversePayment(payment.getPaymentId());
+            onBackPressed();
+        } else if (Helper.EXTRA_OPTION_PRINT.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
+            Intent intent = new Intent(this, PrintReceiptActivity.class);
+            intent.putExtra(Helper.EXTRA_PAYMENT_ID, payment.getPaymentId());
+            startActivityForResult(intent, Helper.RETURN_PRINT_RECEIPT);
         }
     }
 

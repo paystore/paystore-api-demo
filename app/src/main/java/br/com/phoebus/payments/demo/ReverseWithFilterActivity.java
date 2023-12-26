@@ -8,12 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +29,6 @@ import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 import br.com.phoebus.payments.demo.utils.CurrencyWatcher;
 import br.com.phoebus.payments.demo.utils.DataTypeUtils;
 import br.com.phoebus.payments.demo.utils.Helper;
-import br.com.phoebus.payments.demo.utils.MoneyWatcher;
 
 public class ReverseWithFilterActivity extends AppCompatActivity {
 
@@ -50,7 +48,8 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
     private EditText hour;
     private EditText minute;
     private EditText second;
-
+    private CheckBox previewReceiptMerchant, previewReceiptCustomer;
+    private Button doReverseBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +70,31 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
         this.hour = (EditText) findViewById(R.id.transactionHour);
         this.minute = (EditText) findViewById(R.id.transactionMinute);
         this.second = (EditText) findViewById(R.id.transactionSecond);
+        this.previewReceiptCustomer = findViewById(R.id.previewReceiptCustomer);
+        this.previewReceiptMerchant = findViewById(R.id.previewReceiptMerchant);
+        this.doReverseBtn = findViewById(R.id.doReverseBtn);
+
+        setDefaultValues();
 
         this.edtValue.addTextChangedListener(new CurrencyWatcher(edtValue, false));
         setupProductShortNameSpinner();
         setupOperationMethodSpinner();
         this.paymentClient = new PaymentClient();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doReverseBtn.setEnabled(true);
+    }
+
+    private void setDefaultValues() {
+        this.chbReceiptCustomer.setChecked(true);
+        this.chbReceiptMerchant.setChecked(true);
+        this.previewReceiptMerchant.setChecked(true);
+        this.previewReceiptCustomer.setChecked(true);
+    }
+
 
     public void doReverseWithoutIdPayment(View view) {
         try {
@@ -91,6 +109,8 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
             request.setOriginalQRId(qrId.getText().toString());
             request.setProductShortName(selectedProductShortName);
             request.setOperationMethod(selectedOperationMethod);
+            request.setPreviewCustomerReceipt(this.previewReceiptCustomer.isChecked());
+            request.setPreviewMerchantReceipt(this.previewReceiptMerchant.isChecked());
 
             Date paymentDate = new Date();
             EditText[] fields = {day, moth, year, hour, minute, second};
@@ -110,49 +130,57 @@ public class ReverseWithFilterActivity extends AppCompatActivity {
                 }
             }
 
-            paymentClient.bind(this, new Client.OnConnectionCallback() {
+            if (view.isPressed()) {
+                view.setEnabled(false);
 
-                @Override
-                public void onConnected() {
-                    try {
-                        paymentClient.reversePaymentWithFilter(request, new PaymentClient.PaymentCallback<ReversePayment>() {
-                            @Override
-                            public void onSuccess(ReversePayment data) {
-                                configureReturnData(data);
-                                ResultActivity.callResultIntent(data, ReverseWithFilterActivity.this, 0);
-                                Log.i("Reverse- paymentid", data.getPaymentId() == null ? " " : data.getPaymentId());
-                                Log.i("Reverse- acquirerid", data.getAcquirerId() == null ? " " : data.getAcquirerId());
-                                Log.i("Reverse- cancelable", String.valueOf(data.getCancelable()));
-                                Log.i("Reverse-acqResponseCode", data.getAcquirerResponseCode() == null ? " " : data.getAcquirerResponseCode());
-                                Log.i("Reverse-AcResponseCode", data.getAcquirerResponseCode() == null ? " " : data.getAcquirerResponseCode());
-                                Log.i("Reverse-AcResponseNum", data.getAcquirerAuthorizationNumber() == null ? " " : data.getAcquirerAuthorizationNumber());
-                                Log.i("Reverse-acqAddMessage", data.getAcquirerAdditionalMessage() == null ? " " : data.getAcquirerAdditionalMessage());
-                                Log.i("Reverse-receiptClient", data.getReceipt().getClientVia() == null ? " " : data.getReceipt().getClientVia());
-                                Log.i("Reverse-receiptMerchant", data.getReceipt().getMerchantVia() == null ? " " : data.getReceipt().getMerchantVia());
-                                Log.i("Reverse-batchNumber", data.getBatchNumber() == null ? " " : data.getBatchNumber());
-                                Log.i("Reverse-NSUTerminal", data.getNsuTerminal() == null ? " " : data.getNsuTerminal());
-                                Log.i("Reverse-CardHolderName", data.getCardHolderName() == null ? " " : data.getCardHolderName());
-                                Log.i("Reverse-CardBin", data.getCardBin() == null ? " " : data.getCardBin());
-                                Log.i("Reverse-panLast4Dig", data.getPanLast4Digits() == null ? " " : data.getPanLast4Digits());
-                                Log.i("Reverse-TerminalId", data.getTerminalId() == null ? " " : data.getTerminalId());
-                            }
+                paymentClient.bind(this, new Client.OnConnectionCallback() {
 
-                            @Override
-                            public void onError(ErrorData errorData) {
-                                Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), getString(R.string.reverse_filter_RefundFailed) + ": " + errorData.getPaymentsResponseCode() + " / "
-                                        + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } catch (Exception e) {
-                        Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onConnected() {
+                        try {
+                            paymentClient.reversePaymentWithFilter(request, new PaymentClient.PaymentCallback<ReversePayment>() {
+                                @Override
+                                public void onSuccess(ReversePayment data) {
+                                    configureReturnData(data);
+                                    if (data.getCancelable()) {
+                                        Helper.writePrefs(getApplicationContext(), Helper.KEY_LAST_CANCELABLE_REVERSE_ID, data.getPaymentId(), Helper.PREF_CONFIG);
+                                    }
+                                    ResultActivity.callResultIntent(data, ReverseWithFilterActivity.this, 0);
+                                    Log.i("Reverse- paymentid", data.getPaymentId() == null ? " " : data.getPaymentId());
+                                    Log.i("Reverse- acquirerid", data.getAcquirerId() == null ? " " : data.getAcquirerId());
+                                    Log.i("Reverse- cancelable", String.valueOf(data.getCancelable()));
+                                    Log.i("Reverse-acqResponseCode", data.getAcquirerResponseCode() == null ? " " : data.getAcquirerResponseCode());
+                                    Log.i("Reverse-AcResponseCode", data.getAcquirerResponseCode() == null ? " " : data.getAcquirerResponseCode());
+                                    Log.i("Reverse-AcResponseNum", data.getAcquirerAuthorizationNumber() == null ? " " : data.getAcquirerAuthorizationNumber());
+                                    Log.i("Reverse-acqAddMessage", data.getAcquirerAdditionalMessage() == null ? " " : data.getAcquirerAdditionalMessage());
+                                    Log.i("Reverse-receiptClient", data.getReceipt().getClientVia() == null ? " " : data.getReceipt().getClientVia());
+                                    Log.i("Reverse-receiptMerchant", data.getReceipt().getMerchantVia() == null ? " " : data.getReceipt().getMerchantVia());
+                                    Log.i("Reverse-batchNumber", data.getBatchNumber() == null ? " " : data.getBatchNumber());
+                                    Log.i("Reverse-NSUTerminal", data.getNsuTerminal() == null ? " " : data.getNsuTerminal());
+                                    Log.i("Reverse-CardHolderName", data.getCardHolderName() == null ? " " : data.getCardHolderName());
+                                    Log.i("Reverse-CardBin", data.getCardBin() == null ? " " : data.getCardBin());
+                                    Log.i("Reverse-panLast4Dig", data.getPanLast4Digits() == null ? " " : data.getPanLast4Digits());
+                                    Log.i("Reverse-TerminalId", data.getTerminalId() == null ? " " : data.getTerminalId());
+                                }
+
+                                @Override
+                                public void onError(ErrorData errorData) {
+                                    Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), getString(R.string.reverse_filter_RefundFailed) + ": " + errorData.getPaymentsResponseCode() + " / "
+                                            + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                                    view.setEnabled(true);
+                                }
+                            });
+                        } catch (Exception e) {
+                            Toast.makeText(ReverseWithFilterActivity.this.getApplicationContext(), getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
 
-                @Override
-                public void onDisconnected(boolean b) {
+                    @Override
+                    public void onDisconnected(boolean b) {
 
-                }
-            });
+                    }
+                });
+    }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package br.com.phoebus.payments.demo;
 
 import android.content.Context;
+import android.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class PaymentEndToEnd {
         this.mPaymentClient = paymentClient;
     }
 
-    public void doPayment(PaymentRequestV2 paymentRequest) {
+    public void doPayment(PaymentRequestV2 paymentRequest, View view) {
 
         try{
             mPaymentClient.startPaymentV2(paymentRequest, new PaymentClient.PaymentCallback<PaymentV2>() {
@@ -40,6 +41,7 @@ public class PaymentEndToEnd {
                 public void onError(ErrorData errorData) {
                     AlertUtils.showToast(mContext, "ERROR: " + errorData.getPaymentsResponseCode() + " |  " + mContext.getString(R.string.message) + ": " +  errorData.getResponseMessage());
                     LogUtils.writeLogCatE(mContext, "onError", "ON_ERROR " + errorData.getResponseMessage());
+                    view.setEnabled(true);
 
                 }
             });

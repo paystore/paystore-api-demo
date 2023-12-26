@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:digits="0123456789,"
                 android:hint="@string/valueEdtHint"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:maxLength="16"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -108,7 +109,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/planIdHint"
                     android:inputType="text"
-                    android:maxLength="1" />
+                    android:maxLength="2" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     <LinearLayout
@@ -237,11 +238,29 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
-            android:id="@+id/chb_showReceiptView"
+            android:id="@+id/chbReceiptMerchant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:text="@string/chb_show_receipt_view" />
+            android:text="@string/printMerchantReceiptHint" />
+
+        <CheckBox
+            android:id="@+id/chbReceiptCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/printCustomerReceiptHint" />
+
+        <CheckBox
+            android:id="@+id/chbPreviewMerchant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/showPreviewMerchantReceiptHint" />
+
+        <CheckBox
+            android:id="@+id/chbPreviewCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/showPreviewCustomerReceiptHint" />
 
 
         <Button

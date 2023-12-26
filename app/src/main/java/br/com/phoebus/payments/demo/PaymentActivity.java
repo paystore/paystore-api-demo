@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -40,13 +41,17 @@ public class PaymentActivity extends AppCompatActivity {
     private EditText installmentsEdt;
     private EditText emailToken;
     private EditText addValueEdt;
-    private CheckBox showReceiptView;
+    private CheckBox chbReceiptMerchant;
+    private CheckBox chbReceiptCustomer;
+    private CheckBox chbPreviewMerchant;
+    private CheckBox chbPreviewCustomer;
     private Spinner addValueTypeSpinner;
     private Spinner accTypeIdSpinner;
     private EditText planIdEdt;
     private Spinner productShortNameSpinner;
     private Spinner operationMethodSpinner;
     private CheckBox cbAllowBenefit;
+    private Button doPaymentBtnv2;
 
     private List<PaymentType> paymentTypes;
 
@@ -69,7 +74,11 @@ public class PaymentActivity extends AppCompatActivity {
         this.valueEdt = (EditText) this.findViewById(R.id.valueEdt);
         this.appTransactionIdEdt = (EditText) this.findViewById(R.id.appTransactionIdEdt);
         this.installmentsEdt = (EditText) this.findViewById(R.id.installmentsEdt);
-        this.showReceiptView = (CheckBox) this.findViewById(R.id.chb_showReceiptView);
+        this.chbReceiptMerchant = findViewById(R.id.chbReceiptMerchant);
+        this.chbReceiptCustomer = findViewById(R.id.chbReceiptCustomer);
+        this.chbPreviewMerchant = findViewById(R.id.chbPreviewMerchant);
+        this.chbPreviewCustomer = findViewById(R.id.chbPreviewCustomer);
+
         this.emailToken = (EditText) this.findViewById(R.id.email_token);
         this.addValueTypeSpinner = (Spinner) this.findViewById(R.id.addValueTypeSpinner);
         this.addValueEdt = (EditText) this.findViewById(R.id.addValueEdt);
@@ -81,6 +90,7 @@ public class PaymentActivity extends AppCompatActivity {
         this.productShortNameSpinner = (Spinner) this.findViewById(R.id.productShortNameSpinner);
         this.operationMethodSpinner = (Spinner) this.findViewById(R.id.operationMethodPayment);
         this.cbAllowBenefit = (CheckBox) this.findViewById(R.id.cbAllowBenefit);
+        this.doPaymentBtnv2 = (Button) this.findViewById(R.id.doPaymentBtnv2);
 
         this.setDefaultValues();
         this.noteEdt = (EditText) this.findViewById(R.id.noteEdt);
@@ -99,13 +109,21 @@ public class PaymentActivity extends AppCompatActivity {
         doBind();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doPaymentBtnv2.setEnabled(true);
+    }
+
     private void setDefaultValues() {
 
         this.valueEdt.setText(DataTypeUtils.getAsString(r.nextFloat() * 100F));
         this.addValueEdt.setText(DataTypeUtils.getAsString(0 * 100F));
         this.appTransactionIdEdt.setText(Helper.APP_TRANSACTION_ID);
-        showReceiptView.setChecked(true);
-
+        this.chbReceiptCustomer.setChecked(true);
+        this.chbPreviewCustomer.setChecked(true);
+        this.chbPreviewMerchant.setChecked(true);
+        this.chbReceiptMerchant.setChecked(true);
     }
 
     private void doBind() {
@@ -140,7 +158,10 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setAppTransactionId(this.appTransactionIdEdt.getText().toString());
             paymentRequestV2.setPaymentTypes(this.paymentTypes);
             paymentRequestV2.setAppInfo(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()));
-            paymentRequestV2.setShowReceiptView(this.showReceiptView.isChecked());
+            paymentRequestV2.setPrintCustomerReceipt(this.chbReceiptCustomer.isChecked());
+            paymentRequestV2.setPreviewMerchantReceipt(this.chbPreviewMerchant.isChecked());
+            paymentRequestV2.setPreviewCustomerReceipt(this.chbPreviewCustomer.isChecked());
+            paymentRequestV2.setPrintMerchantReceipt(this.chbReceiptMerchant.isChecked());
             paymentRequestV2.setTokenizeCard(false);
             paymentRequestV2.setTokenizeEmail(String.valueOf(this.emailToken.getText()));
             String addValueType = (String) this.addValueTypeSpinner.getSelectedItem();
@@ -178,7 +199,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
         if (this.dniEdt.getText() != null && !"".equals(this.dniEdt.getText().toString())) {
             String dni = this.dniEdt.getText().toString();
-            if (dni.length() <= 6 || dni.length() > 10) {
+            if (dni.length() < 6 || dni.length() > 10) {
                 this.dniEdt.setError(getString(R.string.dni_error));
                 return;
             }
@@ -186,8 +207,10 @@ public class PaymentActivity extends AppCompatActivity {
         }
 
         boolean isPaymentEndToEnd = getIntent().getExtras() != null && getIntent().getExtras().getBoolean(Helper.IS_PAYMENT_END_TO_PAYMENT);
-        if (!isPaymentEndToEnd)
-        {
+        if (!isPaymentEndToEnd) {
+            if (view.isPressed()) {
+                view.setEnabled(false);
+            }
             try {
                 this.paymentClient.startPaymentV2(paymentRequestV2, new PaymentClient.PaymentCallback<PaymentV2>() {
                     @Override
@@ -202,6 +225,7 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onError(ErrorData errorData) {
                         showSnackBar(getString(R.string.paymentsFailed) + ": " + errorData.getPaymentsResponseCode() + " / "
                                 + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage());
+                        view.setEnabled(true);
                     }
                 });
             } catch (Exception e) {
@@ -209,8 +233,11 @@ public class PaymentActivity extends AppCompatActivity {
             }
         }
         else {
-            PaymentEndToEnd paymentEndToEnd = new PaymentEndToEnd(this, paymentClient);
-            paymentEndToEnd.doPayment(paymentRequestV2);
+           if (view.isPressed()) {
+               view.setEnabled(false);
+               PaymentEndToEnd paymentEndToEnd = new PaymentEndToEnd(this, paymentClient);
+               paymentEndToEnd.doPayment(paymentRequestV2, view);
+            }
         }
     }
 
@@ -273,6 +300,7 @@ public class PaymentActivity extends AppCompatActivity {
         shortNames.add("VISA");
         shortNames.add("MASTERCARD");
         shortNames.add("AMEX");
+        shortNames.add("Cabal Débito");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, shortNames);
         this.productShortNameSpinner.setAdapter(adapter);
@@ -372,6 +400,9 @@ public class PaymentActivity extends AppCompatActivity {
                     break;
                 case 3:
                     selectedProductShortName = "AM";
+                    break;
+                case 4:
+                    selectedProductShortName = "C2";
                     break;
                 default:
                     selectedProductShortName = "";

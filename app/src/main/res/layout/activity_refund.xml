@@ -68,14 +68,27 @@
             android:id="@+id/showCustomerReceiptView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
             android:text="@string/printCustomerReceiptHint" />
+
+        <CheckBox
+            android:id="@+id/previewMerchantReceiptView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="previewMerchantReceipt" />
+
+        <CheckBox
+            android:id="@+id/previewCustomerReceiptView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="previewCustomerReceipt" />
+
 
         <Button
             android:id="@+id/closeBatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="doRefund"
+            android:onClick="chooseRefund"
             android:text="@string/doRefund" />
 
     </LinearLayout>

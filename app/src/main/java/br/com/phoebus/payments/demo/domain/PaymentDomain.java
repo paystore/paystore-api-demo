@@ -79,7 +79,7 @@ public class PaymentDomain {
             mPaymentClient.cancelReversePayment(paymentId, new PaymentClient.PaymentCallback() {
                 @Override
                 public void onSuccess(Object data) {
-
+                    Helper.writePrefs(mContext, Helper.KEY_LAST_CANCELABLE_REVERSE_ID, "", Helper.PREF_CONFIG);
                     Helper.showAlert(mContext, mContext.getString(R.string.payment_domain_undoCompleted));
                 }
 

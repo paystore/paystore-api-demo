@@ -3,6 +3,7 @@ package br.com.phoebus.payments.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,7 +24,11 @@ public class ReversePaymentActivity extends AppCompatActivity {
     private EditText paymentTransactionIdEdt;
     private EditText valueEdt;
     private EditText appTransactionIdEdt;
-    private CheckBox showReceiptView;
+    private CheckBox chbReceiptMerchant;
+    private CheckBox chbReceiptCustomer;
+    private Button doReversePayment;
+    private CheckBox chbPreviewMerchant;
+    private CheckBox chbPreviewCustomer;
 
     private PaymentClient paymentClient;
 
@@ -36,8 +41,13 @@ public class ReversePaymentActivity extends AppCompatActivity {
         this.paymentTransactionIdEdt = ((EditText) this.findViewById(R.id.paymentTransactionIdEdt));
         this.valueEdt = ((EditText) this.findViewById(R.id.valueEdt));
         this.appTransactionIdEdt = ((EditText) this.findViewById(R.id.appTransactionIdEdt));
-        this.showReceiptView = (CheckBox) this.findViewById(R.id.chb_showReceiptView);
-        this.showReceiptView.setChecked(true);
+        this.chbReceiptMerchant = findViewById(R.id.chbReceiptMerchant);
+        this.chbReceiptCustomer = findViewById(R.id.chbReceiptCustomer);
+        this.doReversePayment = findViewById(R.id.doPaymentBtn);
+        this.chbPreviewCustomer = findViewById(R.id.chbPreviewCustomer);
+        this.chbPreviewMerchant = findViewById(R.id.chbPreviewMerchant);
+
+        setDefaultValues();
 
         if (getIntent() != null) {
             this.paymentTransactionIdEdt.setText(getIntent().getStringExtra(Helper.EXTRA_PAYMENT_ID));
@@ -50,6 +60,19 @@ public class ReversePaymentActivity extends AppCompatActivity {
         this.paymentClient.bind(this.getApplicationContext());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doReversePayment.setEnabled(true);
+    }
+
+    private void setDefaultValues() {
+        this.chbReceiptCustomer.setChecked(true);
+        this.chbReceiptMerchant.setChecked(true);
+        this.chbPreviewCustomer.setChecked(true);
+        this.chbPreviewMerchant.setChecked(true);
+    }
+
     public void doReversePayment(View view) {
 
         if (!isDataValid()) return;
@@ -58,29 +81,36 @@ public class ReversePaymentActivity extends AppCompatActivity {
                 .withValue(new  BigDecimal(this.valueEdt.getText().toString()))
                 .withAppTransactionId(this.appTransactionIdEdt.getText().toString())
                 .withPaymentId(this.paymentTransactionIdEdt.getText().toString())
-                .withCredentials(CredentialsUtils.getMyCredentials())
-                .withShowReceiptView(this.showReceiptView.isChecked());
-        pr.setPrintCustomerReceipt(true);
-        pr.setPrintMerchantReceipt(true);
+                .withCredentials(CredentialsUtils.getMyCredentials());
+        pr.setPrintCustomerReceipt(chbReceiptCustomer.isChecked());
+        pr.setPrintMerchantReceipt(chbReceiptMerchant.isChecked());
+        pr.setPreviewCustomerReceipt(chbPreviewCustomer.isChecked());
+        pr.setPreviewMerchantReceipt(chbPreviewMerchant.isChecked());
 
-        try {
-            this.paymentClient.reversePaymentV2(pr, new PaymentClient.PaymentCallback<ReversePayment>() {
-                @Override
-                public void onSuccess(ReversePayment data) {
-                    configureReturnData(data);
-                    ResultActivity.callResultIntent(data, ReversePaymentActivity.this, 0);
-                }
+        if(view.isPressed()) {
+            view.setEnabled(false);
+            try {
+                this.paymentClient.reversePaymentV2(pr, new PaymentClient.PaymentCallback<ReversePayment>() {
+                    @Override
+                    public void onSuccess(ReversePayment data) {
+                        if (data.getCancelable()) {
+                            Helper.writePrefs(getApplicationContext(), Helper.KEY_LAST_CANCELABLE_REVERSE_ID, data.getPaymentId(), Helper.PREF_CONFIG);
+                        }
+                        configureReturnData(data);
+                        ResultActivity.callResultIntent(data, ReversePaymentActivity.this, 0);
+                    }
 
-                @Override
-                public void onError(ErrorData errorData) {
-                    Toast.makeText(ReversePaymentActivity.this.getApplicationContext(),  getString(R.string.reverse_filter_RefundFailed)+ ": " + errorData.getPaymentsResponseCode() + " / "
-                            + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e) {
-            Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onError(ErrorData errorData) {
+                        Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), getString(R.string.reverse_filter_RefundFailed) + ": " + errorData.getPaymentsResponseCode() + " / "
+                                + errorData.getAcquirerResponseCode() + " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                        view.setEnabled(true);
+                    }
+                });
+            } catch (Exception e) {
+                Toast.makeText(ReversePaymentActivity.this.getApplicationContext(), getString(R.string.serviceCallFailed) + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 
     private boolean isDataValid() {

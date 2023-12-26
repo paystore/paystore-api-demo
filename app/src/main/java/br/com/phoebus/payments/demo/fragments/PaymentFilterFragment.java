@@ -81,6 +81,7 @@ public class PaymentFilterFragment extends Fragment{
     private EditText dni;
     private EditText notes;
     private Spinner operationMethodSpinner;
+    private EditText appTransactionIdEdt;
 
     private String selectedProductShortName = "";
     private int selectedOperationMethod = 99;
@@ -141,11 +142,15 @@ public class PaymentFilterFragment extends Fragment{
 
                     if(!TextUtils.isEmpty(dni.getText())){
                         String strDni = dni.getText().toString();
-                        if (strDni.length() <= 6 || strDni.length() > 10) {
+                        if (strDni.length() < 6 || strDni.length() > 10) {
                             dni.setError(getString(R.string.dni_error));
                             return;
                         }
                         mPaymentRequest.setDni(strDni);
+                    }
+
+                    if(!TextUtils.isEmpty(qrId.getText())){
+                        mPaymentRequest.setQrId(qrId.getText().toString());
                     }
 
                     if(!TextUtils.isEmpty(notes.getText())){
@@ -199,9 +204,11 @@ public class PaymentFilterFragment extends Fragment{
                         mPaymentRequest.setLastUpdateQuery(true);
                     }
 
+                    mPaymentRequest.setAppTransactionId(appTransactionIdEdt.getText().toString());
+
                     mPaymentRequest.setStatus(status);
 
-                    mPaymentRequest.setAllResults(true);
+                    //mPaymentRequest.setAllResults(true);
 
                     mPaymentRequest.setProductShortName(selectedProductShortName);
 
@@ -258,6 +265,7 @@ public class PaymentFilterFragment extends Fragment{
         dni.setText("");
         qrId.setText("");
         notes.setText("");
+        appTransactionIdEdt.setText("");
         rdgTrxType.check(R.id.all);
 
     }
@@ -320,7 +328,7 @@ public class PaymentFilterFragment extends Fragment{
         qrId = view.findViewById(R.id.qrId);
         dni = view.findViewById(R.id.dni);
         notes = view.findViewById(R.id.notes);
-
+        appTransactionIdEdt = view.findViewById(R.id.appTransactionIdEdt);
         rdgTrxType = (RadioGroup) view.findViewById(R.id.trxTypeRadio);
         rdTrxTypeAll = (RadioButton) view.findViewById(R.id.trxType_all);
         rdTrxTypeSale = (RadioButton) view.findViewById(R.id.trxType_sale);

@@ -76,6 +76,7 @@ public class PaymentListFragment extends Fragment implements PaymentAdapter.OnPa
         log("ticket number", paySelected.getTicketNumber());
         log("card holder name", paySelected.getCardHolderName());
         log("terminal id", paySelected.getTerminalId());
+        log("qr_id", paySelected.getQrId());
         if (mOnPaymentSelectedClickListener != null){
             mOnPaymentSelectedClickListener.onPaymentSelectedClick(paySelected);
         }

@@ -1,9 +1,11 @@
 package br.com.phoebus.payments.demo;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +28,6 @@ import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentStatus;
 import br.com.phoebus.android.payments.api.QRCodePendenciesRequest;
 import br.com.phoebus.android.payments.api.QRCodePendenciesResponse;
-import br.com.phoebus.android.payments.api.QRCodePendencyRequest;
 import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.android.payments.api.exception.ClientException;
 import br.com.phoebus.android.payments.api.provider.PaymentContract;
@@ -58,12 +59,17 @@ public class MainActivity extends AppCompatActivity {
     private final int MENU_RESOLVER_PEND = 7;
     private final int MENU_DEFINIR_TEMA = 8;
     private final int MENU_DEFINIR_APP = 9;
-    private final int MENU_FECHAR_LOTE = 10;
-    private final int MENU_REIMPRIMIR = 11;
-    private final int MENU_DEVOLUCAO_NAO_REFERENCIADA = 12;
-    private final int MENU_DEVOLUCAO_REFERENCIADA = 13;
-    private final int MENU_RESOLVER_PEND_QRCODE_LISTA = 14;
-    private final int MENU_RESOLVER_PEND_QRCODE = 15;
+    private final int MENU_ABRIR_LOTE = 10;
+    private final int MENU_FECHAR_LOTE = 11;
+    private final int MENU_IMPRIMIR = 12;
+    private final int MENU_REIMPRIMIR = 13;
+    private final int MENU_DEVOLUCAO_NAO_REFERENCIADA = 14;
+    private final int MENU_DEVOLUCAO_REFERENCIADA = 15;
+    private final int MENU_RESOLVER_PEND_QRCODE_LISTA = 16;
+    private final int MENU_RESOLVER_PEND_QRCODE = 17;
+    private final int START_INITIALIZATION = 18;
+    private final int MENU_MERCHANT_INFO = 19;
+    private final int MENU_BROADCAST_ERROR = 20;
 
     private PaymentClient mPaymentClient;
 
@@ -76,9 +82,13 @@ public class MainActivity extends AppCompatActivity {
         Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.OTHER.getId(), Helper.PREF_CONFIG);
 
         AndroidThreeTen.init(getApplication());
-
         this.mPaymentClient = new PaymentClient();
-        doBind();
+        try {
+            doBind();
+        }catch (Exception e){
+            noPaymentsAlertDialog();
+        }
+
         ListView listaMenu = (ListView) findViewById(R.id.lvMenu);
 
         ArrayList<String> opcoes = getMenuOptions();
@@ -124,8 +134,14 @@ public class MainActivity extends AppCompatActivity {
                 case MENU_DEFINIR_APP:
                     setMainApp();
                     break;
+                case MENU_ABRIR_LOTE:
+                    openBatch();
+                    break;
                 case MENU_FECHAR_LOTE:
                     closeBatch();
+                    break;
+                case MENU_IMPRIMIR:
+                    printReceipt();
                     break;
                 case MENU_REIMPRIMIR:
                     reprint();
@@ -141,6 +157,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case MENU_RESOLVER_PEND_QRCODE:
                     startActivity(new Intent(this, SolvePendQRCodeActivity.class));
+                    break;
+                case START_INITIALIZATION:
+                    startActivity(new Intent(this, StartInitializationActivity.class));
+                    break;
+                case MENU_MERCHANT_INFO:
+                    startActivity(new Intent(this, TerminalInfoActivity.class));
+                    break;
+                case MENU_BROADCAST_ERROR:
+                    startActivity(new Intent(this, EnableBroadcastActivity.class));
                     break;
             }
         });
@@ -159,12 +184,17 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.solvePendenciesBtn));
         list.add(getString(R.string.setThemeBtn));
         list.add(getString(R.string.setMainApp));
+        list.add(getString(R.string.openBatch));
         list.add(getString(R.string.closeBatch));
+        list.add(getString(R.string.print_api));
         list.add(getString(R.string.reprint_api));
         list.add(getString(R.string.doRefund));
         list.add(getString(R.string.doReversePayment));
         list.add(getString(R.string.solvePendenciesQRCodeList));
         list.add(getString(R.string.solvePendenciesQRCode));
+        list.add(getString(R.string.initialization_string));
+        list.add(getString(R.string.terminal_info_string));
+        list.add(getString(R.string.broadcast_error_title));
 
         return list;
     }
@@ -400,6 +430,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, CloseBatchActivity.class));
     }
 
+    private void printReceipt() {
+        Intent intent = new Intent(this, CommonPaymentListActivity.class);
+        intent.putExtra(EXTRA_OPTION, Helper.EXTRA_OPTION_PRINT);
+        startActivity(intent);
+    }
+
+    private void openBatch() { startActivity(new Intent(this, OpenBatchActivity.class)); }
+
     private void reprint() {
         startActivity(new Intent(this, ReprintActivity.class));
     }
@@ -416,6 +454,22 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, getString(R.string.disconnected) + forced, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void noPaymentsAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.payments_app_not_found_title))
+                .setMessage(getString(R.string.payments_app_not_found_description))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                })
+                .setCancelable(false)
+                .create();
+        alertDialog.show();
     }
 
 }

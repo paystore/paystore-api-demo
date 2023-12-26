@@ -69,4 +69,10 @@ public class SetMainAppActivity extends AppCompatActivity {
         return ret;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        paymentClient.unbind(this);
+    }
+
 }

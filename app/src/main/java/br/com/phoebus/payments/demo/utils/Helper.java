@@ -24,6 +24,7 @@ public class Helper {
     public static final String EXTRA_OPTION_REVERSE = "extra.option.reverse";
     public static final String EXTRA_OPTION_CANCEL = "extra.option.cancel";
     public static final String EXTRA_OPTION_CANCEL_REVERSE = "extra.option.cancel.reverse";
+    public static final String EXTRA_OPTION_PRINT = "extra.option.print";
 
     public static final String APP_TRANSACTION_ID = "123456";
 
@@ -35,9 +36,13 @@ public class Helper {
     public static final String EXTRA_QRCODE_PENDENCY = "extra.qrcodePendency";
     public static final String EXTRA_QRCODE_PENDENCIES = "extra.qrcodePendencies";
 
+    public static final String KEY_LAST_CANCELABLE_REVERSE_ID = "lastCancelableReverseId";
+    public static final String BROADCAST_ERROR = "broadcastErros";
+
 
     public static final int RETURN_PAYMENT = 1;
     public static final int RETURN_REVERSE = 2;
+    public static final int RETURN_PRINT_RECEIPT = 3;
 
     public static final String PREF_CONFIG = "PREF_CONFIG";
     public static final String AQUIRER_CONFIG = "aquirer.config";

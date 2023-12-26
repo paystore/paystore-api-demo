@@ -204,9 +204,20 @@
             android:id="@+id/chbReceiptCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:text="@string/printCustomerReceiptHint" />
 
+        <CheckBox
+            android:id="@+id/previewReceiptMerchant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="previewMerchantReceipt" />
+
+        <CheckBox
+            android:id="@+id/previewReceiptCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="previewCustomerReceipt" />
         <Button
             android:id="@+id/doReverseBtn"
             android:layout_width="match_parent"

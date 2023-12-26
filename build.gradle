@@ -2,11 +2,9 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenLocal()
+        maven { url "https://repository.phoebus.com.br/repository/phoebus-dev/" }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
@@ -19,11 +17,9 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenLocal()
+        maven { url "https://repository.phoebus.com.br/repository/phoebus-dev/" }
+        google()
     }
 
     ext {

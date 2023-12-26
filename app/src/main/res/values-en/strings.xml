@@ -2,6 +2,8 @@
     <string name="app_name">API Demo</string>
     <string name="main_schoose_option">Choise an option :</string>
     <string name="payment_title">Payment</string>
+    <string name="broadcast_error_title">Error Broadcast</string>
+    <string name="broadcast_error_enable">Enable Broadcast de Erros</string>
     <string name="openPaymentBtn">Make a Payment</string>
     <string name="bindBtn">Bind</string>
     <string name="unbindBtn">Unbind</string>
@@ -103,6 +105,7 @@
     <string name="paymentsList_bin_format">BIN **** %s</string>
     <string name="paymentsList_currency_format"> US$ %s </string>
     <string name="PaymentsList_notFoundPaymentsConfirm">There is not any payment to confirm</string>
+    <string name="PaymentsList_no_pending_reversal">No pending refund</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="closeBatch">Close Batch</string>
@@ -112,7 +115,12 @@
     <string name="settlement_acquirer_response_code">Response code</string>
     <string name="settlement_terminal_id">Terminal Id</string>
     <string name="settlement_message">Message</string>
+    <string name="settlement_date">Date and time</string>
     <string name="settlement_dialog_print_merchant_receipt">Would you like to print the merchant\'s copy when finished the batch?</string>
+
+    <string name="new_batch_open">New batch open</string>
+    <string name="openBatch">Open Batch with Specific Numbering</string>
+    <string name="btn_openBatch">Open Batch</string>
 
     <string name="result_activity_payment_id">Payment Identification</string>
     <string name="result_activity_copied_payment_id">The payment id has been copied</string>
@@ -129,6 +137,7 @@
     <string name="result_activity_card">Card</string>
     <string name="result_activity_terminal_id">Terminal Id</string>
     <string name="result_activity_ticket_number">Ticket No.</string>
+    <string name="result_activity_status">Status</string>
 
     <string name="result_activity_value">Value</string>
     <string name="result_activity_payment_type">Payment Type</string>
@@ -182,19 +191,24 @@
     <string name="doRefund">Unreferenced Refund</string>
     <string name="printMerchantReceiptHint">Print Merchant Receipt</string>
     <string name="printCustomerReceiptHint">Print Customer Receipt</string>
+    <string name="previewMerchantReceiptHint">View merchant voucher screen</string>
+    <string name="previewCustomerReceiptHint">View customer voucher screen</string>
+    <string name="showPreviewCustomerReceiptHint">Show Customer receipt preview</string>
+    <string name="showPreviewMerchantReceiptHint">Show Merchant receipt preview</string>
     <string name="doCleaningFilters">Clear Filters</string>
     <string name="qrId" translatable="false">QrId</string>
     <string name="dni" translatable="false">DNI</string>
     <string name="notes" translatable="false">NOTES</string>
     <string name="trxType" translatable="false">TrxType</string>
 
+    <string name="print_api">First impression (printReceipt)</string>
     <string name="reprint_api">Reprint Receipt</string>
     <string name="note_hint">Note</string>
     <string name="dni_hint" translatable="false">DNI</string>
     <string name="dni_error">It must contain at least 6 and a maximum of 10 digits</string>
 
     <string name="main_activity_AllPeddingsresolved">All pendencies have been solved!</string>
-    <string name="main_activity_PeddingsNotFound">No pendecies found!</string>
+    <string name="main_activity_PeddingsNotFound">No pendencies found!</string>
     <string name="main_activity_alert_MessageAcquirerCancelReverse">Depending on the behavior of each acquirer, it\'s possible that there is no undoing for the reversal transaction for a specific acquirer.</string>
     <string name="main_activity_Pendings_fail">Fail solving pendencies.</string>
 
@@ -206,10 +220,19 @@
 
     <string name="reverse_filter_RefundFailed">Refund has failed</string>
 
+    <string name="close">Close</string>
+    <string name="payments_app_not_found_title">Payments App not found!</string>
+    <string name="payments_app_not_found_description">The payments application has not been installed on the terminal.\nPlease install it before continuing.</string>
+
     <string name="payment_domain_paymentIdNotInformed">PaymentID not informed</string>
     <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmation of successful payment</string>
     <string name="payment_domain_confirmationNotDone">Confirmation Not Done</string>
     <string name="payment_domain_undoCompleted">Undo Completed!</string>
     <string name="payment_domain_undoNotDone">Undo Not Done</string>
+    <string name="initialization_string">Initialization</string>
+    <string name="terminal_info_string">Merchant Informations</string>
+    <string name="broadcast_enable">Activated Broadcast</string>
+    <string name="broadcast_no_enable">Disabled Broadcast</string>
+    <string name="appTransactionId">Transaction ID for Application</string>
 
 </resources>

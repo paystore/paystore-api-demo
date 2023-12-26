@@ -222,6 +222,19 @@
 
         </LinearLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appTransactionIdEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/appTransactionIdEdtHint"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

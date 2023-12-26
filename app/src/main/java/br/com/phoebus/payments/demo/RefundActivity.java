@@ -21,6 +21,9 @@ import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.Refund;
 import br.com.phoebus.android.payments.api.RefundRequest;
+
+import br.com.phoebus.android.payments.api.RefundRequestV2;
+import br.com.phoebus.android.payments.api.RefundV2;
 import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 import br.com.phoebus.payments.demo.utils.CurrencyWatcher;
@@ -30,8 +33,8 @@ import br.com.phoebus.payments.demo.utils.Helper;
 public class RefundActivity extends AppCompatActivity {
     private Spinner productShortNameSpinner;
     private EditText refundValue;
-    private CheckBox printMerchantReceipt;
-    private CheckBox printCustomerReceipt;
+    private CheckBox printMerchantReceipt, previewMerchantReceipt;
+    private CheckBox printCustomerReceipt, previewCustomerReceipt;
     private String selectedProductShortName = "";
 
     @Override
@@ -44,6 +47,8 @@ public class RefundActivity extends AppCompatActivity {
         refundValue = findViewById(R.id.refundValue);
         printCustomerReceipt = findViewById(R.id.showCustomerReceiptView);
         printMerchantReceipt = findViewById(R.id.showMerchantReceiptView);
+        previewCustomerReceipt = findViewById(R.id.previewCustomerReceiptView);
+        previewMerchantReceipt = findViewById(R.id.previewMerchantReceiptView);
         setupProductShortNameSpinner();
 
         refundValue.addTextChangedListener(new CurrencyWatcher(refundValue, false));
@@ -61,6 +66,66 @@ public class RefundActivity extends AppCompatActivity {
         this.productShortNameSpinner.setOnItemSelectedListener(new OnSelectProductShortName());
     }
 
+    public void doRefundV2(View view) {
+        try {
+            PaymentClient paymentClient = new PaymentClient();
+            ApplicationInfo applicationInfo = CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName());
+            RefundRequestV2 refundRequest = new RefundRequestV2();
+
+            refundRequest.setApplicationInfo(applicationInfo);
+            refundRequest.setProductShortName(selectedProductShortName);
+            refundRequest.setValue(DataTypeUtils.getFromString(this.refundValue.getText().toString()));
+            refundRequest.setPrintClientReceipt(printCustomerReceipt.isChecked());
+            refundRequest.setPrintMerchantReceipt(printMerchantReceipt.isChecked());
+            refundRequest.setPreviewCustomerReceipt(previewCustomerReceipt.isChecked());
+            refundRequest.setPreviewMerchantReceipt(previewMerchantReceipt.isChecked());
+
+            paymentClient.bind(this, new Client.OnConnectionCallback() {
+                @Override
+                public void onConnected() {
+                    try {
+                        paymentClient.refundPaymentV2(refundRequest, new PaymentClient.PaymentCallback<RefundV2>() {
+                            @Override
+                            public void onSuccess(RefundV2 refund) {
+                                configureReturnData(refund);
+                                ResultActivity.callResultIntent(refund, RefundActivity.this, 0);
+                                Log.i("refund- acquirerid", refund.getAcquirerId() == null ? " " : refund.getAcquirerId());
+                                Log.i("refund- add message", refund.getAcquirerAdditionalMessage() == null ? " " : refund.getAcquirerAdditionalMessage());
+                                Log.i("refund- auth number", refund.getAcquirerAuthorizationNumber() == null ? " " : refund.getAcquirerAuthorizationNumber());
+                                Log.i("refund- acqu resp code", refund.getAcquirerResponseCode() == null ? " " : refund.getAcquirerResponseCode());
+                                Log.i("refund- batch number", refund.getBatchNumber() == null ? " " : refund.getBatchNumber());
+                                Log.i("refund- card bin", refund.getCardBin() == null ? " " : refund.getCardBin());
+                                Log.i("refund- card hold name", refund.getCardHolderName() == null ? " " : refund.getCardHolderName());
+                                Log.i("refund- client via", refund.getReceipt().getClientVia() == null ? " " : refund.getReceipt().getClientVia());
+                                Log.i("refund- merchant via", refund.getReceipt().getMerchantVia() == null ? " " : refund.getReceipt().getMerchantVia());
+                                Log.i("refund- nsu terminal", refund.getNsuTerminal() == null ? " " : refund.getNsuTerminal());
+                                Log.i("refund- last 4 digits", refund.getPanLast4Digits() == null ? " " : refund.getPanLast4Digits());
+                                Log.i("refund- prod short name", refund.getProductShortName() == null ? " " : refund.getProductShortName());
+                                Log.i("refund- terminal id", refund.getTerminalId() == null ? " " : refund.getTerminalId());
+                                Log.i("refund- ticket number", String.valueOf(refund.getTicketNumber()) == null ? " " : String.valueOf(refund.getTicketNumber()));
+                            }
+
+                            @Override
+                            public void onError(ErrorData errorData) {
+                                Toast.makeText(getApplicationContext(), errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                @Override
+                public void onDisconnected(boolean b) {
+
+                }
+            });
+        } catch (Exception e) {
+            Log.e("Algo aconteceu: ", e.getMessage());
+        }
+    }
+
     public void doRefund(View view) {
         try {
             PaymentClient paymentClient = new PaymentClient();
@@ -72,6 +137,7 @@ public class RefundActivity extends AppCompatActivity {
             refundRequest.setValue(DataTypeUtils.getFromString(this.refundValue.getText().toString()));
             refundRequest.setPrintClientReceipt(printCustomerReceipt.isChecked());
             refundRequest.setPrintMerchantReceipt(printMerchantReceipt.isChecked());
+
             paymentClient.bind(this, new Client.OnConnectionCallback() {
                 @Override
                 public void onConnected() {
@@ -116,6 +182,16 @@ public class RefundActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("Algo aconteceu: ", e.getMessage());
         }
+    }
+
+    public void chooseRefund(View view){
+        doRefundV2(view);
+    }
+
+    private void configureReturnDataV2(RefundV2 data) {
+        Intent intent = new Intent();
+        intent.putExtra(Helper.EXTRA_REFUND_PAYMENT_ID, data.getRefundId());
+        setResult(RESULT_OK, intent);
     }
 
     private void configureReturnData(Refund data) {

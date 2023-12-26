@@ -1,44 +1,44 @@
 package br.com.phoebus.payments.demo;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.phoebus.android.payments.api.ApplicationInfo;
 import br.com.phoebus.android.payments.api.Credentials;
 import br.com.phoebus.android.payments.api.ErrorData;
+import br.com.phoebus.android.payments.api.OpenBatchRequest;
+import br.com.phoebus.android.payments.api.OpenBatchResponse;
 import br.com.phoebus.android.payments.api.PaymentClient;
-import br.com.phoebus.android.payments.api.SettleRequestResponseV2;
-import br.com.phoebus.android.payments.api.SettlementRequest;
 import br.com.phoebus.android.payments.api.client.Client;
 import br.com.phoebus.payments.demo.utils.AlertUtils;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class CloseBatchActivity extends AppCompatActivity {
+public class OpenBatchActivity extends AppCompatActivity {
+
     private EditText versaoDoSoftware;
     private EditText idApp;
     private EditText token;
-    private CheckBox telaComprovante;
+    private EditText batchNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(getString(R.string.closeBatch));
-        setContentView(R.layout.activity_close_batch);
+        this.setTitle(getString(R.string.openBatch));
+        setContentView(R.layout.activity_open_batch);
 
         versaoDoSoftware = findViewById(R.id.softwareVersion);
         idApp = findViewById(R.id.applicationId);
         token = findViewById(R.id.secretToken);
-        telaComprovante = findViewById(R.id.showBatchReceiptView);
+        batchNumber = findViewById(R.id.batchNumber);
 
         try {
             String packageName = getPackageName();
@@ -49,31 +49,31 @@ public class CloseBatchActivity extends AppCompatActivity {
         }
     }
 
-    public void closeBatch(View view) {
+    public void openBatch(View view) {
         try {
             PaymentClient mPaymentClient = new PaymentClient();
             ApplicationInfo applicationInfo = createAppInfo();
-            SettlementRequest settlementRequest = new SettlementRequest();
-            settlementRequest.setApplicationInfo(applicationInfo);
-            settlementRequest.setPrintMerchantReceipt(telaComprovante.isChecked());
+            OpenBatchRequest openBatchRequest = new OpenBatchRequest();
+            openBatchRequest.setApplicationInfo(applicationInfo);
+            openBatchRequest.setBatchNumber(Long.parseLong(batchNumber.getText().toString()));
             mPaymentClient.bind(this, new Client.OnConnectionCallback() {
                 @Override
                 public void onConnected() {
                     try {
-                        mPaymentClient.closeBatch(settlementRequest, new PaymentClient.PaymentCallback<SettleRequestResponseV2>() {
+                        mPaymentClient.openBatch(openBatchRequest, new PaymentClient.PaymentCallback<OpenBatchResponse>() {
                             @Override
-                            public void onSuccess(SettleRequestResponseV2 settleRequestResponseV2) {
-                                ResultActivity.callResultIntent(settleRequestResponseV2, CloseBatchActivity.this, FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
+                            public void onSuccess(OpenBatchResponse openBatchResponse) {
+                                ResultActivity.callResultIntent(openBatchResponse, OpenBatchActivity.this, FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
 
                             }
 
                             @Override
                             public void onError(ErrorData errorData) {
-                                Toast.makeText(CloseBatchActivity.this, errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OpenBatchActivity.this, errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     } catch (Exception e) {
-                        Toast.makeText(CloseBatchActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OpenBatchActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -85,7 +85,7 @@ public class CloseBatchActivity extends AppCompatActivity {
             });
 
         } catch (Exception e) {
-            Toast.makeText(CloseBatchActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(OpenBatchActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.phoebus.payments.demo">
 
-    <uses-permission android:name="br.com.phoebus.android.payments.provider.READ_PERMISSION" /> <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,12 +10,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RefundActivity"></activity>
+        <activity android:name=".StartInitializationActivity"></activity>
+        <activity android:name=".OpenBatchActivity"></activity>
+        <activity android:name=".RefundActivity" />
         <activity android:name=".CloseBatchActivity" />
         <activity
-            android:name=".ReprintActivity"
+            android:name=".PrintReceiptActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
+        <activity
+            android:name=".ReprintActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".TerminalInfoActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".SettlementResultActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -35,6 +42,8 @@
         <activity android:name=".PaymentTypeListActivity" />
         <activity android:name=".ReverseWithFilterActivity" />
         <activity android:name=".SolvePendQRCodeActivity" />
+        <activity android:name=".ErrorBroadcastActivity" />
+        <activity android:name=".EnableBroadcastActivity" />
 
         <receiver
             android:name=".PaymentBroadcastReceiver"
@@ -45,6 +54,12 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="br.com.phoebus.android.payments.AFTER_PAYMENT_REVERSAL_FINISHED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="br.com.phoebus.android.payments.ACTION_AFTER_SETTLEMENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="br.com.phoebus.android.payments.ACTION_ERROR_REPORT" />
             </intent-filter>
         </receiver>
     </application>
