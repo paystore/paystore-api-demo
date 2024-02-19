@@ -7,8 +7,8 @@ android {
         applicationId "br.com.phoebus.payments.demo"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.3.4.0"
+        versionCode 9
+        versionName "1.3.5.0"
     }
     buildTypes {
         release {

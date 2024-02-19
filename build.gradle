@@ -2,8 +2,7 @@
 
 buildscript {
     repositories {
-        mavenLocal()
-        maven { url "https://repository.phoebus.com.br/repository/phoebus-dev/" }
+        mavenCentral()
         google()
     }
     dependencies {
@@ -17,8 +16,7 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal()
-        maven { url "https://repository.phoebus.com.br/repository/phoebus-dev/" }
+        mavenCentral()
         google()
     }
 

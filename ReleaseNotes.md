@@ -1,5 +1,11 @@
 ## App Demonstração API Pagamento - Applet Phoebus
 
+### Versão: 1.3.5.0 Compatível com SUITE Payments >= v3.1.4.3, lib payments-api >= 3.1.4.3 
+
+- 123351
+  - Substituido repositório interno pelo mavenCentral para permitir a execução do app por clientes externos.
+
+
 ### Versão: 1.3.4.0 Compatível com SUITE Payments >= v3.1.4.3, lib payments-api >= 3.1.4.3 
 
   - Atualizando aar
