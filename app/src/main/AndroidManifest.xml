@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="br.com.phoebus.payments.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
 
     <application
         android:allowBackup="true"
@@ -22,10 +25,17 @@
             android:name=".ReprintActivity"
             android:windowSoftInputMode="adjustResize"></activity>
         <activity
+            android:name=".ReprintReceiptV2Activity"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
             android:name=".TerminalInfoActivity"
             android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".SettlementResultActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +46,10 @@
         <activity android:name=".ReversePaymentActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".PaymentListActivity" />
+        <activity android:name=".TransactionListActivity" />
+        <activity android:name=".LastApprovedTransactionActivity" />
         <activity android:name=".SetThemeActivity" />
+        <activity android:name=".LogoActivity" />
         <activity android:name=".SetMainAppActivity" />
         <activity android:name=".CommonPaymentListActivity" />
         <activity android:name=".PaymentTypeListActivity" />
@@ -44,6 +57,7 @@
         <activity android:name=".SolvePendQRCodeActivity" />
         <activity android:name=".ErrorBroadcastActivity" />
         <activity android:name=".EnableBroadcastActivity" />
+        <activity android:name=".SupervisorPasswordValidateActivity" />
 
         <receiver
             android:name=".PaymentBroadcastReceiver"

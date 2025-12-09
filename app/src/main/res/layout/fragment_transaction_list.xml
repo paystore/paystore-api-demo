@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".fragments.TransactionListFragment">
+
+    <ExpandableListView
+        android:id="@+id/expand_result_transaction"
+        android:layout_width="match_parent"
+        android:groupIndicator="@null"
+        android:visibility="gone"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/empty_transaction_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/query_empty"
+        android:gravity="center"/>
+
+</FrameLayout>

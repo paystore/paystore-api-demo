@@ -20,6 +20,7 @@
             android:id="@+id/prisma"
             android:title="Prisma"
             android:orderInCategory="4"
+            android:checked="true"
             />
         <item
             android:id="@+id/amex"

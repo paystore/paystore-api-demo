@@ -19,6 +19,8 @@ public class StartInitializationActivity extends AppCompatActivity {
     Button startInitializationButton;
     EditText initializationToken;
 
+    EditText initializationAction;
+
     private PaymentClient mPaymentClient;
 
     @Override
@@ -31,6 +33,7 @@ public class StartInitializationActivity extends AppCompatActivity {
 
         startInitializationButton = findViewById(R.id.start_initialization);
         initializationToken = findViewById(R.id.token);
+        initializationAction = findViewById(R.id.activityAction);
 
     }
 
@@ -39,6 +42,10 @@ public class StartInitializationActivity extends AppCompatActivity {
 
         if (this.initializationToken.getText() != null && !"".equals(this.initializationToken.getText().toString())) {
             request.setInstallToken(initializationToken.getText().toString());
+        }
+
+        if (this.initializationAction.getText() != null && !"".equals(this.initializationAction.getText().toString())) {
+            request.setActivityAction(initializationAction.getText().toString());
         }
 
         try {

@@ -61,17 +61,17 @@
         android:text="@string/printCustomerReceiptHint" />
 
     <CheckBox
-        android:id="@+id/chbPreviewMerchant"
+        android:id="@+id/previewReceiptMerchant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/showPreviewMerchantReceiptHint" />
+        android:text="previewMerchantReceipt" />
 
     <CheckBox
-        android:id="@+id/chbPreviewCustomer"
+        android:id="@+id/previewReceiptCustomer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/showPreviewCustomerReceiptHint" />
+        android:layout_marginBottom="50dp"
+        android:text="previewCustomerReceipt" />
 
     <Button
         android:id="@+id/doPaymentBtn"

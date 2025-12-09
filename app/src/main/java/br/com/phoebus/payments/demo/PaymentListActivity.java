@@ -1,6 +1,7 @@
 package br.com.phoebus.payments.demo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,9 +39,12 @@ public class PaymentListActivity extends AppCompatActivity implements PaymentFil
     @Override
     public void onFilterClickedListener(PaymentProviderRequest request) {
         try {
+            Log.d("MEU-LOG","#### findAll");
             List listPayments = api.findAll(request);
+            Log.d("MEU-LOG","#### findAll 2");
             FragmentUtils.showFragment(this, PaymentListFragment.newInstance(listPayments, this), true);
         } catch (Exception e) {
+            Log.d("MEU-LOG","#### error");
             showSnackBar(getString(R.string.requestFailed) + ": " + e.getMessage());
         }
     }

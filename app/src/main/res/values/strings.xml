@@ -96,6 +96,7 @@
     <string name="paymentsFilter_field_batch_number">N° do lote</string>
     <string name="paymentsFilter_field_acquirer_response_code">Código de resposta da adquirente</string>
     <string name="setThemeBtn">Definir Tema da Aplicação</string>
+    <string name="setSupervisorPasswordBtn">Enviar senha do supervisor</string>
     <string name="solvePendenciesBtn">Resolver Pendências</string>
     <string name="solvePendenciesQRCode">Resolver pendencias de QR CODE</string>
     <string name="solvePendenciesQRCodeList">Resolver pendencias de QR CODE (Lista)</string>
@@ -143,6 +144,7 @@
     <string name="result_activity_value">Valor</string>
     <string name="result_activity_payment_type">Tipo de Pagamento</string>
     <string name="result_activity_acquirer">Adquirente</string>
+    <string name="result_activity_acquirer_name">Nome do Adquirente</string>
     <string name="result_activity_terminal_datetime">Data/hora Terminal</string>
     <string name="result_activity_capture_type">Forma de Captura</string>
     <string name="result_activity_installments">Parcelas</string>
@@ -196,8 +198,6 @@
     <string name="printCustomerReceiptHint">Imprimir via do cliente</string>
     <string name="previewMerchantReceiptHint">Visualizar tela de comprovante do lojista</string>
     <string name="previewCustomerReceiptHint">Visualizar tela de comprovante do cliente</string>
-    <string name="showPreviewCustomerReceiptHint">Mostrar prévia do recibo do cliente</string>
-    <string name="showPreviewMerchantReceiptHint">Mostrar prévia do recibo do lojista</string>
     <string name="doCleaningFilters">Limpar filtros</string>
     <string name="qrId" translatable="false">QrId</string>
     <string name="appTransactionId">ID Transação para Aplicação</string>
@@ -226,19 +226,51 @@
 
     <string name="reverse_filter_RefundFailed">Estorno não realizado</string>
 
-    <string name="close">Fechar</string>
-    <string name="payments_app_not_found_title">App Payments não encontrado!</string>
-    <string name="payments_app_not_found_description">A aplicação de payments não foi instalada no terminal.\nInstale-a antes de continuar.</string>
+    <string name="set_logo_title">Definir logo da aplicação e recibo</string>
+    <string name="set_logo_definedLogo">Logo Definida</string>
+    <string name="set_receipt_logo_definedReceiptLogo">Logo do recibo definida</string>
+    <string name="set_logo_definedLogoError">Erro ao definir a logo</string>
+    <string name="set_receipt_logo_definedReceiptLogoError">Erro ao definir a logo</string>
 
     <string name="payment_domain_paymentIdNotInformed">PaymentId não informado</string>
     <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmação do pagamento realizado com sucesso</string>
     <string name="payment_domain_confirmationNotDone">Confirmação Não Realizada</string>
-    <string name="payment_domain_undoCompleted">Desfazimento Realizado!</string>
     <string name="payment_domain_undoNotDone">Desfazimento Não Realizado</string>
     <string name="initialization_string">Inicialização</string>
     <string name="terminal_info_string">Informações do Lojista</string>
     <string name="broadcast_enable">Broadcast Activado</string>
     <string name="broadcast_no_enable">Broadcast Desactivado</string>
+    <string name="menu_get_packaname">Pegar Nome do Pacote Principal</string>
+    <string name="menu_start_echo_test">Iniciar Teste de Comunicação</string>
+    <string name="menu_start_data_export">Iniciar Exportação de Dados</string>
+    <string name="query_empty">Não foram encontrados resultados</string>
+    <string name="search_transaction">Consultar transações</string>
+    <string name="search_last_approved_trx">Consultar última transação aprovada</string>
+    <string name="title_last_approved_trx">Última transacción aprobada</string>
+    <string name="title_get_theme">Pegar tema</string>
+    <string name="supervisor_validade">Validar senha do supervisor</string>
+
+    <string name="password_supervisor_label">Senha do supervisor: </string>
+    <string name="set_Supervisor_Password_label">Defina a senha do supervisor </string>
+
+    <string name="applicationInfo_label">ApplicationInfo: </string>
+    <string name="set_SoftwareVersion_label">Defina SoftwareVersion </string>
+    <string name="Credencials_label">Credencials: </string>
+    <string name="set_ApplicationId_label">Defina ApplicationId </string>
+    <string name="set_SecretToken_label">Defina SecretToken </string>
+
+    <string name="checkbox_MD5_label">Enviar senha em MD5 </string>
+    <string name="checkbox_password_null_label">Enviar senha NULL/vazio </string>
+    <string name="checkbox_send_supervisor_password_label">Enviar a senha do supervisor </string>
+
+    <string name="diag_token_label">O Token deve ter 24 caracteres </string>
+    <string name="diag_validation_SDK">SDK - Validação: </string>
+    <string name="diag_error_validation_SDK">Falha em validar a senha: </string>
+
+
+    <string name="title_payment">Pagamento</string>
+    <string name="title_void">Estorno</string>
+    <string name="title_refund">Devolução</string>
 
 
 </resources>

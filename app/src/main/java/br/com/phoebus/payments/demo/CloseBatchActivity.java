@@ -15,6 +15,7 @@ import br.com.phoebus.android.payments.api.ApplicationInfo;
 import br.com.phoebus.android.payments.api.Credentials;
 import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
+import br.com.phoebus.android.payments.api.SettleRequestResponse;
 import br.com.phoebus.android.payments.api.SettleRequestResponseV2;
 import br.com.phoebus.android.payments.api.SettlementRequest;
 import br.com.phoebus.android.payments.api.client.Client;
@@ -60,9 +61,9 @@ public class CloseBatchActivity extends AppCompatActivity {
                 @Override
                 public void onConnected() {
                     try {
-                        mPaymentClient.closeBatch(settlementRequest, new PaymentClient.PaymentCallback<SettleRequestResponseV2>() {
+                        mPaymentClient.closeBatch(settlementRequest, new PaymentClient.PaymentCallback<SettleRequestResponse>() {
                             @Override
-                            public void onSuccess(SettleRequestResponseV2 settleRequestResponseV2) {
+                            public void onSuccess(SettleRequestResponse settleRequestResponseV2) {
                                 ResultActivity.callResultIntent(settleRequestResponseV2, CloseBatchActivity.this, FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
 
                             }

@@ -55,7 +55,7 @@ public class PaymentDomain {
             mPaymentClient.cancelPayment(paymentId, new PaymentClient.PaymentCallback() {
                 @Override
                 public void onSuccess(Object data) {
-                    Helper.showAlert(mContext, mContext.getString(R.string.payment_domain_undoCompleted));
+
                 }
 
                 @Override
@@ -80,7 +80,7 @@ public class PaymentDomain {
                 @Override
                 public void onSuccess(Object data) {
                     Helper.writePrefs(mContext, Helper.KEY_LAST_CANCELABLE_REVERSE_ID, "", Helper.PREF_CONFIG);
-                    Helper.showAlert(mContext, mContext.getString(R.string.payment_domain_undoCompleted));
+
                 }
 
                 @Override

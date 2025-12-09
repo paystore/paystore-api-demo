@@ -1,11 +1,10 @@
 package br.com.phoebus.payments.demo;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.ArrayList;
@@ -22,10 +22,13 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.phoebus.android.payments.api.ApplicationInfo;
+import br.com.phoebus.android.payments.api.ColorsSdk;
 import br.com.phoebus.android.payments.api.ErrorData;
+import br.com.phoebus.android.payments.api.GetPackageNameV2;
 import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.PaymentStatus;
+import br.com.phoebus.android.payments.api.PaymentType;
 import br.com.phoebus.android.payments.api.QRCodePendenciesRequest;
 import br.com.phoebus.android.payments.api.QRCodePendenciesResponse;
 import br.com.phoebus.android.payments.api.client.Client;
@@ -70,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
     private final int START_INITIALIZATION = 18;
     private final int MENU_MERCHANT_INFO = 19;
     private final int MENU_BROADCAST_ERROR = 20;
+    private final int MENU_GET_PACKAGE_NAME = 21;
+    private final int MENU_REPRINT_V2 = 22;
+    private final int START_ECHO_TEST = 23;
+    private final int START_DATA_EXPORT = 24;
+    private final int MENU_SET_LOGO = 25;
+    private final int MENU_CONSULTAR_TRANSACAO = 26;
+    private final int MENU_CONSULTAR_ULTIMA_TRANSACAO_APROVADA = 27;
+    private final int GET_THEME = 28;
+    private final int VALIDATE_PASSWORD = 29;
 
     private PaymentClient mPaymentClient;
 
@@ -82,13 +94,9 @@ public class MainActivity extends AppCompatActivity {
         Helper.writePrefs(this, Helper.AQUIRER_CONFIG, AquirerEnum.OTHER.getId(), Helper.PREF_CONFIG);
 
         AndroidThreeTen.init(getApplication());
-        this.mPaymentClient = new PaymentClient();
-        try {
-            doBind();
-        }catch (Exception e){
-            noPaymentsAlertDialog();
-        }
 
+        this.mPaymentClient = new PaymentClient();
+        doBind();
         ListView listaMenu = (ListView) findViewById(R.id.lvMenu);
 
         ArrayList<String> opcoes = getMenuOptions();
@@ -167,6 +175,33 @@ public class MainActivity extends AppCompatActivity {
                 case MENU_BROADCAST_ERROR:
                     startActivity(new Intent(this, EnableBroadcastActivity.class));
                     break;
+                case MENU_GET_PACKAGE_NAME:
+                    startGetPackageName();
+                    break;
+                case MENU_REPRINT_V2:
+                    reprintReceiptV2();
+                    break;
+                case START_ECHO_TEST:
+                    startEchoTest();
+                    break;
+                case START_DATA_EXPORT:
+                    startDataExport();
+                    break;
+                case MENU_SET_LOGO:
+                    startActivity(new Intent(this, LogoActivity.class));
+                    break;
+                case MENU_CONSULTAR_TRANSACAO:
+                    startActivity(new Intent(this, TransactionListActivity.class));
+                    break;
+                case MENU_CONSULTAR_ULTIMA_TRANSACAO_APROVADA:
+                    startActivity(new Intent(this, LastApprovedTransactionActivity.class));
+                    break;
+                case GET_THEME:
+                    getThemeApp();
+                    break;
+                case VALIDATE_PASSWORD:
+                    startActivity(new Intent(this, SupervisorPasswordValidateActivity.class));
+                    break;
             }
         });
     }
@@ -195,6 +230,15 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.initialization_string));
         list.add(getString(R.string.terminal_info_string));
         list.add(getString(R.string.broadcast_error_title));
+        list.add(getString(R.string.menu_get_packaname));
+        list.add(getString(R.string.reprint_api)+" V2");
+        list.add(getString(R.string.menu_start_echo_test));
+        list.add(getString(R.string.menu_start_data_export));
+        list.add(getString(R.string.set_logo_title));
+        list.add(getString(R.string.search_transaction));
+        list.add(getString(R.string.search_last_approved_trx));
+        list.add(getString(R.string.title_get_theme));
+        list.add(getString(R.string.supervisor_validade));
 
         return list;
     }
@@ -252,7 +296,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PaymentActivity.class);
         Bundle bundle = new Bundle();
         bundle.putBoolean(Helper.IS_PAYMENT_END_TO_PAYMENT, isPaymentEndToEnd);
-        bundle.putSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE, data.getSerializableExtra(Helper.EXTRA_LIST_PAYMENT_TYPE));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            bundle.putSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE, data.getSerializableExtra(Helper.EXTRA_LIST_PAYMENT_TYPE, PaymentType.class));
+        } else {
+            bundle.putBundle(Helper.EXTRA_LIST_PAYMENT_TYPE, data.getBundleExtra("bundle"));
+        }
         intent.putExtras(bundle);
 
         startActivity(intent);
@@ -390,6 +438,94 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SetMainAppActivity.class));
     }
 
+
+
+    public void startGetPackageName() {
+        try {
+            this.mPaymentClient.getPackageName(new PaymentClient.PaymentCallback<GetPackageNameV2>() {
+                @Override
+                public void onSuccess(GetPackageNameV2 data) {
+
+                    Toast.makeText(getApplicationContext(), "PackageName:" + data.getPackagename(), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onError(ErrorData errorData) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.set_main_errorDefineMainApp) + ": " + errorData.getPaymentsResponseCode() +
+                            " = " + errorData.getResponseMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (ClientException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), getString(R.string.serviceCallFailed) +": " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void startEchoTest() {
+        try{
+
+            this.mPaymentClient.startEchoTest(new PaymentClient.PaymentCallback() {
+                @Override
+                public void onSuccess(Object o) {
+                    Toast.makeText(getApplicationContext(), "Teste de comunicação executado com sucesso", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(ErrorData errorData) {
+                    Toast.makeText(getApplicationContext(), "Falha no teste de comunicação:" + errorData.getPaymentsResponseCode() +
+                            " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        } catch (ClientException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), getString(R.string.serviceCallFailed) +": " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void getThemeApp() {
+        try {
+            this.mPaymentClient.getTheme(new PaymentClient.PaymentCallback<>() {
+                @Override
+                public void onSuccess(ColorsSdk colorsSdk) {
+                    Toast.makeText(getApplicationContext(), "colorsSDK:" + new Gson().toJson(colorsSdk), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(ErrorData errorData) {
+                    Toast.makeText(getApplicationContext(), "Falha em obter o tema:" + errorData.getPaymentsResponseCode() +
+                            " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (ClientException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), getString(R.string.serviceCallFailed) +": " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void startDataExport() {
+        try{
+
+            this.mPaymentClient.startExtraction(new PaymentClient.PaymentCallback() {
+                @Override
+                public void onSuccess(Object o) {
+                    Toast.makeText(getApplicationContext(), "Extração de dados concluída com sucesso", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(ErrorData errorData) {
+                    Toast.makeText(getApplicationContext(), "Falha na extração dos dados:" + errorData.getPaymentsResponseCode() +
+                            " = " + errorData.getResponseMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        } catch (ClientException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), getString(R.string.serviceCallFailed) +": " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     private void doBind(final PaymentClient paymentClient) {
         paymentClient.bind(this, new Client.OnConnectionCallback() {
             @Override
@@ -436,6 +572,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void reprintReceiptV2() {
+        Intent intent = new Intent(this, CommonPaymentListActivity.class);
+        intent.putExtra(EXTRA_OPTION, Helper.EXTRA_OPTION_REPRINT);
+        startActivity(intent);
+    }
+
     private void openBatch() { startActivity(new Intent(this, OpenBatchActivity.class)); }
 
     private void reprint() {
@@ -454,22 +596,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, getString(R.string.disconnected) + forced, Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void noPaymentsAlertDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(getString(R.string.payments_app_not_found_title))
-                .setMessage(getString(R.string.payments_app_not_found_description))
-                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
-                    }
-                })
-                .setCancelable(false)
-                .create();
-        alertDialog.show();
     }
 
 }

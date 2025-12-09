@@ -50,7 +50,7 @@ public class PaymentFilterFragment extends Fragment{
     private OnFilterClickedListener mListener;
     private PaymentProviderRequest mPaymentRequest;
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", new Locale("pt", "BR"));
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS", new Locale("pt", "BR"));
 
     private Button mButton;
     private Button clearButton;
@@ -111,7 +111,7 @@ public class PaymentFilterFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 try{
-                    mPaymentRequest = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(getContext().getPackageManager(), getContext().getPackageName()), new Date());
+                    mPaymentRequest = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(getContext().getPackageManager(), getContext().getPackageName()), defaultDateRequest());
 
                     if(!TextUtils.isEmpty(edPaymentId.getText())){
                         mPaymentRequest.setPaymentId(edPaymentId.getText().toString());
@@ -351,7 +351,7 @@ public class PaymentFilterFragment extends Fragment{
                             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                                 date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                 date.set(Calendar.MINUTE, minute);
-                                updateDate(edStartDate, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 00);
+                                updateDate(edStartDate, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), date.get(Calendar.SECOND), date.get(Calendar.MILLISECOND));
 
                             }
                         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
@@ -374,7 +374,7 @@ public class PaymentFilterFragment extends Fragment{
                             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                                 date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                 date.set(Calendar.MINUTE, minute);
-                                updateDate(edFinishDate, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 00);
+                                updateDate(edFinishDate, date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), date.get(Calendar.SECOND), date.get(Calendar.MILLISECOND));
                             }
                         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
                     }
@@ -424,20 +424,30 @@ public class PaymentFilterFragment extends Fragment{
         void onFilterClickedListener(PaymentProviderRequest request);
     }
 
-    public void updateDate(EditText ed, int day, int month, int year, int hour, int minute, int second) {
-        ed.setText(String.format("%02d/%02d/%d %02d:%02d:%02d", day, month + 1, year, hour, minute, second));
+    public void updateDate(EditText ed, int day, int month, int year, int hour, int minute, int second, int millisecond) {
+        ed.setText(String.format("%02d/%02d/%d %02d:%02d:%02d.%03d", day, month + 1, year, hour, minute, second, millisecond));
     }
 
     public BigDecimal toBigDecimal(String v) {
         try{
-            NumberFormat formatter = NumberFormat.getNumberInstance();
+            NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
             Number number = formatter.parse(v);
-            return BigDecimal.valueOf(number.doubleValue());
+            assert number != null;
+            return BigDecimal.valueOf(number.longValue());
         } catch (ParseException e){
             /**/
         }
 
         return new BigDecimal("0");
+    }
+
+    public Date defaultDateRequest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+
+        return calendar.getTime();
     }
 
     private class OnSelectProductShortName implements AdapterView.OnItemSelectedListener {

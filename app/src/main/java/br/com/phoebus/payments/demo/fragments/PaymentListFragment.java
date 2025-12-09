@@ -66,17 +66,17 @@ public class PaymentListFragment extends Fragment implements PaymentAdapter.OnPa
         log("acquirer auth number", paySelected.getAcquirerAuthorizationNumber());
         log("merchant receipt", paySelected.getReceipt() == null ? "" : paySelected.getReceipt().getMerchantVia());
         log("client receipt", paySelected.getReceipt() == null ? "" : paySelected.getReceipt().getClientVia());
-        log("additional value", paySelected.getAdditionalValue() == null ? "" : paySelected.getAdditionalValue().toString());
-        log("account type", paySelected.getAccountTypeId());
-        log("plan id", paySelected.getPlanId());
-        log("product short name", paySelected.getProductShortName());
-        log("batch number", paySelected.getBatchNumber());
-        log("nsu terminal", paySelected.getNsuTerminal());
-        log("é última transação?", paySelected.isLastTrx() ? getString(R.string.yes) : getString(R.string.no));
-        log("ticket number", paySelected.getTicketNumber());
-        log("card holder name", paySelected.getCardHolderName());
-        log("terminal id", paySelected.getTerminalId());
-        log("qr_id", paySelected.getQrId());
+//        log("additional value", paySelected.getAdditionalValue() == null ? "" : paySelected.getAdditionalValue().toString());
+//        log("account type", paySelected.getAccountTypeId());
+//        log("plan id", paySelected.getPlanId());
+//        log("product short name", paySelected.getProductShortName());
+//        log("batch number", paySelected.getBatchNumber());
+//        log("nsu terminal", paySelected.getNsuTerminal());
+//        log("é última transação?", paySelected.isLastTrx() ? getString(R.string.yes) : getString(R.string.no));
+//        log("ticket number", paySelected.getTicketNumber());
+//        log("card holder name", paySelected.getCardHolderName());
+//        log("terminal id", paySelected.getTerminalId());
+//        log("qr_id", paySelected.getQrId());
         if (mOnPaymentSelectedClickListener != null){
             mOnPaymentSelectedClickListener.onPaymentSelectedClick(paySelected);
         }

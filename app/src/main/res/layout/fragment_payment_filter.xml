@@ -231,8 +231,7 @@
                 android:id="@+id/appTransactionIdEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/appTransactionIdEdtHint"
-                android:inputType="numberDecimal" />
+                android:hint="@string/appTransactionIdEdtHint"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout

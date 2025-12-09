@@ -20,6 +20,19 @@
             android:hint="Token de inicialização" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginVertical="10dp">
+
+        <EditText
+            android:id="@+id/activityAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ação da activity" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/start_initialization"

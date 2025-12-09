@@ -16,6 +16,7 @@ import br.com.phoebus.android.payments.api.ErrorData;
 import br.com.phoebus.android.payments.api.PaymentClient;
 import br.com.phoebus.android.payments.api.ReversePayment;
 import br.com.phoebus.android.payments.api.ReversePaymentRequestV2;
+import br.com.phoebus.android.payments.api.ReversePaymentV2;
 import br.com.phoebus.payments.demo.utils.CredentialsUtils;
 import br.com.phoebus.payments.demo.utils.Helper;
 
@@ -26,10 +27,8 @@ public class ReversePaymentActivity extends AppCompatActivity {
     private EditText appTransactionIdEdt;
     private CheckBox chbReceiptMerchant;
     private CheckBox chbReceiptCustomer;
+    private CheckBox previewReceiptMerchant, previewReceiptCustomer;
     private Button doReversePayment;
-    private CheckBox chbPreviewMerchant;
-    private CheckBox chbPreviewCustomer;
-
     private PaymentClient paymentClient;
 
     @Override
@@ -43,9 +42,9 @@ public class ReversePaymentActivity extends AppCompatActivity {
         this.appTransactionIdEdt = ((EditText) this.findViewById(R.id.appTransactionIdEdt));
         this.chbReceiptMerchant = findViewById(R.id.chbReceiptMerchant);
         this.chbReceiptCustomer = findViewById(R.id.chbReceiptCustomer);
+        this.previewReceiptCustomer = findViewById(R.id.previewReceiptCustomer);
+        this.previewReceiptMerchant = findViewById(R.id.previewReceiptMerchant);
         this.doReversePayment = findViewById(R.id.doPaymentBtn);
-        this.chbPreviewCustomer = findViewById(R.id.chbPreviewCustomer);
-        this.chbPreviewMerchant = findViewById(R.id.chbPreviewMerchant);
 
         setDefaultValues();
 
@@ -69,8 +68,9 @@ public class ReversePaymentActivity extends AppCompatActivity {
     private void setDefaultValues() {
         this.chbReceiptCustomer.setChecked(true);
         this.chbReceiptMerchant.setChecked(true);
-        this.chbPreviewCustomer.setChecked(true);
-        this.chbPreviewMerchant.setChecked(true);
+        this.previewReceiptMerchant.setChecked(true);
+        this.previewReceiptCustomer.setChecked(true);
+
     }
 
     public void doReversePayment(View view) {
@@ -84,8 +84,8 @@ public class ReversePaymentActivity extends AppCompatActivity {
                 .withCredentials(CredentialsUtils.getMyCredentials());
         pr.setPrintCustomerReceipt(chbReceiptCustomer.isChecked());
         pr.setPrintMerchantReceipt(chbReceiptMerchant.isChecked());
-        pr.setPreviewCustomerReceipt(chbPreviewCustomer.isChecked());
-        pr.setPreviewMerchantReceipt(chbPreviewMerchant.isChecked());
+        pr.setPreviewCustomerReceipt(this.previewReceiptCustomer.isChecked());
+        pr.setPreviewMerchantReceipt(this.previewReceiptMerchant.isChecked());
 
         if(view.isPressed()) {
             view.setEnabled(false);

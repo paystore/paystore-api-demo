@@ -27,8 +27,12 @@ import br.com.phoebus.android.payments.api.Payment;
 import br.com.phoebus.android.payments.api.PaymentV2;
 import br.com.phoebus.android.payments.api.Refund;
 import br.com.phoebus.android.payments.api.ReversePayment;
+import br.com.phoebus.android.payments.api.ReversePaymentV2;
 import br.com.phoebus.android.payments.api.SettleRequestResponse;
 import br.com.phoebus.android.payments.api.SettleRequestResponseV2;
+import br.com.phoebus.android.payments.api.provider.response.ProviderResponse;
+import br.com.phoebus.android.payments.api.provider.response.RefundProviderResponse;
+import br.com.phoebus.android.payments.api.provider.response.TransactionProviderResponse;
 import br.com.phoebus.payments.demo.utils.DataTypeUtils;
 
 public class ResultActivity extends AppCompatActivity {
@@ -37,6 +41,8 @@ public class ResultActivity extends AppCompatActivity {
     public static final String MERCHANT_RECEIPT = "merchantReceipt";
     public static final String RESPONSE_DATA = "responseData";
     public static final String SHOW_BUTTON_CONFIRM = "showButtonConfirm";
+
+    private static final Object lock = new Object();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +112,7 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
-    public static void callResultIntent(PaymentV2 data, Context context, int activityFlags, Map<String, String> options) {
+    public static void callResultIntent(PaymentV2 data, Context context, int activityFlags, Map<String, String> options, boolean isConsulting) {
         Intent intentResult = new Intent(context, ResultActivity.class);
         intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
         intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, data.getReceipt().getMerchantVia());
@@ -117,6 +123,8 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_acquirer_id), data.getAcquirerId());
         dataMap.put(context.getString(R.string.result_activity_auth), data.getAcquirerAuthorizationNumber());
         dataMap.put(context.getString(R.string.result_activity_acquirer), data.getAcquirer());
+        /* Linha de código para exibir o nome da adiquirente (versão aberta do aar do sdk 4.0.0.3)*/
+        dataMap.put(context.getString(R.string.result_activity_acquirer_name), data.getAcquirerName());
         dataMap.put(context.getString(R.string.result_activity_acquirer_datetime), DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
         dataMap.put(context.getString(R.string.result_activity_terminal_datetime), DataTypeUtils.getAsString(data.getPaymentDate()));
         dataMap.put(context.getString(R.string.result_activity_resp_code), data.getAcquirerResponseCode());
@@ -140,6 +148,8 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_acquirer_additional_msg), data.getAcquirerAdditionalMessage());
         dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(data.getCaptureType()));
         dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(data.getCaptureType()));
+
+        if (isConsulting) dataMap.put("lastTrx", String.valueOf(data.isLastTrx()));
 
         if (data.getCard() != null) {
             if(data.getCard().getBin() != null) {
@@ -173,8 +183,9 @@ public class ResultActivity extends AppCompatActivity {
 
         if (activityFlags != 0)
             intentResult.setFlags(activityFlags);
-
-        context.startActivity(intentResult);
+        synchronized (lock) {
+            context.startActivity(intentResult);
+        }
     }
 
     private void setClipboard(TextView textView) {
@@ -189,6 +200,52 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+    public static void callResultIntent(ProviderResponse data, Context context, int activityFlags, Map<String, String> options) {
+        PaymentV2 paymentV2 = data.isRefund() ? ((RefundProviderResponse) data).getRefund() : ((TransactionProviderResponse) data).getPayment();
+
+        callResultIntent(paymentV2, context, activityFlags, options, true);
+    }
+
+    public static void callResultIntent(PaymentV2 data, Context context, int activityFlags, Map<String, String> options) {
+        callResultIntent(data, context, activityFlags, options, false);
+    }
+
+    public static void callResultIntent(ReversePaymentV2 reversePaymentV2, Context context, int activityFlags, Map<String, String> options) {
+        Intent intentResult = new Intent(context, ResultActivity.class);
+        intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, reversePaymentV2.getReceipt().getClientVia());
+        intentResult.putExtra(ResultActivity.MERCHANT_RECEIPT, reversePaymentV2.getReceipt().getMerchantVia());
+
+        HashMap<String, String> dataMap = new LinkedHashMap<String, String>();
+        dataMap.put(context.getString(R.string.result_activity_value), DataTypeUtils.getMoneyAsString(reversePaymentV2.getValue()));
+//        dataMap.put(context.getString(R.string.result_activity_payment_type), DataTypeUtils.getAsString(reversePaymentV2.getPaymentType()));
+        dataMap.put(context.getString(R.string.result_activity_payment_id), reversePaymentV2.getPaymentId());
+        dataMap.put(context.getString(R.string.result_activity_acquirer_id), reversePaymentV2.getAcquirerId());
+        dataMap.put(context.getString(R.string.result_activity_auth), reversePaymentV2.getAcquirerAuthorizationNumber());
+        dataMap.put(context.getString(R.string.result_activity_acquirer), reversePaymentV2.getAcquirerId());
+        dataMap.put(context.getString(R.string.result_activity_acquirer_datetime), DataTypeUtils.getAsString(reversePaymentV2.getAcquirerResponseDate()));
+        dataMap.put(context.getString(R.string.result_activity_terminal_datetime), DataTypeUtils.getAsString(reversePaymentV2.getPaymentDate()));
+        dataMap.put(context.getString(R.string.result_activity_resp_code), reversePaymentV2.getAcquirerResponseCode());
+        dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(reversePaymentV2.getCaptureType()));
+        dataMap.put(context.getString(R.string.qrId), reversePaymentV2.getQrId());
+        dataMap.put(context.getString(R.string.appTransactionId), reversePaymentV2.getAppTransactionId());
+        //falta o brand do cartão
+        dataMap.put(context.getString(R.string.result_activity_card), reversePaymentV2.getCardBin().replaceAll("[^ ]", "*") + "..." + reversePaymentV2.getPanLast4Digits() + " (" + reversePaymentV2.getCardHolderName() + ")");
+        dataMap.put(context.getString(R.string.result_activity_holder_name), reversePaymentV2.getCardHolderName());
+        dataMap.put("Cancelable", String.valueOf(reversePaymentV2.getCancelable()));
+        dataMap.put("lastTrx", String.valueOf(reversePaymentV2.isLastTrx()));
+
+        intentResult.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
+        if (options != null) {
+            intentResult.putExtra(ResultActivity.SHOW_BUTTON_CONFIRM, options.get(SHOW_BUTTON_CONFIRM) == "T");
+        }
+
+        if (activityFlags != 0)
+            intentResult.setFlags(activityFlags);
+        synchronized (lock) {
+            context.startActivity(intentResult);
+        }
+    }
+
     public static void callResultIntent(Payment data, Context context, int activityFlags, Map<String, String> options) {
         Intent intentResult = new Intent(context, ResultActivity.class);
         intentResult.putExtra(ResultActivity.CLIENT_RECEIPT, data.getReceipt().getClientVia());
@@ -201,16 +258,18 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_acquirer_id), data.getAcquirerId());
         dataMap.put(context.getString(R.string.result_activity_auth), data.getAcquirerAuthorizationNumber());
         dataMap.put(context.getString(R.string.result_activity_acquirer), data.getAcquirer());
+        /* Linha de código para exibir o nome da adiquirente (versão aberta do aar do sdk 4.0.0.3)*/
+        //dataMap.put(context.getString(R.string.result_activity_acquirer_name), data.getAcquirerName());
         dataMap.put(context.getString(R.string.result_activity_acquirer_datetime), DataTypeUtils.getAsString(data.getAcquirerResponseDate()));
         dataMap.put(context.getString(R.string.result_activity_terminal_datetime), DataTypeUtils.getAsString(data.getPaymentDate()));
         dataMap.put(context.getString(R.string.result_activity_resp_code), data.getAcquirerResponseCode());
         dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(data.getCaptureType()));
-        dataMap.put(context.getString(R.string.qrId),data.getQrId());
-        dataMap.put(context.getString(R.string.appTransactionId), data.getAppTransactionId());
+        //dataMap.put(context.getString(R.string.qrId),data.getQrId());
+       // dataMap.put(context.getString(R.string.appTransactionId), data.getAppTransactionId());
 
         if (data.getCard() != null) {
             dataMap.put(context.getString(R.string.result_activity_card), data.getCard().getBin().replaceAll("[^ ]", "*") + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
-            dataMap.put(context.getString(R.string.result_activity_holder_name), data.getCardHolderName());
+           // dataMap.put(context.getString(R.string.result_activity_holder_name), data.getCardHolderName());
         }
 
         dataMap.put(context.getString(R.string.result_activity_installments), DataTypeUtils.getAsString(data.getInstallments()));
@@ -224,7 +283,9 @@ public class ResultActivity extends AppCompatActivity {
         if (activityFlags != 0)
             intentResult.setFlags(activityFlags);
 
-        context.startActivity(intentResult);
+        synchronized (lock) {
+            context.startActivity(intentResult);
+        }
     }
 
     public static void callResultIntent(ReversePayment data, Context context, int activityFlags) {
@@ -253,7 +314,9 @@ public class ResultActivity extends AppCompatActivity {
         if (activityFlags != 0)
             intentResult.setFlags(activityFlags);
 
-        context.startActivity(intentResult);
+        synchronized (lock) {
+            context.startActivity(intentResult);
+        }
     }
 
     public static void callResultIntent(Refund data, Context context, int activityFlags) {
@@ -276,10 +339,12 @@ public class ResultActivity extends AppCompatActivity {
         if (activityFlags != 0)
             intentResult.setFlags(activityFlags);
 
-        context.startActivity(intentResult);
+        synchronized (lock) {
+            context.startActivity(intentResult);
+        }
     }
 
-    public static void callResultIntent(SettleRequestResponseV2 data, Context context, int activityFlags) {
+    public static void callResultIntent(SettleRequestResponse data, Context context, int activityFlags) {
         Intent settlementResultIt = new Intent(context, ResultActivity.class);
         settlementResultIt.putExtra(SettlementResultActivity.MERCHANT_RECEIPT, data.getMerchantVia());
 
@@ -288,7 +353,7 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.settlement_acquirer_response_code), data.getAcquirerResponseCode());
         dataMap.put(context.getString(R.string.settlement_terminal_id), data.getTerminalId());
         dataMap.put(context.getString(R.string.settlement_message), data.getAcquirerAdditionalMessage());
-        dataMap.put(context.getString(R.string.settlement_date), new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data.getBatchClosureDate()));
+        //dataMap.put(context.getString(R.string.settlement_date), new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data.getBatchClosureDate()));
 
         settlementResultIt.putExtra(ResultActivity.RESPONSE_DATA, dataMap);
 
@@ -296,7 +361,9 @@ public class ResultActivity extends AppCompatActivity {
             settlementResultIt.setFlags(activityFlags);
         }
 
-        context.startActivity(settlementResultIt);
+        synchronized (lock) {
+            context.startActivity(settlementResultIt);
+        }
     }
 
     public static void callResultIntent(OpenBatchResponse data, Context context, int activityFlags) {
@@ -311,7 +378,9 @@ public class ResultActivity extends AppCompatActivity {
             settlementResultIt.setFlags(activityFlags);
         }
 
-        context.startActivity(settlementResultIt);
+        synchronized (lock) {
+            context.startActivity(settlementResultIt);
+        }
     }
 
 }

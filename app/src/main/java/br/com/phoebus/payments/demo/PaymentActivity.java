@@ -2,6 +2,7 @@ package br.com.phoebus.payments.demo;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -41,10 +43,7 @@ public class PaymentActivity extends AppCompatActivity {
     private EditText installmentsEdt;
     private EditText emailToken;
     private EditText addValueEdt;
-    private CheckBox chbReceiptMerchant;
-    private CheckBox chbReceiptCustomer;
-    private CheckBox chbPreviewMerchant;
-    private CheckBox chbPreviewCustomer;
+    private CheckBox chbReceiptMerchant, chbReceiptCustomer, previewReceiptMerchant, previewReceiptCustomer;
     private Spinner addValueTypeSpinner;
     private Spinner accTypeIdSpinner;
     private EditText planIdEdt;
@@ -76,9 +75,8 @@ public class PaymentActivity extends AppCompatActivity {
         this.installmentsEdt = (EditText) this.findViewById(R.id.installmentsEdt);
         this.chbReceiptMerchant = findViewById(R.id.chbReceiptMerchant);
         this.chbReceiptCustomer = findViewById(R.id.chbReceiptCustomer);
-        this.chbPreviewMerchant = findViewById(R.id.chbPreviewMerchant);
-        this.chbPreviewCustomer = findViewById(R.id.chbPreviewCustomer);
-
+        this.previewReceiptCustomer = findViewById(R.id.previewReceiptCustomer);
+        this.previewReceiptMerchant = findViewById(R.id.previewReceiptMerchant);
         this.emailToken = (EditText) this.findViewById(R.id.email_token);
         this.addValueTypeSpinner = (Spinner) this.findViewById(R.id.addValueTypeSpinner);
         this.addValueEdt = (EditText) this.findViewById(R.id.addValueEdt);
@@ -99,7 +97,11 @@ public class PaymentActivity extends AppCompatActivity {
         this.paymentClient = new PaymentClient();
         //recebendo a lista com os tipos de pagamento previamente selecionados na tela PaymentTypeListActivity
         if (getIntent() != null && getIntent().getExtras() != null)
-            paymentTypes = (List<PaymentType>) getIntent().getExtras().getSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                paymentTypes = Collections.singletonList(getIntent().getExtras().getSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE, PaymentType.class));
+            } else {
+                paymentTypes = bundleToPaymentType(getIntent());
+            }
 
         setupAddValueSpinner();
         setupProductShortNameSpinner();
@@ -107,6 +109,15 @@ public class PaymentActivity extends AppCompatActivity {
         setupOperationMethodSpinner();
 
         doBind();
+    }
+
+    private List<PaymentType> bundleToPaymentType(Intent intent) {
+        Bundle bundle = intent.getBundleExtra(Helper.EXTRA_LIST_PAYMENT_TYPE);
+        List<PaymentType> types = new ArrayList<>();
+        if (bundle != null) {
+            types = (List<PaymentType>) bundle.getSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE);
+        }
+        return types;
     }
 
     @Override
@@ -121,9 +132,9 @@ public class PaymentActivity extends AppCompatActivity {
         this.addValueEdt.setText(DataTypeUtils.getAsString(0 * 100F));
         this.appTransactionIdEdt.setText(Helper.APP_TRANSACTION_ID);
         this.chbReceiptCustomer.setChecked(true);
-        this.chbPreviewCustomer.setChecked(true);
-        this.chbPreviewMerchant.setChecked(true);
         this.chbReceiptMerchant.setChecked(true);
+        this.previewReceiptMerchant.setChecked(true);
+        this.previewReceiptCustomer.setChecked(true);
     }
 
     private void doBind() {
@@ -159,9 +170,9 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setPaymentTypes(this.paymentTypes);
             paymentRequestV2.setAppInfo(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()));
             paymentRequestV2.setPrintCustomerReceipt(this.chbReceiptCustomer.isChecked());
-            paymentRequestV2.setPreviewMerchantReceipt(this.chbPreviewMerchant.isChecked());
-            paymentRequestV2.setPreviewCustomerReceipt(this.chbPreviewCustomer.isChecked());
             paymentRequestV2.setPrintMerchantReceipt(this.chbReceiptMerchant.isChecked());
+            paymentRequestV2.setPreviewCustomerReceipt(this.previewReceiptCustomer.isChecked());
+            paymentRequestV2.setPreviewMerchantReceipt(this.previewReceiptMerchant.isChecked());
             paymentRequestV2.setTokenizeCard(false);
             paymentRequestV2.setTokenizeEmail(String.valueOf(this.emailToken.getText()));
             String addValueType = (String) this.addValueTypeSpinner.getSelectedItem();

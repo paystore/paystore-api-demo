@@ -95,6 +95,7 @@
     <string name="paymentsFilter_field_batch_number" >Batch No.</string>
     <string name="paymentsFilter_field_acquirer_response_code">Adquirer\'s response code</string>
     <string name="setThemeBtn">Set App Theme</string>
+    <string name="setSupervisorPasswordBtn">Set Supervisor password</string>
     <string name="solvePendenciesBtn">Solve Pendencies</string>
     <string name="solvePendenciesQRCode">Solve QR CODE Pendencies</string>
     <string name="solvePendenciesQRCodeList">Solve QR CODE Pendencies (List)</string>
@@ -142,6 +143,7 @@
     <string name="result_activity_value">Value</string>
     <string name="result_activity_payment_type">Payment Type</string>
     <string name="result_activity_acquirer">Acquirer</string>
+    <string name="result_activity_acquirer_name">Acquirer Name</string>
     <string name="result_activity_terminal_datetime">Terminal Date/Time </string>
     <string name="result_activity_capture_type">Capture Type</string>
     <string name="result_activity_installments">Installments</string>
@@ -193,8 +195,6 @@
     <string name="printCustomerReceiptHint">Print Customer Receipt</string>
     <string name="previewMerchantReceiptHint">View merchant voucher screen</string>
     <string name="previewCustomerReceiptHint">View customer voucher screen</string>
-    <string name="showPreviewCustomerReceiptHint">Show Customer receipt preview</string>
-    <string name="showPreviewMerchantReceiptHint">Show Merchant receipt preview</string>
     <string name="doCleaningFilters">Clear Filters</string>
     <string name="qrId" translatable="false">QrId</string>
     <string name="dni" translatable="false">DNI</string>
@@ -220,19 +220,50 @@
 
     <string name="reverse_filter_RefundFailed">Refund has failed</string>
 
-    <string name="close">Close</string>
-    <string name="payments_app_not_found_title">Payments App not found!</string>
-    <string name="payments_app_not_found_description">The payments application has not been installed on the terminal.\nPlease install it before continuing.</string>
+    <string name="set_logo_title">Set application and receipt logo</string>
+    <string name="set_logo_definedLogo">Logo defined!</string>
+    <string name="set_receipt_logo_definedReceiptLogo">Receipt logo defined!</string>
+    <string name="set_logo_definedLogoError">Error defining the logo</string>
+    <string name="set_receipt_logo_definedReceiptLogoError">Error defining the receipt logo</string>
 
     <string name="payment_domain_paymentIdNotInformed">PaymentID not informed</string>
     <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmation of successful payment</string>
     <string name="payment_domain_confirmationNotDone">Confirmation Not Done</string>
-    <string name="payment_domain_undoCompleted">Undo Completed!</string>
     <string name="payment_domain_undoNotDone">Undo Not Done</string>
     <string name="initialization_string">Initialization</string>
     <string name="terminal_info_string">Merchant Informations</string>
     <string name="broadcast_enable">Activated Broadcast</string>
     <string name="broadcast_no_enable">Disabled Broadcast</string>
     <string name="appTransactionId">Transaction ID for Application</string>
+    <string name="menu_get_packaname">Pegar Nome do Pacote Principal</string>
+    <string name="menu_start_echo_test">Start Echo Test</string>
+    <string name="menu_start_data_export">Start Data Export</string>
+    <string name="query_empty">No results found</string>
+
+    <string name="search_transaction">Consult transactions</string>
+    <string name="search_last_approved_trx">Consult last approved transaction</string>
+    <string name="title_last_approved_trx">Last approved transaction</string>
+    <string name="title_get_theme">Get theme</string>
+    <string name="supervisor_validade">Validate supervisor password</string>
+
+    <string name="password_supervisor_label">Supervisor password: </string>
+    <string name="set_Supervisor_Password_label">set SupervisorPassword </string>
+    <string name="applicationInfo_label">ApplicationInfo: </string>
+    <string name="set_SoftwareVersion_label">Set SoftwareVersion </string>
+    <string name="Credencials_label">Credencials: </string>
+    <string name="set_ApplicationId_label">Set ApplicationId </string>
+    <string name="set_SecretToken_label">Set SecretToken </string>
+
+    <string name="checkbox_MD5_label">Send MD5 password </string>
+    <string name="checkbox_password_null_label">Send NULL password </string>
+    <string name="checkbox_send_supervisor_password_label">Send SupervisorPassword </string>
+
+    <string name="diag_token_label">The token must be 24 characters long </string>
+    <string name="diag_validation_SDK">SDK - Validation: </string>
+    <string name="diag_error_validation_SDK">Password validation failed: </string>
+
+    <string name="title_payment">Payment</string>
+    <string name="title_void">Reversal</string>
+    <string name="title_refund">Devolution</string>
 
 </resources>

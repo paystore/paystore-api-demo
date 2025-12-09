@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +56,8 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
             listPayments = getListPaymentPrintReceipt();
         } else if (Helper.EXTRA_OPTION_CANCEL_REVERSE.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
             listPayments = getListCancelableReverse();
+        }else if (Helper.EXTRA_OPTION_REPRINT.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
+            listPayments = getListPaymentPrintReceipt();
         }
 
         showList(listPayments);
@@ -96,7 +99,7 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
         String paymentId = Helper.readPrefsString(context, Helper.KEY_LAST_CANCELABLE_REVERSE_ID, Helper.PREF_CONFIG);
         if (!TextUtils.isEmpty(paymentId)) {
             try {
-                request = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()), new Date());
+                request = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()), defaultDateRequest());
                 request.setPaymentId(paymentId);
                 request.setStatus(Collections.singletonList(PaymentStatus.CONFIRMED));
                 payments = api.findAll(request);
@@ -116,7 +119,7 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
         PaymentProviderApi api = PaymentProviderApi.create(this);
         List<Payment> listPayments = new ArrayList<>();
         try {
-            PaymentProviderRequest request = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()), new Date());
+            PaymentProviderRequest request = new PaymentProviderRequest(CredentialsUtils.getMyAppInfo(this.getPackageManager(), this.getPackageName()), defaultDateRequest());
             request.setStatus(status);
             listPayments = api.findAll(request);
             if (listPayments.isEmpty()) {
@@ -140,6 +143,15 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
 
     }
 
+    public Date defaultDateRequest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+
+        return calendar.getTime();
+    }
+
     private void showSnackBar(String message) {
         AlertUtils.showSnackBar(this.findViewById(android.R.id.content), message);
     }
@@ -156,7 +168,7 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
             Intent intent = new Intent(this, ReversePaymentActivity.class);
             intent.putExtra(Helper.EXTRA_PAYMENT_ID, payment.getPaymentId());
             intent.putExtra(Helper.EXTRA_VALUE, payment.getValue());
-            intent.putExtra(Helper.EXTRA_APP_PAYMENT_ID, payment.getAppTransactionId());
+            //intent.putExtra(Helper.EXTRA_APP_PAYMENT_ID, payment.getAppTransactionId());
             startActivityForResult(intent, Helper.RETURN_REVERSE);
 
         } else if (Helper.EXTRA_OPTION_CANCEL.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
@@ -173,6 +185,10 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
             Intent intent = new Intent(this, PrintReceiptActivity.class);
             intent.putExtra(Helper.EXTRA_PAYMENT_ID, payment.getPaymentId());
             startActivityForResult(intent, Helper.RETURN_PRINT_RECEIPT);
+        } else if (Helper.EXTRA_OPTION_REPRINT.equals(getIntent().getExtras().getString(Helper.EXTRA_OPTION))) {
+            Intent intent = new Intent(this, ReprintReceiptV2Activity.class);
+            intent.putExtra(Helper.EXTRA_PAYMENT_ID, payment.getPaymentId());
+            startActivityForResult(intent, Helper.RETURN_REPRINT_RECEIPT);
         }
     }
 

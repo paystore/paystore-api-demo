@@ -85,6 +85,7 @@
     <string name="paymentsFilter_field_maxValue">Valor Máximo</string>
     <string name="paymentsFilter_field_4digits">Últimos 4 digitos de la tarjeta</string>
     <string name="setThemeBtn">Definir el Tema de la Aplicación</string>
+    <string name="setSupervisorPasswordBtn">Set Supervisor password</string>
     <string name="solvePendenciesBtn">Resolver Pendientes</string>
     <string name="solvePendenciesQRCode">Resolver Pendientes QR CODE</string>
     <string name="solvePendenciesQRCodeList">Resolver Pendientes QR CODE (lista)</string>
@@ -134,6 +135,7 @@
     <string name="result_activity_value">Valor</string>
     <string name="result_activity_payment_type">Tipo de pago</string>
     <string name="result_activity_acquirer">Adquiridor</string>
+    <string name="result_activity_acquirer_name">Nombre del Adquiridor</string>
     <string name="result_activity_terminal_datetime">Fecha / hora de la terminal</string>
     <string name="result_activity_capture_type">Método de captura</string>
     <string name="result_activity_installments">Cuotas</string>
@@ -182,10 +184,6 @@
     <string name="secretTokenHint">Ficha secreta</string>
     <string name="applicationIdHint">Id da aplicación</string>
 
-    <string name="close">Cerrar</string>
-    <string name="payments_app_not_found_title">¡App de pagos no encontrado!</string>
-    <string name="payments_app_not_found_description">La aplicación de pagos no se ha instalado en la terminal.\nInstálela antes de continuar.</string>
-
     <string name="paymentsFilter_batch_pend">Lote pendiente</string>
     <string name="paymentsFilter_sale">Venta</string>
     <string name="paymentsFilter_unreferenced_devolution">Devolucion no referenciada</string>
@@ -200,8 +198,6 @@
     <string name="printCustomerReceiptHint">Imprimir recibo del cliente</string>
     <string name="previewMerchantReceiptHint">Ver pantalla de comprobante de comerciante</string>
     <string name="previewCustomerReceiptHint">Ver pantalla de comprobante de cliente</string>
-    <string name="showPreviewCustomerReceiptHint">Mostrar previa del recibo del cliente</string>
-    <string name="showPreviewMerchantReceiptHint">Mostrar previa del recibo del comerciante</string>
     <string name="doCleaningFilters">Borrar Filtros</string>
     <string name="note_hint">Nota</string>
     <string name="paymentsFilter_type_all">Todas</string>
@@ -224,13 +220,47 @@
 
     <string name="reverse_filter_RefundFailed">Devolución no realizada</string>
 
+    <string name="set_logo_title">Establecer logotipo de solicitud y recibo</string>
+    <string name="set_logo_definedLogo">Logotipo definido!</string>
+    <string name="set_receipt_logo_definedReceiptLogo">Logotipo de recibo definido!</string>
+    <string name="set_logo_definedLogoError">Error al definir el logo</string>
+    <string name="set_receipt_logo_definedReceiptLogoError">Error al definir el logo del recibo</string>
+
     <string name="payment_domain_paymentIdNotInformed">PaymentId no ingresado</string>
     <string name="payment_domain_confirmationOfSuccessfulPayment">Confirmación de pago exitoso</string>
     <string name="payment_domain_confirmationNotDone">Confirmación no realizada</string>
-    <string name="payment_domain_undoCompleted">Deshacer completado!</string>
     <string name="payment_domain_undoNotDone">Deshacer no hecho</string>
     <string name="initialization_string">Inicialización</string>
     <string name="terminal_info_string">Información del Comerciante</string>
     <string name="appTransactionId">ID Transacción para la Aplicación</string>
+    <string name="menu_get_packaname">Pegar Nome do Pacote Principal</string>
+    <string name="menu_start_echo_test">Iniciar Prueba de Comunicación</string>
+    <string name="menu_start_data_export">Iniciar Exportación de Datos</string>
+    <string name="query_empty">No se han encontrado resultados</string>
 
+    <string name="search_transaction">Consultar transacciones</string>
+    <string name="search_last_approved_trx">Consultar última transacción aprobada</string>
+    <string name="title_last_approved_trx">Última transacción aprobada</string>
+    <string name="title_get_theme">Obtener el tema</string>
+    <string name="supervisor_validade">Validar contraseña de supervisor</string>
+
+    <string name="password_supervisor_label">Contraseña de supervisor: </string>
+    <string name="set_Supervisor_Password_label">Establecer contraseña de supervisor </string>
+    <string name="applicationInfo_label">ApplicationInfo: </string>
+    <string name="set_SoftwareVersion_label">Establecer SoftwareVersion </string>
+    <string name="Credencials_label">Credencials: </string>
+    <string name="set_ApplicationId_label">Establecer ApplicationId </string>
+    <string name="set_SecretToken_label">Establecer SecretToken </string>
+
+    <string name="checkbox_MD5_label">Enviar contraseña en MD5 </string>
+    <string name="checkbox_password_null_label">Enviar contraseña Null/vacía </string>
+    <string name="checkbox_send_supervisor_password_label">Enviar contraseña de supervisor </string>
+
+    <string name="diag_token_label">El token debe tener 24 caracteres de longitud. </string>
+    <string name="diag_validation_SDK">SDK - Validación: </string>
+    <string name="diag_error_validation_SDK">La validación de contraseña falló: </string>
+
+    <string name="title_payment">Pago</string>
+    <string name="title_void">Anulación</string>
+    <string name="title_refund">Devolución</string>
 </resources>

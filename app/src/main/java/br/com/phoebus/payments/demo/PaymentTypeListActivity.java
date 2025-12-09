@@ -77,11 +77,18 @@ public class PaymentTypeListActivity extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.putExtra(Helper.EXTRA_MAIN_MENU, getIntent().getIntExtra(Helper.EXTRA_MAIN_MENU, -1));
-                intent.putExtra(Helper.EXTRA_LIST_PAYMENT_TYPE, (Serializable) paymentTypeListSelected);
+                convertPaymentTypeFromBundle(paymentTypeListSelected, intent);
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
+    }
+
+   private Bundle convertPaymentTypeFromBundle(List<PaymentType> paymentType, Intent intent) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Helper.EXTRA_LIST_PAYMENT_TYPE, (Serializable) paymentType);
+        intent.putExtra("bundle", bundle);
+        return bundle;
     }
 
     private ArrayList<String> getMenuOptions() {

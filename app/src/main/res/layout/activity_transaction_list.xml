@@ -1,0 +1,442 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_transaction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/min_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:hint="startValue"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/max_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="finishValue"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/start_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:focusable="true"
+                            android:focusableInTouchMode="false"
+                            android:hint="startDate"
+                            android:inputType="date" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/finish_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:focusable="true"
+                            android:focusableInTouchMode="false"
+                            android:hint="finishDate"
+                            android:inputType="date" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputPaymentId"
+                        android:layout_width="0.0dip"
+                        android:hint="paymentId"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/paymentId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/last_digits"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="lastDigits"
+                            android:inputType="numberDecimal"
+                            android:maxLength="12" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/ticket_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="ticketNumber"
+                            android:inputType="numberDecimal"
+                            android:maxLength="12" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/batch_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="batchNumber"
+                            android:inputType="numberDecimal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/acquirer_response_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="acquirerResponseCode"
+                            android:inputType="numberDecimal"
+                            android:maxLength="12" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/appTransactionIdEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:hint="appTransactionId"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_payment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/qrId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/qrId"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/dni"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/dni"
+                            android:inputType="number"
+                            android:maxLength="10" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0">
+
+                        <EditText
+                            android:id="@+id/notes"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/notes"
+                            android:inputType="text"
+                            android:maxLength="120" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/productShortName"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:autofillHints="productShortName"
+                        android:spinnerMode="dropdown" />
+
+                    <Spinner
+                        android:id="@+id/operationMethod"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autofillHints="operationMethod"
+                        android:spinnerMode="dropdown" />
+
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/typeFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checkedButton="@id/trxType_all"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <RadioButton
+                        android:id="@+id/type_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:text="payment" />
+
+                    <RadioButton
+                        android:id="@+id/type_reversal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:text="reversal" />
+
+                    <RadioButton
+                        android:id="@+id/type_refund"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:text="refund" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status:"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="36dp"
+                            android:orientation="vertical">
+
+                            <CheckBox
+                                android:id="@+id/pay_status.PENDING"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="PENDING" />
+
+                            <CheckBox
+                                android:id="@+id/pay_status.CONFIRMED"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="CONFIRMED" />
+
+                            <CheckBox
+                                android:id="@+id/pay_status.CANCELLED"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="CANCELLED" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <CheckBox
+                                android:id="@+id/pay_status.PROCESSING"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="PROCESSING" />
+
+                            <CheckBox
+                                android:id="@+id/pay_status.REFUNDED"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="REFUNDED" />
+
+                            <CheckBox
+                                android:id="@+id/pay_status.REVERSED"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="REVERSED" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="13dp"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <CheckBox
+                        android:id="@+id/batch_pend"
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:text="batchPend" />
+
+                    <CheckBox
+                        android:id="@+id/last_batch"
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:text="lastBatch" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:id="@+id/last_updated_query"
+                        android:layout_width="0.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:text="lastUpdateQuery" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/doSearchBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/search_transaction" />
+
+            <Button
+                android:id="@+id/doCleaning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/doCleaningFilters" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
