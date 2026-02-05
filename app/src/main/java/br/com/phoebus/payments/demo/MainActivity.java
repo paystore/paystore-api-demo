@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     private final int MENU_CONSULTAR_ULTIMA_TRANSACAO_APROVADA = 27;
     private final int GET_THEME = 28;
     private final int VALIDATE_PASSWORD = 29;
+    private final int MENU_PRINT = 30;
 
     private PaymentClient mPaymentClient;
 
@@ -202,6 +203,10 @@ public class MainActivity extends AppCompatActivity {
                 case VALIDATE_PASSWORD:
                     startActivity(new Intent(this, SupervisorPasswordValidateActivity.class));
                     break;
+                case MENU_PRINT:
+                    startActivity(new Intent(this, PrintStringBase64ReceiptActivity.class));
+                    break;
+
             }
         });
     }
@@ -239,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(getString(R.string.search_last_approved_trx));
         list.add(getString(R.string.title_get_theme));
         list.add(getString(R.string.supervisor_validade));
+        list.add(getString(R.string.print_menu_item));
 
         return list;
     }

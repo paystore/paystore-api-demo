@@ -258,12 +258,21 @@
     <string name="checkbox_password_null_label">Send NULL password </string>
     <string name="checkbox_send_supervisor_password_label">Send SupervisorPassword </string>
 
+    <string name="print_menu_item">Imprimir Comprovante</string>
+
     <string name="diag_token_label">The token must be 24 characters long </string>
     <string name="diag_validation_SDK">SDK - Validation: </string>
     <string name="diag_error_validation_SDK">Password validation failed: </string>
 
+    <string name="cardAppName">CardAppName </string>
+    <string name="bin">Bin </string>
+    <string name="panLast4Digits">PanLast4Digits </string>
+    <string name="aid">Aid </string>
+
     <string name="title_payment">Payment</string>
     <string name="title_void">Reversal</string>
     <string name="title_refund">Devolution</string>
+
+    <string name="operation_not_supported">Operation not supported</string>
 
 </resources>

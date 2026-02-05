@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -422,6 +423,8 @@ public class TransactionListActivity extends AppCompatActivity implements RadioG
             }
         } catch (PackageManager.NameNotFoundException | ParseException | ClientException e) {
             e.printStackTrace();
+        } catch (UnsupportedOperationException e){
+            Toast.makeText(this, getString(R.string.operation_not_supported) , Toast.LENGTH_LONG).show();
         }
     }
 

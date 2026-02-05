@@ -33,7 +33,7 @@ allprojects {
         versionMajor = 4
         versionMinor = 1
         versionPatch = 0
-        versionBuild = 4
+        versionBuild = 5
 
         /* Identificação da aplicação */
         appVersionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"

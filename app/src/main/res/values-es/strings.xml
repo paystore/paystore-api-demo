@@ -256,11 +256,20 @@
     <string name="checkbox_password_null_label">Enviar contraseña Null/vacía </string>
     <string name="checkbox_send_supervisor_password_label">Enviar contraseña de supervisor </string>
 
+    <string name="print_menu_item">Imprimir Recibo</string>
+
     <string name="diag_token_label">El token debe tener 24 caracteres de longitud. </string>
     <string name="diag_validation_SDK">SDK - Validación: </string>
     <string name="diag_error_validation_SDK">La validación de contraseña falló: </string>
 
+    <string name="cardAppName">CardAppName </string>
+    <string name="bin">Bin </string>
+    <string name="panLast4Digits">PanLast4Digits </string>
+    <string name="aid">Aid </string>
+
     <string name="title_payment">Pago</string>
     <string name="title_void">Anulación</string>
     <string name="title_refund">Devolución</string>
+
+    <string name="operation_not_supported">Operación no compatible</string>
 </resources>

@@ -252,6 +252,8 @@
 
     <string name="password_supervisor_label">Senha do supervisor: </string>
     <string name="set_Supervisor_Password_label">Defina a senha do supervisor </string>
+    <string name="print_menu_item">Print Receipt</string>
+
 
     <string name="applicationInfo_label">ApplicationInfo: </string>
     <string name="set_SoftwareVersion_label">Defina SoftwareVersion </string>
@@ -267,10 +269,16 @@
     <string name="diag_validation_SDK">SDK - Validação: </string>
     <string name="diag_error_validation_SDK">Falha em validar a senha: </string>
 
+    <string name="cardAppName">CardAppName </string>
+    <string name="bin">Bin </string>
+    <string name="panLast4Digits">PanLast4Digits </string>
+    <string name="aid">Aid </string>
 
     <string name="title_payment">Pagamento</string>
     <string name="title_void">Estorno</string>
     <string name="title_refund">Devolução</string>
+
+    <string name="operation_not_supported">Operação não suportada</string>
 
 
 </resources>

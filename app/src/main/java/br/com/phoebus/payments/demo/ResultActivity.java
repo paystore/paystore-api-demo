@@ -148,6 +148,10 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_acquirer_additional_msg), data.getAcquirerAdditionalMessage());
         dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(data.getCaptureType()));
         dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(data.getCaptureType()));
+        dataMap.put(context.getString(R.string.cardAppName), data.getCard().getCardAppName());
+        dataMap.put(context.getString(R.string.bin), data.getCard().getBin());
+        dataMap.put(context.getString(R.string.panLast4Digits), data.getCard().getPanLast4Digits());
+        dataMap.put(context.getString(R.string.aid), data.getCard().getAid());
 
         if (isConsulting) dataMap.put("lastTrx", String.valueOf(data.isLastTrx()));
 
@@ -266,6 +270,10 @@ public class ResultActivity extends AppCompatActivity {
         dataMap.put(context.getString(R.string.result_activity_capture_type), DataTypeUtils.getAsString(data.getCaptureType()));
         //dataMap.put(context.getString(R.string.qrId),data.getQrId());
        // dataMap.put(context.getString(R.string.appTransactionId), data.getAppTransactionId());
+        dataMap.put(context.getString(R.string.cardAppName), data.getCard().getCardAppName());
+        dataMap.put(context.getString(R.string.bin), data.getCard().getBin());
+        dataMap.put(context.getString(R.string.panLast4Digits), data.getCard().getPanLast4Digits());
+        dataMap.put(context.getString(R.string.aid), data.getCard().getAid());
 
         if (data.getCard() != null) {
             dataMap.put(context.getString(R.string.result_activity_card), data.getCard().getBin().replaceAll("[^ ]", "*") + "..." + data.getCard().getPanLast4Digits() + " (" + data.getCard().getBrand() + ")");
