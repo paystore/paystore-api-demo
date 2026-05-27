@@ -82,12 +82,7 @@ public class CommonPaymentListActivity extends AppCompatActivity implements OnPa
     }
 
     private List<Payment> getListPaymentPrintReceipt() {
-        List<PaymentStatus> status = Arrays.asList(new PaymentStatus[]{PaymentStatus.CONFIRMED, PaymentStatus.PENDING, PaymentStatus.REVERSED});
-        return getListPayment(status);
-    }
-
-    private List<Payment> getListPaymentReverse() {
-        List<PaymentStatus> status = Arrays.asList(new PaymentStatus[]{PaymentStatus.REVERSED});
+        List<PaymentStatus> status = Arrays.asList(new PaymentStatus[]{PaymentStatus.CONFIRMED, PaymentStatus.PENDING, PaymentStatus.REVERSED, PaymentStatus.CANCELLED});
         return getListPayment(status);
     }
 

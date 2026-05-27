@@ -12,7 +12,7 @@ import br.com.phoebus.payments.demo.fragments.CursorUtils;
 public class TerminalInfoActivity extends AppCompatActivity {
 
     TextView merchantId, merchantName, merchantCommercialName, terminalId, nationalId, postalCode, street, city, state, stateAbbreviation, country,
-            complement, neighbourhood, addressNumber, merchantWebsite, merchantEmail, merchantPhone, merchantCategoryCode, merchantNationalType, subAcquirerId;
+            complement, neighbourhood, addressNumber, merchantWebsite, merchantEmail, merchantPhone, merchantCategoryCode, merchantNationalType, subAcquirerId, mainApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class TerminalInfoActivity extends AppCompatActivity {
         merchantCategoryCode = findViewById(R.id.merchantCategoryCode);
         merchantNationalType = findViewById(R.id.merchantNationalType);
         subAcquirerId = findViewById(R.id.subAcquirerId);
+        mainApp = findViewById(R.id.mainApp);
 
         setTerminalInformation();
     }
@@ -71,6 +72,8 @@ public class TerminalInfoActivity extends AppCompatActivity {
             merchantCategoryCode.setText(CursorUtils.getString(terminalInformationCursor, TerminalInfoContract.column.MC_CATEGORY_CODE));
             merchantNationalType.setText(CursorUtils.getString(terminalInformationCursor, TerminalInfoContract.column.MC_NATIONAL_TYPE));
             subAcquirerId.setText(CursorUtils.getString(terminalInformationCursor, TerminalInfoContract.column.SUB_ACQUIRER_ID));
+            /* Linha de código para exibir o nome do MainApp (versão aberta do aar do sdk v4.1.0.7)*/
+            mainApp.setText(CursorUtils.getString(terminalInformationCursor, TerminalInfoContract.column.MAIN_APP));
         }
     }
 
