@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="br.com.phoebus.payments.demo.fragments.PaymentListFragment">
+    tools:context=".fragments.PaymentListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_payments_list"

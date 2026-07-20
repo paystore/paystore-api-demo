@@ -148,6 +148,7 @@
     <string name="result_activity_terminal_datetime">Data/hora Terminal</string>
     <string name="result_activity_capture_type">Forma de Captura</string>
     <string name="result_activity_installments">Parcelas</string>
+    <string name="result_activity_currency_code">Código da Moeda</string>
     <string name="result_activity_dni">DNI</string>
     <string name="result_activity_notes">Notes</string>
     <string name="result_activity_additional_value_type">Tipo do Valor Adicional</string>

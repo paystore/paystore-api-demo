@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-    <item
-        android:id="@+id/adiq"
-        android:title="Adiq"
-        android:orderInCategory="1"
-        />
-    <item
-        android:id="@+id/cielo"
-        android:title="Cielo"
-        android:orderInCategory="2"
-        />
+
+        <item
+            android:id="@+id/adiq"
+            android:orderInCategory="1"
+            android:title="Adiq" />
+        <item
+            android:id="@+id/cielo"
+            android:orderInCategory="2"
+            android:title="Cielo" />
         <item
             android:id="@+id/stone"
-            android:title="Stone"
             android:orderInCategory="3"
-        />
+            android:title="Stone" />
         <item
             android:id="@+id/prisma"
-            android:title="Prisma"
-            android:orderInCategory="4"
             android:checked="true"
-            />
+            android:orderInCategory="4"
+            android:title="Prisma" />
         <item
             android:id="@+id/amex"
-            android:title="Amex"
             android:orderInCategory="5"
-            />
+            android:title="Amex" />
         <item
             android:id="@+id/other"
-            android:title="Other"
-            android:orderInCategory="6"
             android:checked="true"
-            />
+            android:orderInCategory="6"
+            android:title="Other" />
 
     </group>
 </menu>
