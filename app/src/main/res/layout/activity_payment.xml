@@ -13,7 +13,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context=".PaymentActivity">
+        tools:context="br.com.phoebus.payments.demo.PaymentActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -187,17 +187,31 @@
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/appTransactionIdEdt"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/appTransactionIdEdtHint"
-                android:inputType="textShortMessage" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/appTransactionIdEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/appTransactionIdEdtHint"
+                    android:inputType="textShortMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/randomUuidBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/randomUuidBtn" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

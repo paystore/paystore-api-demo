@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'br.com.phoebus.android.payments.demo'
-
     compileSdkVersion project.ext.compileSdk
 
     defaultConfig {
@@ -13,8 +11,6 @@ android {
 
         buildConfigField "String", "applicationName", "\"$project.ext.applicationName\""
     }
-
-    android.buildFeatures.buildConfig true
 
     buildTypes {
         release {
@@ -46,7 +42,8 @@ repositories {
 dependencies {
 
     // Dependências necessárias para usar 'payments-api'.
-    implementation(name:'payments-api-4.1.0.9', ext:'aar')
+    implementation(name:'payments-api-4.1.0.12', ext:'aar')
+    //implementation files('aars/payments-api-4.1.0.12.debug.aar')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     annotationProcessor "org.parceler:parceler:${parcelerVersion}"
     implementation "org.parceler:parceler-api:${parcelerVersion}"
@@ -57,7 +54,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "com.google.android.gms:play-services-plus:10.2.1"
     implementation "com.google.code.gson:gson:2.8.5"
     testImplementation "junit:junit:4.12"
 }
+
+

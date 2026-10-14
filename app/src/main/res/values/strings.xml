@@ -30,6 +30,7 @@
     <string name="minutesHint">Minutos</string>
     <string name="secondsHint">Segundos</string>
     <string name="appTransactionIdEdtHint">Identificador da Transação para Aplicação</string>
+    <string name="randomUuidBtn">Gerar UUID</string>
     <string name="appEmailToken">Email para criar token do cartão</string>
     <string name="credPayTypeChb">Crédito a Vista</string>
     <string name="credMercPayTypeChb">Parcelado S/Juros</string>
@@ -38,6 +39,23 @@
     <string name="paymentTypesAcquirer">Tipos de Pagamento da </string>
     <string name="credAdmPayTypeChb">Parcelado C/Juros</string>
     <string name="voucher">Voucher</string>
+    <string name="credit">Crédito</string>
+    <string name="debit">Débito</string>
+    <string name="credit_store">Crédito Loja</string>
+    <string name="credit_admin">Crédito Administradora</string>
+    <string name="pre_authorization">Pré-autorização</string>
+    <string name="pre_authorization_confirmation">Confirmação de Pré-autorização</string>
+    <string name="pre_authorization_credit_admin">Pré-autorização Crédito Administradora</string>
+    <string name="pre_authorization_credit_store">Pré-autorização Crédito Loja</string>
+    <string name="pre_authorization_substitutive">Pré-autorização Substitutiva</string>
+    <string name="debit_postdated">Débito Pré-datado</string>
+    <string name="voucher_meal">Voucher Refeição</string>
+    <string name="voucher_feed">Voucher Alimentação</string>
+    <string name="pix" translatable="false">PIX</string>
+    <string name="twint" translatable="false">TWINT</string>
+    <string name="bizum" translatable="false">BIZUM</string>
+    <string name="mbway" translatable="false">MB WAY</string>
+    <string name="crypto">Criptomoeda</string>
     <string name="prePayTypeChb">Pré-autorização</string>
     <string name="confirmPreMercPayTypeChb">Confirmação de Pré-autorização</string>
     <string name="confirmBtn">Confirmar Pagamento</string>
@@ -157,6 +175,25 @@
     <string name="result_activity_additional_plan_id">Plan ID</string>
     <string name="result_activity_card_token">Token do Cartão</string>
     <string name="discountedValue">Desconto</string>
+    <string name="result_activity_correlation_id">Id de Correlação</string>
+    <string name="result_activity_acquirer_response_date_utc">Data/hora Adquirente (UTC)</string>
+    <string name="result_activity_additional_data">Dados Adicionais</string>
+    <string name="result_activity_phast_pay_response">Resposta PhastPay</string>
+    <string name="result_activity_card_app_name">Aplicativo do Cartão</string>
+    <string name="result_activity_card_aid">AID</string>
+    <string name="result_activity_acquirer_nsu">NSU Adquirente</string>
+    <string name="result_activity_payment_date_utc">Data/Hora Terminal (UTC)</string>
+    <string name="result_activity_devolution">Devolução</string>
+    <string name="result_activity_error_message">Mensagem de Erro</string>
+    <string name="result_activity_phastpay_service">PhastPay - Serviço</string>
+    <string name="result_activity_phastpay_status">PhastPay - Status</string>
+    <string name="result_activity_phastpay_payment_id">PhastPay - ID Pagamento</string>
+    <string name="result_activity_phastpay_app_client_id">PhastPay - app_client_id</string>
+    <string name="result_activity_phastpay_app_client_id_match">app_client_id = appTransactionId</string>
+    <string name="result_activity_phastpay_value">PhastPay - Valor</string>
+    <string name="result_activity_phastpay_currency">PhastPay - Moeda</string>
+    <string name="result_activity_phastpay_datetime">PhastPay - Data/Hora (UTC)</string>
+    <string name="result_activity_phastpay_refunds">PhastPay - Estornos</string>
 
 
     <string name="yes">Sim</string>

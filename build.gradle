@@ -10,11 +10,16 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.2'
-        classpath "de.mannodermaus.gradle.plugins:android-junit5:2.0.1"
+        classpath "com.android.tools.build:gradle:7.4.1"
+        classpath "com.android.tools:r8:8.2.33"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+    configurations.classpath {
+        resolutionStrategy {
+            force "com.android.tools:r8:8.2.33"
+        }
     }
 }
 
@@ -30,11 +35,11 @@ allprojects {
         google()
     }
 
-     ext {
+    ext {
         versionMajor = 4
         versionMinor = 1
         versionPatch = 0
-        versionBuild = 9
+        versionBuild = 10
 
         /* Identificação da aplicação */
         appVersionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
@@ -42,14 +47,14 @@ allprojects {
         apiVersionName = appVersionName
 
         applicationName = "PayStore-Sdk-Demo"
-        applicationId = "br.com.phoebus.android.payments.demo"
+        applicationId = "br.com.phoebus.payments.demo"
 
         /* Premissas de compilação */
-        compileSdk = 35
+        compileSdk = 33
         minSdk = 22 // Android 5.1
-        targetSdk = 35
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        targetSdk = 33 // Android 13
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
 
 
         parcelerVersion = '1.1.12'
