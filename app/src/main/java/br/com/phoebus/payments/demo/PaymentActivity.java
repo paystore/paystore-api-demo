@@ -43,7 +43,7 @@ public class PaymentActivity extends AppCompatActivity {
     private EditText installmentsEdt;
     private EditText emailToken;
     private EditText addValueEdt;
-    private CheckBox chbReceiptMerchant, chbReceiptCustomer, previewReceiptMerchant, previewReceiptCustomer;
+    private CheckBox chbReceiptMerchant, chbReceiptCustomer, previewReceiptMerchant, previewReceiptCustomer, chbCaptureCvv;
     private Spinner addValueTypeSpinner;
     private Spinner accTypeIdSpinner;
     private EditText planIdEdt;
@@ -77,6 +77,7 @@ public class PaymentActivity extends AppCompatActivity {
         this.chbReceiptCustomer = findViewById(R.id.chbReceiptCustomer);
         this.previewReceiptCustomer = findViewById(R.id.previewReceiptCustomer);
         this.previewReceiptMerchant = findViewById(R.id.previewReceiptMerchant);
+        this.chbCaptureCvv = findViewById(R.id.chbCaptureCvv);
         this.emailToken = (EditText) this.findViewById(R.id.email_token);
         this.addValueTypeSpinner = (Spinner) this.findViewById(R.id.addValueTypeSpinner);
         this.addValueEdt = (EditText) this.findViewById(R.id.addValueEdt);
@@ -139,6 +140,7 @@ public class PaymentActivity extends AppCompatActivity {
         this.chbReceiptMerchant.setChecked(true);
         this.previewReceiptMerchant.setChecked(true);
         this.previewReceiptCustomer.setChecked(true);
+        this.chbCaptureCvv.setChecked(true);
     }
 
     private void doBind() {
@@ -177,6 +179,7 @@ public class PaymentActivity extends AppCompatActivity {
             paymentRequestV2.setPrintMerchantReceipt(this.chbReceiptMerchant.isChecked());
             paymentRequestV2.setPreviewCustomerReceipt(this.previewReceiptCustomer.isChecked());
             paymentRequestV2.setPreviewMerchantReceipt(this.previewReceiptMerchant.isChecked());
+            paymentRequestV2.setCaptureCVV(this.chbCaptureCvv.isChecked());
             paymentRequestV2.setTokenizeCard(false);
             paymentRequestV2.setTokenizeEmail(String.valueOf(this.emailToken.getText()));
             String addValueType = (String) this.addValueTypeSpinner.getSelectedItem();

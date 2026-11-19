@@ -42,8 +42,8 @@ repositories {
 dependencies {
 
     // Dependências necessárias para usar 'payments-api'.
-    implementation(name:'payments-api-4.1.0.12', ext:'aar')
-    //implementation files('aars/payments-api-4.1.0.12.debug.aar')
+    implementation(name:'payments-api-4.1.0.13', ext:'aar')
+    //implementation files('aars/payments-api-4.1.0.13.debug.aar')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     annotationProcessor "org.parceler:parceler:${parcelerVersion}"
     implementation "org.parceler:parceler-api:${parcelerVersion}"

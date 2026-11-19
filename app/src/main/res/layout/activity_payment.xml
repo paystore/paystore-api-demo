@@ -273,8 +273,14 @@
             android:id="@+id/previewReceiptCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
             android:text="previewCustomerReceipt" />
+
+        <CheckBox
+            android:id="@+id/chbCaptureCvv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="Capturar CVV" />
 
         <Button
             android:id="@+id/doPaymentBtnv2"
